@@ -1,0 +1,25 @@
+{
+  "name": "md_quiz",
+  "version": "1.0.0",
+  "description": "\"A quiz to help medical residents study for the Board\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Swimkitch92/MD_quiz.git"
+  },
+  "author": "BBS Corp",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Swimkitch92/MD_quiz/issues"
+  },
+  "homepage": "https://github.com/Swimkitch92/MD_quiz#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0"
+  }
+}
