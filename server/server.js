@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 //var checkUser = require('./src/middleware.js')
 
 // Constants
-const PORT = 8080;
+const PORT = 3000;
 
 // App
 const app = express();
