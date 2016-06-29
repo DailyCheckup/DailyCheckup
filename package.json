@@ -7,7 +7,7 @@
     "production": "webpack --config webpack-production.config.js -p",
     "server-test": "node test/tests/server* | tap-spec",
     "start": "webpack-dev-server",
-    "test": "mocha test/.setup.js test/tests/Foo*.js",
+    "test": "mocha test/.setup.js test/tests/Foo*.js"
   },
   "repository": {
     "type": "git",
