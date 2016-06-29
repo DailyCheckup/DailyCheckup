@@ -7,7 +7,7 @@
     "server-test": "node test/tests/server* | tap-spec",
     "start": "nodemon server/server.js",
     "test": "mocha test/.setup.js test/tests/Foo*.js",
-    "build": "webpack src/index.jsx build/build.js"
+    "build": "webpack -w"
   },
   "repository": {
     "type": "git",
