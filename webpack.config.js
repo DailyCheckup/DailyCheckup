@@ -5,7 +5,7 @@ module.exports = {
   entry: './src/app.js',
   // Output - Object containing output configuration
   output: {
-    filename: './build/bundle.js',
+    filename: './build/build.js',
   },
   // Webpack will watch the files and rebuild when one changes
   watch: true,
