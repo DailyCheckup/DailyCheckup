@@ -4,9 +4,8 @@
   "description": "\"A quiz to help medical residents study for the Board\"",
   "main": "build/bundle.js",
   "scripts": {
-    "production": "webpack --config webpack-production.config.js -p",
     "server-test": "node test/tests/server* | tap-spec",
-    "start": "webpack-dev-server",
+    "start": "node server/server.js",
     "test": "mocha test/.setup.js test/tests/Foo*.js"
   },
   "repository": {
