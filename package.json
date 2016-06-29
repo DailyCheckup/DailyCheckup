@@ -5,8 +5,9 @@
   "main": "build/bundle.js",
   "scripts": {
     "server-test": "node test/tests/server* | tap-spec",
-    "start": "node server/server.js",
-    "test": "mocha test/.setup.js test/tests/Foo*.js"
+    "start": "nodemon server/server.js",
+    "test": "mocha test/.setup.js test/tests/Foo*.js",
+    "build": "webpack src/index.jsx build/build.js"
   },
   "repository": {
     "type": "git",
@@ -28,11 +29,16 @@
   "devDependencies": {
     "babel": "^6.5.2",
     "babel-core": "^6.10.4",
+    "babel-eslint": "^6.1.0",
     "babel-loader": "^6.2.4",
+    "babel-plugin-transform-runtime": "^6.9.0",
+    "babel-polyfill": "^6.9.1",
     "babel-preset-airbnb": "^2.0.0",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.11.1",
+    "babel-preset-stage-1": "^6.5.0",
     "babel-register": "^6.9.0",
+    "babel-runtime": "^6.9.2",
     "chai": "^3.5.0",
     "css-loader": "^0.23.1",
     "enzyme": "^2.3.0",
@@ -42,11 +48,14 @@
     "eslint-plugin-import": "^1.9.2",
     "eslint-plugin-jsx-a11y": "^1.5.3",
     "eslint-plugin-react": "^5.2.2",
+    "extract-text-webpack-plugin": "^1.0.1",
     "jsdom": "^9.3.0",
     "mocha": "^2.5.3",
     "node-libs-browser": "^1.0.0",
     "node-sass": "^3.8.0",
+    "nodemon": "^1.9.2",
     "react-addons-test-utils": "^15.1.0",
+    "react-hot-loader": "^1.3.0",
     "sass-loader": "^4.0.0",
     "strip-loader": "^0.1.2",
     "style-loader": "^0.13.1",
@@ -54,6 +63,9 @@
     "tap-spec": "^4.1.1",
     "tape": "^4.6.0",
     "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.14.1"
+    "webpack-dev-middleware": "^1.6.1",
+    "webpack-dev-server": "^1.14.1",
+    "webpack-hot-middleware": "^2.12.0",
+    "whatwg-fetch": "^1.0.0"
   }
 }
