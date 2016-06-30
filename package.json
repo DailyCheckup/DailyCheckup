@@ -6,7 +6,7 @@
   "scripts": {
     "server-test": "node test/tests/server* | tap-spec",
     "start": "nodemon server/server.js",
-    "test": "mocha test/.setup.js test/tests/Foo*.js",
+    "test": "mocha test/.setup.js test/tests/*-spec.js",
     "build": "webpack -w"
   },
   "repository": {
