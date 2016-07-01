@@ -5,8 +5,10 @@ const ResidentHome = React.createClass({
   render() {
     return (
       <div>
-        <button><Link to='/quiz'> Start Quiz! </Link></button>
+        <p>Resident Home</p>
+        <button><Link to='/resident/quiz'> Start Quiz! </Link></button>
         <button><Link to='/resident/results'> Check your Results </Link></button>
+        <button><Link to='/resident/changePassword'> Change password </Link></button>
       </div>
     );
   },
