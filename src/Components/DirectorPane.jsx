@@ -1,10 +1,14 @@
 const React = require('react');
+import { Link } from 'react-router';
 
 const DirectorPane = React.createClass({
   render() {
     return (
-      <h1>Director Home Page</h1>
-      { this.props.children }
+      <div>
+        <h1>Director Pane - Welcome Director!</h1>
+        <Link to='director/home'> Director Home </Link>
+        {this.props.children}
+      </div>
     );
   },
 });
