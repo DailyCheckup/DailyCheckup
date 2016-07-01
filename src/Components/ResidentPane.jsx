@@ -1,14 +1,14 @@
 const React = require('react');
-const ResidentHome = require('./ResidentHome');
+import { Link } from 'react-router';
 
 const ResidentPane = React.createClass({
   render() {
     return (
       <div>
         <p>Hi Brendan!</p>
-        <ResidentHome />
+        <Link to='resident/home'> Director Home </Link>
+        {this.props.children}
       </div>
-      { this.props.children }
     );
   },
 });

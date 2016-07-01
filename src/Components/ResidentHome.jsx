@@ -1,11 +1,12 @@
 const React = require('react');
+import { Link } from 'react-router';
 
 const ResidentHome = React.createClass({
   render() {
     return (
       <div>
-        <button> Start Quiz! </button>
-        <button> Check your Results </button>
+        <button><Link to='/quiz'> Start Quiz! </Link></button>
+        <button><Link to='/resident/results'> Check your Results </Link></button>
       </div>
     );
   },
