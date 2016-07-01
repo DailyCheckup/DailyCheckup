@@ -11,6 +11,5 @@ const Users = DB.define('user', {
   adminFlag: Sequelize.BOOLEAN,
 });
 
-Users.sync({ force: true });
 
 module.exports = Users;
