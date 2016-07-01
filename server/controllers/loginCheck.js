@@ -15,35 +15,31 @@ const loginCheck = {
       .then((user) => {
       // project will be the first entry of the Projects table with the title 'aProject' || null
         if (user !== null) {
-          req.results = {};
-          req.results.validUser = true;
           next();
         } else {
-          req.results.validUser = false;
           throw new Error('Invalid User');
         }
       });
   },
   isAdmin(req, res, next) {
-    console.log('in is admin function');
     Tests.findOne({ where:
-      { email: req.body.email, password: req.body.password, adminFlag: req.body.adminFlag },
+      { email: req.body.email, password: req.body.password },
     })
-      .then((user) => {
-        if (user !== null) {
-          console.log(req.results,'this is results in admin');
-          req.results.isAdmin = true;
-        } else {
-          req.results.isAdmin = false;
-        }
+    .then((user) => {
+        req.results = {};
+        req.results.isAdmin = user.dataValues.adminFlag;
         next();
-      });
-
+    });
   },
   firstLogin(req, res, next) {
-    console.log('first login');
-    console.log(req.results);
-    next();
+    Tests.findOne({ where:
+      { email: req.body.email, password: req.body.password },
+    })
+    .then((user) => {
+        req.results = {};
+        req.results.firstLogin = user.dataValues.changedPassword;
+        next();
+    });
   },
   getQuestions(req, res, next) {
     console.log('get questions');
