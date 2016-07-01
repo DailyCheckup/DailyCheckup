@@ -5,8 +5,8 @@ const ResidentPane = React.createClass({
   render() {
     return (
       <div>
-        <p>Hi Brendan!</p>
-        <Link to='resident/home'> Director Home </Link>
+        <p>Hi Brendan! - Resident Pane</p>
+        <Link to='/resident/'> Resident Pane - Resident Home Btn</Link>
         {this.props.children}
       </div>
     );

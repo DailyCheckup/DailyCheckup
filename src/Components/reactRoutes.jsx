@@ -1,5 +1,5 @@
 const React = require('react');
-import { Router, Route, Link, indexRoute, browserHistory } from 'react-router';
+import { Router, Route, Link, IndexRoute, browserHistory } from 'react-router';
 const Header = require('./header.jsx');
 const Login = require('./login.jsx');
 const ResidentPane = require('./ResidentPane.jsx');
@@ -18,18 +18,22 @@ const Routes = React.createClass({
     return (
       <Router history={browserHistory}>
         <Route path='/' component={Header}>
-          <indexRoute component={Login} />
-          <Route path='resident' component={ResidentPane}>
-            <indexRoute path='home' component={ResidentHome} />
-            <Route path='quiz' component={Quiz} />
-            <Route path='results' component={ResidentResults} />
-            <Route path='changePassword' component={ResidentChangePW} />
+          <IndexRoute component={Login} />
+          <Route component={ResidentPane}>
+            <Route path='resident'>
+              <IndexRoute component={ResidentHome} />
+              <Route path='quiz' component={Quiz} />
+              <Route path='results' component={ResidentResults} />
+              <Route path='changePassword' component={ResidentChangePW} />
+            </Route>
           </Route>
-          <Route path='director' component={DirectorPane}>
-            <indexRoute path='home' component={DirectorHome} />
-            <Route path='todaysQuiz' component={TodaysQuiz} />
-            <Route path='results' component={DirectorResults} />
-            <Route path='settings' component={DirectorSettings} />
+          <Route component={DirectorPane}>
+            <Route path='director'>
+              <IndexRoute component={DirectorHome} />
+              <Route path='todaysQuiz' component={TodaysQuiz} />
+              <Route path='results' component={DirectorResults} />
+              <Route path='settings' component={DirectorSettings} />
+            </Route>
           </Route>
         </Route>
       </Router>
