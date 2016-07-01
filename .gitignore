@@ -1,6 +1,6 @@
 node_modules
 .DS_Store
 npm-debug.log
-build/build.js
-build/build.js.map
+build.js
+build.js.map
 questionsDB.js
