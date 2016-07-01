@@ -1,9 +1,9 @@
 import React from 'react';
 import { expect } from 'chai';
 import { shallow, mount, render } from 'enzyme';
-import Quiz from './../../src/Quiz/Quiz.jsx';
-// import Question from './../../src/Quiz/Question.jsx';
-// import Answer from './../../src/Quiz/Answer.jsx';
+import Quiz from './../../src/Components/Quiz/Quiz.jsx';
+// import Question from './../../src/Components/Quiz/Question.jsx';
+// import Answer from './../../src/Components/Quiz/Answer.jsx';
 
 describe('Testing Quiz Component', () => {
   const wrapper = mount(<Quiz />);

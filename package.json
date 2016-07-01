@@ -20,12 +20,16 @@
   },
   "homepage": "https://github.com/Swimkitch92/MD_quiz#readme",
   "dependencies": {
+    "bcrypt": "^0.8.7",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
+    "pg": "^6.0.1",
+    "pg-hstore": "^2.3.2",
     "pg-native": "^1.10.0",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
-    "react-router": "^2.5.1"
+    "react-router": "^2.5.1",
+    "sequelize": "^3.23.4"
   },
   "devDependencies": {
     "babel": "^6.5.2",
