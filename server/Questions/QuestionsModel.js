@@ -15,6 +15,5 @@ const Questions = DB.define('question', {
   genre: Sequelize.STRING,
 });
 
-Questions.sync({ force: true });
 
 module.exports = Questions;

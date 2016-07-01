@@ -1,15 +1,12 @@
 'use strict';
-const Sequelize = require('sequelize');
-const DB = new Sequelize('postgres://BBSCorp:lakers24~@mymdquizdb.cwyegj8iv25h.us-west-1.rds.amazonaws.com/MD_Quiz_DB');
+var DB = require('./../DB/Database.js');
+var Questions = require('./../Questions/QuestionsModel.js');
+var Users = require('./../Users/UserModel.js')
+const NUM_OF_QUESTIONS_WANTED = 3;
 
-const Tests = DB.define('test', {
-  email: Sequelize.TEXT,
-  password: Sequelize.TEXT,
-  adminFlag: Sequelize.BOOLEAN,
-});
 const loginCheck = {
   validUser(req, res, next) {
-    Tests.findOne({ where:
+    Users.findOne({ where:
       { email: req.body.email, password: req.body.password },
     })
       .then((user) => {
@@ -22,7 +19,7 @@ const loginCheck = {
       });
   },
   isAdmin(req, res, next) {
-    Tests.findOne({ where:
+    Users.findOne({ where:
       { email: req.body.email, password: req.body.password },
     })
     .then((user) => {
@@ -32,7 +29,7 @@ const loginCheck = {
     });
   },
   firstLogin(req, res, next) {
-    Tests.findOne({ where:
+    Users.findOne({ where:
       { email: req.body.email, password: req.body.password },
     })
     .then((user) => {
@@ -42,8 +39,18 @@ const loginCheck = {
     });
   },
   getQuestions(req, res, next) {
-    console.log('get questions');
-    next();
+    Questions.findAll({ where: { chosen: false } }).then((questions) => {
+      const nonChosenQuestionCount = questions.length;
+      const array = [];
+      let randomQ;
+      for (let i = 0; i < 3; i++) {
+        randomQ = Math.floor(Math.random() * nonChosenQuestionCount);
+        array.push(questions[randomQ].dataValues.questionid);
+        Questions.update({chosen:true},{where:{questionid: questions[randomQ].dataValues.questionid}});
+      }
+      req.results.dailyQuestions = array;
+      next();
+    });
   },
 };
 
