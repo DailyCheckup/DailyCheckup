@@ -2,6 +2,17 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const request = require('request');
+const Sequelize = require('sequelize');
+const DB = new Sequelize('postgres://BBSCorp:lakers24~@mymdquizdb.cwyegj8iv25h.us-west-1.rds.amazonaws.com/MD_Quiz_DB');
+
+// Verifying our DB connection
+DB.authenticate()
+  .then(function (err) {
+    console.log('Connection to DB has been established');
+  })
+  .catch(function (err) {
+    console.log('Unable to connect to DB ', err);
+  });
 //require middleware which checks database to see if user was inputted
 //var checkUser = require('./src/middleware.js')
 
