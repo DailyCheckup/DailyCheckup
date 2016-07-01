@@ -1,5 +1,5 @@
 node_modules
 .DS_Store
 npm-debug.log
-build.js
-build.js.map
+build/build.js
+build/build.js.map
