@@ -1,5 +1,8 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
+//////
+import { Link } from 'react-router';
+//////
 
 // TODO
 // 1. Make labels invisible but don't use 'display: none'
@@ -58,6 +61,8 @@ const Login = React.createClass({
 
           <button className="signInBtn" onClick={this.submitForm}>Sign In</button>
         </form>
+        <Link to="resident/"> Login link to Resident Pane </Link>
+        <Link to="director/"> Login link to Director Pane </Link>
       </div>
     );
   },

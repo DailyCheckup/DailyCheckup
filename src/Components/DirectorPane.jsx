@@ -6,7 +6,7 @@ const DirectorPane = React.createClass({
     return (
       <div>
         <h1>Director Pane - Welcome Director!</h1>
-        <Link to='director/home'> Director Home </Link>
+        <Link to='/director/'> Director Pane - Director Home </Link>
         {this.props.children}
       </div>
     );
