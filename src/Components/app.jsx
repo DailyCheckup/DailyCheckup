@@ -19,7 +19,8 @@ const App = React.createClass({
   render() {
     return (
       <div id="container">
-        <Routes getState={this.state} setAppState={this.setAppState} />
+        {this.props.children && React.cloneElement(this.props.children,
+          { setAppState: this.setAppState, getState: this.state })}
       </div>
     );
   },

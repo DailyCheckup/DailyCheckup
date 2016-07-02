@@ -2,15 +2,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const Sequelize = require('sequelize');
 const questionsDB = require('./questionsDB');
 const Questions = require('./Questions/QuestionsModel');
-const Users = require('./Users/UserModel');
 
 
 // Verifying our DB connection
-//require middleware which checks database to see if user was inputted
-//var checkUser = require('./src/middleware.js')
+//  require middleware which checks database to see if user was inputted
+//  var checkUser = require('./src/middleware.js')
 
 // Constants
 const PORT = 4000;
@@ -21,7 +19,7 @@ app.use(express.static(path.join(__dirname, './../')));
 
 function creating(obj) {
   Questions.create(obj).then((questions) => {
-    if(!questions){
+    if (!questions) {
       throw new Error('did not create anything :(');
     }
     return questions;
