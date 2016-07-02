@@ -3,7 +3,8 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const Sequelize = require('sequelize');
 const DB = new Sequelize('postgres://BBSCorp:lakers24~@mymdquizdb.cwyegj8iv25h.us-west-1.rds.amazonaws.com/MD_Quiz_DB');
-const loginCheck = require('./controllers/loginCheck.js')
+const loginCheck = require('./controllers/loginCheck.js');
+const UserResponseController = require('./controllers/userResponseController');
 // Verifying our DB connection
 DB.authenticate()
   .then(function (err) {
@@ -57,6 +58,10 @@ app.post('/changePassword', function (req, res) {
 // Get requests to results will return user or admin data
 app.get('/results', function (req, res) {
 
+});
+
+app.post('/userResponse', UserResponseController.addResults , function(req, res) {
+  res.send('Successful post request!');
 });
 
 // For all other requests, serve main html page
