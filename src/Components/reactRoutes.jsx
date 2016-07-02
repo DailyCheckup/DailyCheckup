@@ -1,5 +1,6 @@
 const React = require('react');
 import { Router, Route, Link, IndexRoute, browserHistory } from 'react-router';
+const App = require('./app');
 const Header = require('./header.jsx');
 const Login = require('./login.jsx');
 const ResidentPane = require('./ResidentPane.jsx');
@@ -17,8 +18,8 @@ const Routes = React.createClass({
   render() {
     return (
       <Router history={browserHistory}>
-        <Route path='/' component={Header}>
-          <IndexRoute getState={this.props.getState} setAppState={this.props.setAppState} component={Login} />
+        <Route path='/' component={App}>
+          <IndexRoute component={Login} />
           <Route component={ResidentPane}>
             <Route path='resident'>
               <IndexRoute component={ResidentHome} />

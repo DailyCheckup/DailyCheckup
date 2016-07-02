@@ -43,18 +43,14 @@ const Login = React.createClass({
       }
     }
   },
-
-  componentWillUpdate() {
-    console.log('in component will update');
-    console.log('isAdmin ', this.props.route.getState);
-    // Route to resident pane
-    if (this.props.route.getState.isAdmin === false) {
+  componentWillReceiveProps(newprops) {
+    if (newprops.getState.isAdmin === false) {
       console.log('isAdmin is false');
       browserHistory.push('/resident/');
     }
     // Route to director pane
-    if (this.props.route.getState.isAdmin) {
-      console.log('isAdmin is false');
+    if (newprops.getState.isAdmin) {
+      console.log('isAdmin is true');
       browserHistory.push('/director/');
     }
   },
@@ -72,7 +68,7 @@ const Login = React.createClass({
       isAdmin,
       dailyQuestions,
     };
-    this.props.route.setAppState(newStateObj);
+    this.props.setAppState(newStateObj);
   },
 
   displayError() {

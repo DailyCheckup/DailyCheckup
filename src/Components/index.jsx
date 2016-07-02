@@ -1,5 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './app';
+import Routes from './reactRoutes';
 
-ReactDOM.render(<App />, document.getElementById('content'));
+ReactDOM.render(<Routes />, document.getElementById('content'));
