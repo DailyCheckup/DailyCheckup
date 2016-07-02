@@ -1,7 +1,6 @@
 'use strict'
 var test = require('tape');
 var request = require('supertest');
-//replace app file path with server path to test server
 var app = require('./../../server/server.js');
 
 test('Correct status code', function (assert) {

@@ -35,6 +35,8 @@ app.get('/', (req, res) => {
 // 3) Error if doesn't match
 // 4) First login flag
 app.post('/login', function (req, res) {
+  res.statusCode = 200;
+  res.send(JSON.stringify({results: {isAdmin: true, firstLogin: false, getQuestions: {Q1: 'Sandra', Q2: 'Bryan', Q3: 'Brandan'}, email: 'sandra@hi.com'}}));
 // expecting email and password in req.body
 // will run this through middleware once db is setup
 // res.send({'email':'test@email.com','password':'admin'});
