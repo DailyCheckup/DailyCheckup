@@ -12,6 +12,4 @@ const Users = DB.define('user', {
   changedPassword: { type: Sequelize.BOOLEAN, defaultValue: false },
 });
 
-Users.sync({ force: true });
-
 module.exports = Users;
