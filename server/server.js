@@ -34,11 +34,14 @@ app.get('/', (req, res) => {
 // 2) 3 questions
 // 3) Error if doesn't match
 // 4) First login flag
-app.post('/login',
-loginCheck.validUser,
-loginCheck.isAdmin,
-loginCheck.firstLogin,
-loginCheck.getQuestions,
+// app.post('/login', function (req, res) {
+  // res.statusCode = 200;
+  // res.send(JSON.stringify({results: {isAdmin: true, firstLogin: false, getQuestions: {Q1: 'Sandra', Q2: 'Bryan', Q3: 'Brandan'}, email: 'sandra@hi.com'}}));
+  app.post('/login',
+  loginCheck.validUser,
+  loginCheck.isAdmin,
+  loginCheck.firstLogin,
+  loginCheck.getQuestions,
 function(req, res) {
 // expecting email and password in req.body
 // will run this through middleware once db is setup

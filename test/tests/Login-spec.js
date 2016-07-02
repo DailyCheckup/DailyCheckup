@@ -3,6 +3,17 @@ import { expect } from 'chai';
 import { shallow, mount, render } from 'enzyme';
 import Login from './../../src/Components/Login.jsx';
 
+const dummyResults1 = JSON.stringify(
+  {
+    results: {
+      isAdmin: true,
+      changedPassword: true,
+      email: 'sandra@hi.com',
+      dailyQuestions: ['question1', 'question2', 'question3'],
+    },
+  }
+);
+
 describe('Testing login component', () => {
   const wrapper = mount(<Login />);
 
