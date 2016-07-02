@@ -4,7 +4,7 @@ const path = require('path');
 const request = require('request');
 const Sequelize = require('sequelize');
 const DB = new Sequelize('postgres://BBSCorp:lakers24~@mymdquizdb.cwyegj8iv25h.us-west-1.rds.amazonaws.com/MD_Quiz_DB');
-
+const loginCheck = require('./controllers/loginCheck.js')
 // Verifying our DB connection
 DB.authenticate()
   .then(function (err) {
@@ -20,7 +20,7 @@ DB.authenticate()
 const PORT = 3000;
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, './../')));
 
 // The root route serves the main html page
@@ -34,12 +34,19 @@ app.get('/', (req, res) => {
 // 2) 3 questions
 // 3) Error if doesn't match
 // 4) First login flag
-app.post('/login', function (req, res) {
-  res.statusCode = 200;
-  res.send(JSON.stringify({results: {isAdmin: true, firstLogin: false, getQuestions: {Q1: 'Sandra', Q2: 'Bryan', Q3: 'Brandan'}, email: 'sandra@hi.com'}}));
+// app.post('/login', function (req, res) {
+  // res.statusCode = 200;
+  // res.send(JSON.stringify({results: {isAdmin: true, firstLogin: false, getQuestions: {Q1: 'Sandra', Q2: 'Bryan', Q3: 'Brandan'}, email: 'sandra@hi.com'}}));
+  app.post('/login',
+  loginCheck.validUser,
+  loginCheck.isAdmin,
+  loginCheck.firstLogin,
+  loginCheck.getQuestions,
+function(req, res) {
 // expecting email and password in req.body
 // will run this through middleware once db is setup
 // res.send({'email':'test@email.com','password':'admin'});
+  res.send(JSON.stringify(req.results));
 });
 
 // Post requests to change password changes user's pw in the db
