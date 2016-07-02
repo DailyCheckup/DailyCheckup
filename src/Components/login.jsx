@@ -1,20 +1,17 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
-//////
-import { Link } from 'react-router';
-//////
+import { Link, browserHistory } from 'react-router';
 
 // TODO
 // 1. Make labels invisible but don't use 'display: none'
 // 2. Fill in route url
 // 3. Session
 // 4. Logic for first login
-// 5. Logic for routing
-// 6: Error message if incorrect email or password
 
 const Login = React.createClass({
 
-  submitForm() {
+  submitForm(e) {
+    e.preventDefault();
     console.log('inside submit form onclick');
     const email = ReactDOM.findDOMNode(this.refs.emailAddress).value;
     const pw = ReactDOM.findDOMNode(this.refs.password).value;
@@ -22,32 +19,70 @@ const Login = React.createClass({
       emailAddress: email,
       password: pw,
     };
-    const url = 'PLACEHOLDER'; //UPDATE WITH ROUTE
+    const url = 'http://localhost:3000/login'; // UPDATE WITH ROUTE
     const xhr = new XMLHttpRequest();
     xhr.open('POST', url);
-    xhr.send(pwAndEmailObj);
-    xhr.onreadystatechange = this.processResponse();
+    xhr.send(JSON.stringify(pwAndEmailObj));
+    xhr.onreadystatechange = function () {
+      this.processResponse(xhr);
+    }.bind(this);
   },
 
-  processResponse() {
+  processResponse(xhr) {
     // If request is done
-    if (xhr.readyState = 4) {
+    if (xhr.readyState === 4) {
+      console.log('readystate is 4');
       // And status is OK
-      if (xhr.status = 200) {
-        console.log(xhr.responseText);
-        // If first login, prompt to change password
-        // If correct route to their home page
-        // Add session?
+      if (xhr.status === 200) {
+        console.log('status is 200');
+        this.parseDataAndSetState(xhr.responseText);
       } else {
+        // If error, email or password was incorrect so display error
         console.log('Error: ' + xhr.status);
-        // If error is a certain status code, render error message
+        this.displayError();
       }
     }
+  },
+
+  componentWillUpdate() {
+    console.log('in component will update');
+    console.log('isAdmin ', this.props.route.getState);
+    // Route to resident pane
+    if (this.props.route.getState.isAdmin === false) {
+      console.log('isAdmin is false');
+      browserHistory.push('/resident/');
+    }
+    // Route to director pane
+    if (this.props.route.getState.isAdmin) {
+      console.log('isAdmin is false');
+      browserHistory.push('/director/');
+    }
+  },
+
+  parseDataAndSetState(responseData) {
+    const response = JSON.parse(responseData).results;
+    console.log('response in parse ', response);
+    const userEmail = response.email;
+    const changedPW = response.changedPassword;
+    const isAdmin = response.isAdmin;
+    const dailyQuestions = response.dailyQuestions;
+    const newStateObj = {
+      userEmail,
+      changedPW,
+      isAdmin,
+      dailyQuestions,
+    };
+    this.props.route.setAppState(newStateObj);
+  },
+
+  displayError() {
+    document.getElementById('loginError').style.visibility = '';
   },
 
   render() {
     return (
       <div className="loginContainer">
+        <div id="loginError" style={{ visibility: 'hidden' }}>Incorrect email address or password</div>
         <form>
           <div className="emailLogin">
             <label>Email Address</label>

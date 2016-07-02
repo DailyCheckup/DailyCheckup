@@ -18,7 +18,7 @@ const Routes = React.createClass({
     return (
       <Router history={browserHistory}>
         <Route path='/' component={Header}>
-          <IndexRoute component={Login} />
+          <IndexRoute getState={this.props.getState} setAppState={this.props.setAppState} component={Login} />
           <Route component={ResidentPane}>
             <Route path='resident'>
               <IndexRoute component={ResidentHome} />
