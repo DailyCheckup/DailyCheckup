@@ -43,6 +43,7 @@ function(req, res) {
 // expecting email and password in req.body
 // will run this through middleware once db is setup
 // res.send({'email':'test@email.com','password':'admin'});
+  res.send(JSON.stringify(req.results));
 });
 
 // Post requests to change password changes user's pw in the db
