@@ -9,7 +9,7 @@ const Users = DB.define('user', {
   password: Sequelize.TEXT,
   groupid: Sequelize.INTEGER,
   adminFlag: Sequelize.BOOLEAN,
+  changedPassword: { type: Sequelize.BOOLEAN, defaultValue: false },
 });
-
 
 module.exports = Users;
