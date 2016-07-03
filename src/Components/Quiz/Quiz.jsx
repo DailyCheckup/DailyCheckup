@@ -1,15 +1,16 @@
 const React = require('react');
-const Question = require('./Question.jsx');
+// const Question = require('./Question.jsx');
 // const Answer = require('./Answer.jsx');
 import { Link } from 'react-router';
-const Timer = require('./Timer.jsx');
-const Count = require('./Count.jsx');
+// const Timer = require('./Timer.jsx');
+// const Count = require('./Count.jsx');
 // expecting an object that contains 3 arrays, each containing all
 // the question data needed. (question,answers, correct answer, reasons)
 // expecting prop to be named dailyQuestions
 
 const Quiz = React.createClass({
   getInitialState() {
+    //need to check after last currentquestion
     return ({
       dailyQuestions: this.props.getState.dailyQuestions,
       currentQuestion: this.props.getState.dailyQuestions[0],
@@ -35,6 +36,7 @@ const Quiz = React.createClass({
         } else {
           if (this.state.questionNumber === this.state.dailyQuestions.length - 1) {
             this.submitQuiz();
+            //then give answers
           } else {
             this.nextQuestion();
             this.startCountdown();
@@ -60,6 +62,7 @@ const Quiz = React.createClass({
     obj.questionNumber = count;
     if (count === this.state.dailyQuestions.length) {
       count--;
+      //might not need this anymore
     }
     obj.currentQuestion = this.state.dailyQuestions[count];
     this.clearbuttons();
@@ -162,9 +165,31 @@ const Quiz = React.createClass({
           </div>
           );
     } else {
+      const dailyQs = this.props.getState.dailyQuestions;
+      var answerArray = [];
+      //set answer to lowercase
+      //search taht key in dailyqs obj at slot i
+      console.log(this.state.results,'this is results');
+      for (let i = 0; i < dailyQs.length; i++) {
+        var rightLetter = dailyQs[i].answer.toLowerCase();
+        var userLetter = this.state.results[i].submittedAnswer.toLowerCase();
+        if (rightLetter === userLetter) {
+            answerArray.push(<div> CORRECT! <br /><br /></div>);
+        } else {
+          answerArray.push(<div> WRONG! <br /><br /></div>);
+        }
+        answerArray.push(<div><br /> Question: {dailyQs[i].question} </div>);
+        answerArray.push(<div> Your Answer: {dailyQs[i][userLetter]} <br /></div>);
+        answerArray.push(<div> Correct Answer: {dailyQs[i][rightLetter]} <br /><br /></div>);
+        answerArray.push(<div> Reason: {dailyQs[i].reason} <br /><br /></div>);
+      }
+
+      console.log(dailyQs,' this is answer array');
       return (
+        //need to display answers and reasons here
         <div>
           Your Results Have Been Submitted! <br />
+          {answerArray}
           <button> <Link to="/resident/"> Go Home </Link> </button>
         </div>
       );
