@@ -65,12 +65,14 @@ const Login = React.createClass({
     const isAdmin = response.isAdmin;
     const dailyQuestions = response.dailyQuestions;
     const takenQuiz = response.takenQuiz;
+    const quizAvailability = response.quizAvailability;
     const newStateObj = {
       userEmail,
       changedPW,
       isAdmin,
       dailyQuestions,
       takenQuiz,
+      quizAvailability,
     };
     this.props.setAppState(newStateObj);
   },
