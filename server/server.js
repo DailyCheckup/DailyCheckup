@@ -5,6 +5,7 @@ const Sequelize = require('sequelize');
 const DB = new Sequelize('postgres://BBSCorp:lakers24~@mymdquizdb.cwyegj8iv25h.us-west-1.rds.amazonaws.com/MD_Quiz_DB');
 const loginCheck = require('./controllers/loginCheck.js');
 const UserResponseController = require('./controllers/userResponseController');
+const changePW = require('./controllers/changePassword.js');
 // Verifying our DB connection
 DB.authenticate()
   .then(function (err) {
@@ -36,34 +37,35 @@ app.get('/', (req, res) => {
 // 4) First login flag
 app.post('/login', function (req, res) {
   res.statusCode = 200;
-  res.send(JSON.stringify({results: {isAdmin: false, firstLogin: false, dailyQuestions: [{questionid: 5,
-  question: "what is brendan's favorite food?",
-  a: 'A) cat',
-  b: 'B) dog',
-  c: 'C) pazookie',
-  d: 'D) fish',
-  e: 'E) pizza',
-  answer: 'A',
-  reason: 'Brendan is what he eats ;)',
-},
-  { questionid: 8,
-  question: 'How Savage is Sandra?',
-  a: 'A)More than Rhianna',
-  b: 'B)More then Brendan',
-  c: 'C)More Than Will',
-  d: 'D)All of the Above',
-  e: 'null',
-  answer: 'D',
-  reason: 'Sandra is the most savage of them all' },
-  { questionid: 10,
-  question: 'Who is the gingerbread man?',
-  a: 'A)Alex Patch',
-  b: 'B)Will Sentance',
-  c: 'C)Brendan',
-  d: 'D)Bryan',
-  e: 'E)Alex Petch',
-  answer: 'A',
-  reason: 'Because he is a ginger' }], email: 'sandra@hi.com' } }));
+//   res.send(JSON.stringify({results: {isAdmin: false, firstLogin: false, dailyQuestions: [{questionid: 5,
+//   question: "what is brendan's favorite food?",
+//   a: 'A) cat',
+//   b: 'B) dog',
+//   c: 'C) pazookie',
+//   d: 'D) fish',
+//   e: 'E) pizza',
+//   answer: 'A',
+//   reason: 'Brendan is what he eats ;)',
+// },
+//   { questionid: 8,
+//   question: 'How Savage is Sandra?',
+//   a: 'A)More than Rhianna',
+//   b: 'B)More then Brendan',
+//   c: 'C)More Than Will',
+//   d: 'D)All of the Above',
+//   e: 'null',
+//   answer: 'D',
+//   reason: 'Sandra is the most savage of them all' },
+//   { questionid: 10,
+//   question: 'Who is the gingerbread man?',
+//   a: 'A)Alex Patch',
+//   b: 'B)Will Sentance',
+//   c: 'C)Brendan',
+//   d: 'D)Bryan',
+//   e: 'E)Alex Petch',
+//   answer: 'A',
+//   reason: 'Because he is a ginger' }], email: 'sandra@hi.com' } }));
+  res.send(JSON.stringify({results: {isAdmin: false, firstLogin: false, getQuestions: {Q1: 'Sandra', Q2: 'Bryan', Q3: 'Brandan'}, email: 'sandra@hi.com'}}));
 //   app.post('/login',
 //   loginCheck.validUser,
 //   loginCheck.isAdmin,
@@ -77,9 +79,9 @@ app.post('/login', function (req, res) {
 });
 
 // Post requests to change password changes user's pw in the db
-app.post('/changePassword', function (req, res) {
-// client needs to send user's email to find their entry in the db
-// find entry in the db and update pw
+app.post('/changePassword', changePW.changePasswordInDB, function (req, res) {
+  res.statusCode = 200;
+  res.send(JSON.stringify('Succesfully updated password'));
 });
 
 // Get requests to results will return user or admin data
