@@ -14,7 +14,6 @@ function removeAndInsertIntoDailyQuestions(array) {
     question1: array[0],
     question2: array[1],
     question3: array[2],
-    check: true,
   });
   dailyQs.save();
 }
@@ -53,6 +52,20 @@ function getRandomQ() {
     // want to return array that has 3 integer values
 }
 
+function setAvaiableToTrue() {
+  dailyQuestions.update({available: true}, {where: {available:false}})
+  .then(function(result) {
+    console.log(result,' Succesfully updated');
+  })
+}
+
+function setAvaiableToFalse() {
+  dailyQuestions.update({available: false}, {where: {available:true}})
+  .then(function(result) {
+    console.log(result,' Succesfully updated');
+  })
+}
+
 function runJob() {
   // var brendan = Users.build({
   //   userid: 69,
@@ -67,12 +80,32 @@ function runJob() {
   // brendan.save();
 
   const job = new CronJob({
-    cronTime: '00 22 18 * * 1-7',
+    cronTime: '50 13 22 * * 1-7',
     onTick: () => {
       Questions.sync();
-      // var array = getRandomQuestionIDs();
       getRandomQ();
-      // removeAndInsertIntoDailyQuestions(array);
+    },
+    start: true,
+    timeZone: 'America/Los_Angeles',
+  });
+
+  const releaseQuiz = new CronJob({
+    cronTime: '00 00 06 * * 1-7',
+    onTick: () => {
+      Questions.sync();
+      //update avaiable in dailytquestions db
+      setAvaiableToTrue();
+    },
+    start: true,
+    timeZone: 'America/Los_Angeles',
+  });
+
+  const closeQuiz = new CronJob({
+    cronTime: '00 00 15 * * 1-7',
+    onTick: () => {
+      Questions.sync();
+      //update avaiable in dailytquestions db
+      setAvaiableToFalse();
     },
     start: true,
     timeZone: 'America/Los_Angeles',

@@ -7,6 +7,7 @@ const loginCheck = require('./controllers/loginCheck.js');
 const UserResponseController = require('./controllers/userResponseController');
 const changePW = require('./controllers/changePassword.js');
 const quizTakenController = require('./controllers/quizTakenController.js');
+const runJob = require('./cronJob.js');
 // Verifying our DB connection
 DB.authenticate()
   .then(function (err) {
@@ -22,6 +23,7 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, './../')));
+runJob();
 
 // The root route serves the main html page
 app.get('/', (req, res) => {
