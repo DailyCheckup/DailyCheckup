@@ -1,9 +1,12 @@
 'use strict';
-const Questions = require('./../Questions/QuestionsModel.js');
 const Users = require('./../Users/UserModel.js');
+const dailyQuestionsModel = require('./../Questions/dailyQuestionsModel.js');
+const Questions = require('./../Questions/QuestionsModel.js');
+
 
 const loginCheck = {
   validUser(req, res, next) {
+    console.log(req.body, 'this is body');
     Users.findOne({ where:
       { email: req.body.email, password: req.body.password },
     })
@@ -38,23 +41,25 @@ const loginCheck = {
     });
   },
   getQuestions(req, res, next) {
-    Questions.findAll({ where:
-      { chosen: false } }).then((questions) => {
-        const nonChosenQuestionCount = questions.length;
-        const array = [];
-        let randomQ;
-        for (let i = 0; i < 3; i++) {
-          randomQ = Math.floor(Math.random() * nonChosenQuestionCount);
-          array.push(questions[randomQ].dataValues.questionid);
-          Questions.update(
-            { chosen: true },
-            { where: { questionid: questions[randomQ].dataValues.questionid } }
-          );
-        }
-        req.results.dailyQuestions = array;
-        next();
+    dailyQuestionsModel.findAll({ where:
+      { check: true } }).then((questionIDs) => {
+        const questionNums = [];
+        questionNums.push(
+          questionIDs[0].dataValues.question1,
+          questionIDs[0].dataValues.question2,
+          questionIDs[0].dataValues.question3
+        );
+
+        Questions.findAll({ where: { questionid: questionNums } })
+        .then((questions) => {
+          const dailyQuestions = [];
+          for (let i = 0; i < questions.length; i++) {
+            dailyQuestions.push(questions[i].dataValues);
+          }
+          req.results.dailyQuestions = dailyQuestions;
+        });
       });
+    next();
   },
 };
-
 module.exports = loginCheck;
