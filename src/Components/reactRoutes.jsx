@@ -1,7 +1,6 @@
 const React = require('react');
 import { Router, Route, Link, IndexRoute, browserHistory } from 'react-router';
 const App = require('./app');
-const Header = require('./header.jsx');
 const Login = require('./login.jsx');
 const ResidentPane = require('./ResidentPane.jsx');
 const ResidentHome = require('./ResidentHome.jsx');
@@ -19,23 +18,27 @@ const Routes = React.createClass({
     return (
       <Router history={browserHistory}>
         <Route path='/' component={App}>
-          <IndexRoute component={Login} />
-          <Route component={ResidentPane}>
-            <Route path='resident'>
-              <IndexRoute component={ResidentHome} />
-              <Route path='quiz' component={Quiz} />
-              <Route path='results' component={ResidentResults} />
-              <Route path='changePassword' component={ResidentChangePW} />
+
+            <IndexRoute component={Login} />
+
+            <Route component={ResidentPane}>
+              <Route path='resident'>
+                <IndexRoute component={ResidentHome} />
+                <Route path='quiz' component={Quiz} />
+                <Route path='results' component={ResidentResults} />
+                <Route path='changePassword' component={ResidentChangePW} />
+              </Route>
             </Route>
-          </Route>
-          <Route component={DirectorPane}>
-            <Route path='director'>
-              <IndexRoute component={DirectorHome} />
-              <Route path='todaysQuiz' component={TodaysQuiz} />
-              <Route path='results' component={DirectorResults} />
-              <Route path='settings' component={DirectorSettings} />
+
+            <Route component={DirectorPane}>
+              <Route path='director'>
+                <IndexRoute component={DirectorHome} />
+                <Route path='todaysQuiz' component={TodaysQuiz} />
+                <Route path='results' component={DirectorResults} />
+                <Route path='settings' component={DirectorSettings} />
+              </Route>
             </Route>
-          </Route>
+
         </Route>
       </Router>
     );

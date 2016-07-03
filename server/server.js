@@ -6,6 +6,7 @@ const DB = new Sequelize('postgres://BBSCorp:lakers24~@mymdquizdb.cwyegj8iv25h.u
 const loginCheck = require('./controllers/loginCheck.js');
 const UserResponseController = require('./controllers/userResponseController');
 const changePW = require('./controllers/changePassword.js');
+const quizTakenController = require('./controllers/quizTakenController.js');
 // Verifying our DB connection
 DB.authenticate()
   .then(function (err) {
@@ -38,6 +39,7 @@ app.post('/login',
   loginCheck.isAdmin,
   loginCheck.firstLogin,
   loginCheck.getQuestions,
+  quizTakenController.checkQuizWasTaken,
 (req, res) => {
   res.send(JSON.stringify(req.results));
 });
