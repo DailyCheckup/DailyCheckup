@@ -58,6 +58,7 @@ const Login = React.createClass({
 
   parseDataAndSetState(responseData) {
     const response = JSON.parse(responseData).results;
+    //localStorage.token = Math.random.toString(36).substring(7);
     console.log('response in parse ', response);
     const userEmail = response.email;
     const changedPW = response.changedPassword;

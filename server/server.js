@@ -37,7 +37,7 @@ app.get('/', (req, res) => {
 // 4) First login flag
 app.post('/login', function (req, res) {
   res.statusCode = 200;
-  res.send(JSON.stringify({results: {isAdmin: false, firstLogin: false, getQuestions: {Q1: 'Sandra', Q2: 'Bryan', Q3: 'Brandan'}, email: 'sandra@hi.com'}}));
+  res.send(JSON.stringify({results: {isAdmin: true, firstLogin: false, getQuestions: {Q1: 'Sandra', Q2: 'Bryan', Q3: 'Brandan'}, email: 'sandra@hi.com'}}));
 //   app.post('/login',
 //   loginCheck.validUser,
 //   loginCheck.isAdmin,
