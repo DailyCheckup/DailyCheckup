@@ -57,8 +57,7 @@ const Login = React.createClass({
   },
 
   parseDataAndSetState(responseData) {
-    const response = JSON.parse(responseData).results;
-    console.log('response in parse ', response);
+    const response = JSON.parse(responseData);
     const userEmail = response.email;
     const changedPW = response.changedPassword;
     const isAdmin = response.isAdmin;

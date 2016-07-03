@@ -14,8 +14,6 @@ DB.authenticate()
   .catch(function (err) {
     console.log('Unable to connect to DB ', err);
   });
-//require middleware which checks database to see if user was inputted
-//var checkUser = require('./src/middleware.js')
 
 // Constants
 const PORT = 3000;
@@ -35,47 +33,13 @@ app.get('/', (req, res) => {
 // 2) 3 questions
 // 3) Error if doesn't match
 // 4) First login flag
-app.post('/login', function (req, res) {
-  res.statusCode = 200;
-//   res.send(JSON.stringify({results: {isAdmin: false, firstLogin: false, dailyQuestions: [{questionid: 5,
-//   question: "what is brendan's favorite food?",
-//   a: 'A) cat',
-//   b: 'B) dog',
-//   c: 'C) pazookie',
-//   d: 'D) fish',
-//   e: 'E) pizza',
-//   answer: 'A',
-//   reason: 'Brendan is what he eats ;)',
-// },
-//   { questionid: 8,
-//   question: 'How Savage is Sandra?',
-//   a: 'A)More than Rhianna',
-//   b: 'B)More then Brendan',
-//   c: 'C)More Than Will',
-//   d: 'D)All of the Above',
-//   e: 'null',
-//   answer: 'D',
-//   reason: 'Sandra is the most savage of them all' },
-//   { questionid: 10,
-//   question: 'Who is the gingerbread man?',
-//   a: 'A)Alex Patch',
-//   b: 'B)Will Sentance',
-//   c: 'C)Brendan',
-//   d: 'D)Bryan',
-//   e: 'E)Alex Petch',
-//   answer: 'A',
-//   reason: 'Because he is a ginger' }], email: 'sandra@hi.com' } }));
-  res.send(JSON.stringify({results: {isAdmin: false, firstLogin: false, getQuestions: {Q1: 'Sandra', Q2: 'Bryan', Q3: 'Brandan'}, email: 'sandra@hi.com'}}));
-//   app.post('/login',
-//   loginCheck.validUser,
-//   loginCheck.isAdmin,
-//   loginCheck.firstLogin,
-//   loginCheck.getQuestions,
-// function(req, res) {
-// // expecting email and password in req.body
-// // will run this through middleware once db is setup
-// // res.send({'email':'test@email.com','password':'admin'});
-//   res.send(JSON.stringify(req.results));
+app.post('/login',
+  loginCheck.validUser,
+  loginCheck.isAdmin,
+  loginCheck.firstLogin,
+  loginCheck.getQuestions,
+(req, res) => {
+  res.send(JSON.stringify(req.results));
 });
 
 // Post requests to change password changes user's pw in the db
