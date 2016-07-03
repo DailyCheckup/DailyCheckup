@@ -22,6 +22,7 @@ const Login = React.createClass({
     const url = 'http://localhost:3000/login'; // UPDATE WITH ROUTE
     const xhr = new XMLHttpRequest();
     xhr.open('POST', url);
+    xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(pwAndEmailObj));
     xhr.onreadystatechange = function () {
       this.processResponse(xhr);
@@ -78,7 +79,9 @@ const Login = React.createClass({
   render() {
     return (
       <div className="loginContainer">
-        <div id="loginError" style={{ visibility: 'hidden' }}>Incorrect email address or password</div>
+        <div id="loginError" style={{ visibility: 'hidden' }}>
+          Incorrect email address or password.
+        </div>
         <form>
           <div className="emailLogin">
             <label>Email Address</label>
