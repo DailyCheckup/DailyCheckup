@@ -6,6 +6,7 @@ const ResidentHome = React.createClass({
     return (
       <div>
         <p>Resident Home</p>
+        {this.props.getState.userEmail}
         <button><Link to='/resident/quiz'> Start Quiz! </Link></button>
         <button><Link to='/resident/results'> Check your Results </Link></button>
         <button><Link to='/resident/changePassword'> Change password </Link></button>
