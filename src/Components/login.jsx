@@ -57,18 +57,20 @@ const Login = React.createClass({
   },
 
   parseDataAndSetState(responseData) {
-    const response = JSON.parse(responseData).results;
+    const response = JSON.parse(responseData);
     //localStorage.token = Math.random.toString(36).substring(7);
     console.log('response in parse ', response);
     const userEmail = response.email;
     const changedPW = response.changedPassword;
     const isAdmin = response.isAdmin;
     const dailyQuestions = response.dailyQuestions;
+    const takenQuiz = response.takenQuiz;
     const newStateObj = {
       userEmail,
       changedPW,
       isAdmin,
       dailyQuestions,
+      takenQuiz,
     };
     this.props.setAppState(newStateObj);
   },
