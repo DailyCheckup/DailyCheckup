@@ -3,17 +3,15 @@ const Users = require('./../Users/UserModel.js');
 const dailyQuestionsModel = require('./../Questions/dailyQuestionsModel.js');
 const Questions = require('./../Questions/QuestionsModel.js');
 
-
 const loginCheck = {
   validUser(req, res, next) {
-    console.log(req.body, 'this is body');
     Users.findOne({ where:
-      { email: req.body.email, password: req.body.password },
+      { email: req.body.emailAddress, password: req.body.password },
     })
       .then((user) => {
         req.results = {};
         if (user !== null) {
-          req.results.email = req.body.email;
+          req.results.email = req.body.emailAddress;
           next();
         } else {
           throw new Error('Invalid User');
@@ -22,7 +20,7 @@ const loginCheck = {
   },
   isAdmin(req, res, next) {
     Users.findOne({ where:
-      { email: req.body.email, password: req.body.password },
+      { email: req.body.emailAddress, password: req.body.password },
     })
     .then((user) => {
       req.results.isAdmin = user.dataValues.adminFlag;
@@ -31,11 +29,10 @@ const loginCheck = {
   },
   firstLogin(req, res, next) {
     Users.findOne({ where:
-      { email: req.body.email,
+      { email: req.body.emailAddress,
         password: req.body.password },
     })
     .then((user) => {
-      req.results = {};
       req.results.changedPassword = user.dataValues.changedPassword;
       next();
     });
@@ -57,9 +54,9 @@ const loginCheck = {
             dailyQuestions.push(questions[i].dataValues);
           }
           req.results.dailyQuestions = dailyQuestions;
+          next();
         });
       });
-    next();
   },
 };
 module.exports = loginCheck;

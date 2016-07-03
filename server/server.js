@@ -14,8 +14,6 @@ DB.authenticate()
   .catch(function (err) {
     console.log('Unable to connect to DB ', err);
   });
-//require middleware which checks database to see if user was inputted
-//var checkUser = require('./src/middleware.js')
 
 // Constants
 const PORT = 3000;
@@ -35,19 +33,13 @@ app.get('/', (req, res) => {
 // 2) 3 questions
 // 3) Error if doesn't match
 // 4) First login flag
-app.post('/login', function (req, res) {
-  res.statusCode = 200;
-  res.send(JSON.stringify({results: {isAdmin: false, firstLogin: false, getQuestions: {Q1: 'Sandra', Q2: 'Bryan', Q3: 'Brandan'}, email: 'sandra@hi.com'}}));
-//   app.post('/login',
-//   loginCheck.validUser,
-//   loginCheck.isAdmin,
-//   loginCheck.firstLogin,
-//   loginCheck.getQuestions,
-// function(req, res) {
-// // expecting email and password in req.body
-// // will run this through middleware once db is setup
-// // res.send({'email':'test@email.com','password':'admin'});
-//   res.send(JSON.stringify(req.results));
+app.post('/login',
+  loginCheck.validUser,
+  loginCheck.isAdmin,
+  loginCheck.firstLogin,
+  loginCheck.getQuestions,
+(req, res) => {
+  res.send(JSON.stringify(req.results));
 });
 
 // Post requests to change password changes user's pw in the db
