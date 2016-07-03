@@ -9,6 +9,7 @@ const App = React.createClass({
       isAdmin: '',
       dailyQuestions: [],
       takenQuiz: false,
+      quizAvailability: false,
     };
   },
 

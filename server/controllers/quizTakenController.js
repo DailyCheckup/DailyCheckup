@@ -1,4 +1,5 @@
 const UserResponse = require('./../UserResponse/UserResponseModel');
+const DailyQuestions = require('./../Questions/dailyQuestionsModel');
 
 module.exports = {
 
@@ -19,5 +20,16 @@ module.exports = {
       next();
     });
   },
+
+  checkQuizAvailability( req, res, next) {
+    DailyQuestions.findAll({ where: { available: true } }).then(function(result) {
+      if (!result.length) {
+        req.results.quizAvailability = false;
+      } else {
+        req.results.quizAvailability = true;
+      }
+      next();
+    });
+  }
 
 };

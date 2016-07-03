@@ -42,6 +42,7 @@ app.post('/login',
   loginCheck.firstLogin,
   loginCheck.getQuestions,
   quizTakenController.checkQuizWasTaken,
+  quizTakenController.checkQuizAvailability,
 (req, res) => {
   res.send(JSON.stringify(req.results));
 });

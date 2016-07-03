@@ -19,7 +19,7 @@ const Quiz = React.createClass({
     this.startCountdown();
   },
   componentWillMount() {
-    if (this.props.getState.takenQuiz === true) {
+    if (this.props.getState.takenQuiz || !this.props.getState.quizAvailability) {
       this.setState({questionNumber:this.state.dailyQuestions.length});
     }
   },
@@ -162,10 +162,12 @@ const Quiz = React.createClass({
               submitQuiz : nextQuestion}
           </div>
           );
-    } else if(!this.state.results) {
+    } else if(this.props.getState.takenQuiz) {
       return (
         <div> Hello Good sir/maddam you have already taken this quiz today come back tommorrow. </div>
       );
+    } else if(!this.props.getState.quizAvailability) {
+      <div> Hello Eager Beaver, It's not time just yet to take this quiz. Try again later Alligator </div>
     } else {
       const dailyQs = this.props.getState.dailyQuestions;
       var answerArray = [];
