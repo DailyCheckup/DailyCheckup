@@ -9,6 +9,9 @@ const dailyQuestions = DB.define('dailyquestions', {
     type: Sequelize.BOOLEAN,
     defaultValue: true,
   },
+  available: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+  },
 });
-
 module.exports = dailyQuestions;
