@@ -52,7 +52,8 @@ const Quiz = React.createClass({
     const obj = {};
     let count = this.state.questionNumber;
     obj.results = this.state.results;
-    obj.results.push(this.state.currentAnswer);
+    const currentSubmittedAnswer = this.buildResults(this.state.questionNumber);
+    obj.results.push(currentSubmittedAnswer);
     count++;
     obj.currentAnswer = 'N';
     obj.count = 10;
@@ -65,6 +66,15 @@ const Quiz = React.createClass({
     console.log(obj);
     this.setState(obj);
   },
+  buildResults(index) {
+    const obj = {};
+    const currentQuestion = this.state.dailyQuestions[index];
+    obj.email = this.state.userEmail;
+    obj.questionid = currentQuestion.questionid;
+    obj.respondedCorrectly = currentQuestion.answer === this.state.currentQuestion;
+    obj.submittedAnswer = this.state.currentAnswer;
+    return obj;
+  },
   clearbuttons() {
     const ele = document.getElementsByName('options');
     let i;
@@ -75,10 +85,46 @@ const Quiz = React.createClass({
   submitQuiz() {
     let number = this.state.questionNumber;
     number++;
+    this.sendResults();
     this.setState({
       questionNumber: number,
       stopTimer: true,
     });
+  },
+  sendResults() {
+    const results = this.state.results;
+    results.push(this.buildResults(this.state.questionNumber));
+    const resultsData = {
+      data: results,
+    };
+    const url = 'http://localhost:3000/userResponse'; // UPDATE WITH ROUTE
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', url);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify(resultsData));
+    xhr.onreadystatechange = function () {
+      this.processResponse(xhr);
+    }.bind(this);
+  },
+
+  processResponse(xhr) {
+    // If request is done
+    if (xhr.readyState === 4) {
+      console.log('readystate is 4');
+      // And status is OK
+      if (xhr.status === 200) {
+        console.log('status is 200');
+        console.log(xhr.responseText);
+      } else {
+        // If error, email or password was incorrect so display error
+        console.log('Error: ' + xhr.status);
+        this.displayError();
+      }
+    }
+  },
+
+  displayError() {
+    console.log('Failed!!!');
   },
 
   render() {
