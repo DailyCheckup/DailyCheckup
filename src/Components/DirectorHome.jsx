@@ -7,6 +7,7 @@ const DirectorHome = React.createClass({
       <div>
         <button><Link to='/director/todaysQuiz'> Todays Quiz! </Link></button>
         <button><Link to='/director/results'> Group Results </Link></button>
+        <button><Link to='/director/settings'> Settings </Link></button>
       </div>
     );
   },

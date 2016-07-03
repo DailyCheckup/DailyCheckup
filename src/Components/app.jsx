@@ -1,6 +1,5 @@
 const React = require('react');
-const Routes = require('./reactRoutes.jsx');
-
+const Header = require('./header.jsx');
 const App = React.createClass({
 
   getInitialState() {
@@ -9,6 +8,7 @@ const App = React.createClass({
       changedPW: '',
       isAdmin: '',
       dailyQuestions: [],
+      takenQuiz: false,
     };
   },
 
@@ -19,6 +19,7 @@ const App = React.createClass({
   render() {
     return (
       <div id="container">
+        <Header />
         {this.props.children && React.cloneElement(this.props.children,
           { setAppState: this.setAppState, getState: this.state })}
       </div>
