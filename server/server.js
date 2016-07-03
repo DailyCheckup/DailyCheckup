@@ -5,6 +5,7 @@ const Sequelize = require('sequelize');
 const DB = new Sequelize('postgres://BBSCorp:lakers24~@mymdquizdb.cwyegj8iv25h.us-west-1.rds.amazonaws.com/MD_Quiz_DB');
 const loginCheck = require('./controllers/loginCheck.js');
 const UserResponseController = require('./controllers/userResponseController');
+const changePW = require('./controllers/changePassword.js');
 // Verifying our DB connection
 DB.authenticate()
   .then(function (err) {
@@ -36,7 +37,7 @@ app.get('/', (req, res) => {
 // 4) First login flag
 app.post('/login', function (req, res) {
   res.statusCode = 200;
-  res.send(JSON.stringify({results: {isAdmin: true, firstLogin: false, getQuestions: {Q1: 'Sandra', Q2: 'Bryan', Q3: 'Brandan'}, email: 'sandra@hi.com'}}));
+  res.send(JSON.stringify({results: {isAdmin: false, firstLogin: false, getQuestions: {Q1: 'Sandra', Q2: 'Bryan', Q3: 'Brandan'}, email: 'sandra@hi.com'}}));
 //   app.post('/login',
 //   loginCheck.validUser,
 //   loginCheck.isAdmin,
@@ -50,9 +51,9 @@ app.post('/login', function (req, res) {
 });
 
 // Post requests to change password changes user's pw in the db
-app.post('/changePassword', function (req, res) {
-// client needs to send user's email to find their entry in the db
-// find entry in the db and update pw
+app.post('/changePassword', changePW.changePasswordInDB, function (req, res) {
+  res.statusCode = 200;
+  res.send(JSON.stringify('Succesfully updated password'));
 });
 
 // Get requests to results will return user or admin data
