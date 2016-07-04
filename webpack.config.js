@@ -31,7 +31,7 @@ module.exports = {
     }]
   },
   plugins: [
-    new ExtractTextPlugin(__dirname + '/build/build.css', { allChunks: true })
+    new ExtractTextPlugin('build.css', { allChunks: true })
   ],
   // plugins: [
   //   new webpack.HotModuleReplacementPlugin(),
