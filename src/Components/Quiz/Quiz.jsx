@@ -164,7 +164,7 @@ const Quiz = React.createClass({
           );
     } else if(!this.state.results) {
       return (
-        <div> Hello Good sir/maddam you have already taken this quiz today come back tommorrow. </div>
+        <div> Hello you have already taken this quiz today come back tommorrow. </div>
       );
     } else {
       const dailyQs = this.props.getState.dailyQuestions;
@@ -175,9 +175,9 @@ const Quiz = React.createClass({
         var rightLetter = dailyQs[i].answer.toLowerCase();
         var userLetter = this.state.results[i].submittedAnswer.toLowerCase();
         if (rightLetter === userLetter) {
-            answerArray.push(<div> CORRECT! <br /><br /></div>);
+            answerArray.push(<div> Correct! <br /><br /></div>);
         } else {
-          answerArray.push(<div> WRONG! <br /></div>);
+          answerArray.push(<div> Incorrect! <br /></div>);
         }
         answerArray.push(<div><br /> Question: {dailyQs[i].question} </div>);
         answerArray.push(<div> Your Answer: {dailyQs[i][userLetter]} <br /></div>);
