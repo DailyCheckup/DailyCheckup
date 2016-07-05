@@ -5,8 +5,13 @@ const ResidentPane = React.createClass({
   render() {
     return (
       <div>
-        <p>Hi Brendan! - Resident Pane</p>
-        <Link to='/resident/'> Resident Pane - Resident Home Btn</Link>
+        <p>Hi {this.props.getState.firstName}!
+          <Link className='homeIcon' to='/resident/'>
+            <i className='material-icons'>
+            home
+            </i>
+          </Link>
+        </p>
         {this.props.children && React.cloneElement(this.props.children,
           { setAppState: this.props.setAppState, getState: this.props.getState })}
       </div>
