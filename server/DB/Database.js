@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
-
-const DB = new Sequelize('postgres://BBSCorp:lakers24~@mymdquizdb.cwyegj8iv25h.us-west-1.rds.amazonaws.com/MD_Quiz_DB');
+const privateKey = require('./../../privateKeys.js').dbKey;
+const DB = new Sequelize(privateKey);
 DB.authenticate()
   .then(function (err) {
     console.log('Connection to DB has been established');
