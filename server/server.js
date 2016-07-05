@@ -2,20 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const Sequelize = require('sequelize');
-const DB = new Sequelize('postgres://BBSCorp:lakers24~@mymdquizdb.cwyegj8iv25h.us-west-1.rds.amazonaws.com/MD_Quiz_DB');
 const loginCheck = require('./controllers/loginCheck.js');
 const UserResponseController = require('./controllers/userResponseController');
 const changePW = require('./controllers/changePassword.js');
 const quizTakenController = require('./controllers/quizTakenController.js');
 const runJob = require('./cronJob.js');
-// Verifying our DB connection
-DB.authenticate()
-  .then(function (err) {
-    console.log('Connection to DB has been established');
-  })
-  .catch(function (err) {
-    console.log('Unable to connect to DB ', err);
-  });
 
 // Constants
 const PORT = 3000;

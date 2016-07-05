@@ -4,3 +4,4 @@ npm-debug.log
 build.js
 build.js.map
 questionsDB.js
+privateKeys.js

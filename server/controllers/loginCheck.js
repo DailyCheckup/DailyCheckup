@@ -14,6 +14,7 @@ const loginCheck = {
           req.results.email = req.body.emailAddress;
           next();
         } else {
+          res.sendStatus(400)
           throw new Error('Invalid User');
         }
       });
