@@ -1,5 +1,5 @@
 // const webpack = require('webpack');
-// const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   devtool: 'source-map',
@@ -24,8 +24,15 @@ module.exports = {
       test: /\.jsx?$/,
       loaders: ['babel-loader?presets[]=react,presets[]=es2015'],
       exclude: /node_modules/
+    },
+    {
+      test: /\.scss$/,
+      loader: ExtractTextPlugin.extract('css!sass')
     }]
   },
+  plugins: [
+    new ExtractTextPlugin('build.css', { allChunks: true })
+  ],
   // plugins: [
   //   new webpack.HotModuleReplacementPlugin(),
   //   // new ExtractTextPlugin('style.css', { allChunks: true })

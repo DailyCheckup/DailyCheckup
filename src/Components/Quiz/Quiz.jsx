@@ -19,7 +19,7 @@ const Quiz = React.createClass({
     this.startCountdown();
   },
   componentWillMount() {
-    if (this.props.getState.takenQuiz === true) {
+    if (this.props.getState.takenQuiz || !this.props.getState.quizAvailability) {
       this.setState({questionNumber:this.state.dailyQuestions.length});
     }
   },
@@ -163,12 +163,14 @@ const Quiz = React.createClass({
             </form>
             {this.state.questionNumber === this.state.dailyQuestions.length - 1 ?
               submitQuiz : nextQuestion}
-          </div>
+        </div>
           );
-    } else if(!this.state.results.length) {
+    } else if (this.props.getState.takenQuiz) {
       return (
         <div> Hello you have already taken this quiz today come back tommorrow. </div>
       );
+    } else if (!this.props.getState.quizAvailability) {
+      <div> Hello, It's not time just yet to take this quiz. Try again later. </div>
     } else {
       const dailyQs = this.props.getState.dailyQuestions;
       var answerArray = [];

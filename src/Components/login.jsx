@@ -44,17 +44,28 @@ const Login = React.createClass({
       }
     }
   },
-  componentWillReceiveProps(newprops) {
-    if (newprops.getState.isAdmin === false) {
-      console.log('isAdmin is false');
-      browserHistory.push('/resident/');
-    }
-    // Route to director pane
-    if (newprops.getState.isAdmin) {
-      console.log('isAdmin is true');
+
+  redirectToUsersPane(isAdmin) {
+    if (isAdmin) {
       browserHistory.push('/director/');
+    } else {
+      browserHistory.push('/resident');
     }
   },
+
+  // Seems uncessesary, when you can redirect before setting state
+
+  // componentWillReceiveProps(newprops) {
+  //   if (newprops.getState.isAdmin === false) {
+  //     console.log('isAdmin is false');
+  //     browserHistory.push('/resident/');
+  //   }
+  //   // Route to director pane
+  //   if (newprops.getState.isAdmin) {
+  //     console.log('isAdmin is true');
+  //     browserHistory.push('/director/');
+  //   }
+  // },
 
   parseDataAndSetState(responseData) {
     const response = JSON.parse(responseData);
@@ -65,13 +76,16 @@ const Login = React.createClass({
     const isAdmin = response.isAdmin;
     const dailyQuestions = response.dailyQuestions;
     const takenQuiz = response.takenQuiz;
+    const quizAvailability = response.quizAvailability;
     const newStateObj = {
       userEmail,
       changedPW,
       isAdmin,
       dailyQuestions,
       takenQuiz,
+      quizAvailability,
     };
+    this.redirectToUsersPane(isAdmin);
     this.props.setAppState(newStateObj);
   },
 
