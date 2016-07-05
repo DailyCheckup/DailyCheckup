@@ -70,7 +70,8 @@ const Quiz = React.createClass({
   buildResults(index) {
     const obj = {};
     const currentQuestion = this.state.dailyQuestions[index];
-    obj.email = this.state.userEmail;
+    obj.email = this.props.getState.userEmail;
+    console.log(obj.email, 'this is the email we jsut cahnged');
     obj.questionid = currentQuestion.questionid;
     obj.respondedCorrectly = currentQuestion.answer === this.state.currentQuestion;
     obj.submittedAnswer = this.state.currentAnswer;
@@ -85,8 +86,10 @@ const Quiz = React.createClass({
   },
   submitQuiz() {
     let number = this.state.questionNumber;
+    const changeAppState = { takenQuiz: true };
     number++;
     this.sendResults();
+    this.props.setAppState(changeAppState);
     this.setState({
       questionNumber: number,
       stopTimer: true,
@@ -162,7 +165,7 @@ const Quiz = React.createClass({
               submitQuiz : nextQuestion}
           </div>
           );
-    } else if(!this.state.results) {
+    } else if(!this.state.results.length) {
       return (
         <div> Hello you have already taken this quiz today come back tommorrow. </div>
       );
