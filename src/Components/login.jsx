@@ -90,19 +90,20 @@ const Login = React.createClass({
   },
 
   displayError() {
-    document.getElementById('loginError').style.visibility = '';
+    document.getElementById('loginError').style.display = '';
   },
 
   render() {
     return (
       <div className="loginContainer">
-        <div id="loginError" style={{ visibility: 'hidden' }}>
+        <h2>Login</h2>
+        <div id="loginError" style={{ display: 'none' }}>
           Incorrect email address or password.
         </div>
-        <form>
+        <form className="clearfix">
           <div className="emailLogin">
             <label>Email Address</label>
-            <input ref="emailAddress" type="email" placeholder="Enter your email " />
+            <input ref="emailAddress" type="email" placeholder="JonDoe@example.com" />
           </div>
 
           <div className="passwordLogin">
@@ -112,8 +113,6 @@ const Login = React.createClass({
 
           <button className="signInBtn" onClick={this.submitForm}>Sign In</button>
         </form>
-        <Link to="resident/"> Login link to Resident Pane </Link>
-        <Link to="director/"> Login link to Director Pane </Link>
       </div>
     );
   },

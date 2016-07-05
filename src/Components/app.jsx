@@ -19,7 +19,7 @@ const App = React.createClass({
 
   render() {
     return (
-      <div id="container">
+      <div className="container">
         <Header />
         {this.props.children && React.cloneElement(this.props.children,
           { setAppState: this.setAppState, getState: this.state })}

@@ -3,5 +3,7 @@ node_modules
 npm-debug.log
 build.js
 build.js.map
+build.css
+build.css.map
 questionsDB.js
 privateKeys.js
