@@ -4,7 +4,7 @@ const Header = React.createClass({
   render() {
     return (
       <header>
-        <p>This iz the header - MD QUIZZZZ - HOME</p>
+        <h1>Daily Checkup</h1>
         {this.props.children}
       </header>
     );
