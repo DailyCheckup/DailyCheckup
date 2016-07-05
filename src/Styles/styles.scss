@@ -1,7 +1,112 @@
-h1, h2, h3, label, button {
-  font-family: 'Oxygen', sans-serif;
+/* COLORS */
+$back-color: #eaebec;
+$btn: #1976d2;
+$btn-font: #FFFFFF;
+$btn-hover: #205493;
+$main-font: #323a45;
+$error-color: #cc0000;
+
+
+body {
+  margin: 0;
+  padding: 0;
 }
 
-a, p {
+h1, h2, h3, label, button {
+  font-family: 'Oxygen', sans-serif;
+  color: $main-font;
+}
+
+a, p, div {
   font-family: 'Source Sans Pro', sans-serif;
+  color: $main-font;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 0;
+  xwidth: 75%;
+}
+
+/* HEADER */
+
+header h1 {
+  text-align: center;
+}
+
+/* LOGIN */
+
+.loginContainer {
+
+  background-color: $back-color;
+  padding: 1em 2em;
+  border-radius: 6px;
+  margin: 0 auto;
+  width: 70%;
+  
+  h2 {
+    text-align: center;
+    margin: 0;
+  }
+
+  form {
+    margin-top: 0 auto;
+  }
+
+  input[type=email],
+  input[type=password] {
+    width: 100%;
+    padding: .75em;
+    font-size: .9em;
+    box-sizing: border-box;
+    margin: 0 auto;
+    display: block;
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  .emailLogin,
+  .passwordLogin {
+    margin: 1em 0;
+  }
+
+  label {
+    margin-bottom: .8em;
+    display: block;
+  }
+
+  #loginError {
+    margin-top: .75em;
+    color: $error-color;
+  }
+
+}
+
+/* BUTTONS */
+
+button {
+  color: $btn-font;
+  background-color: $btn;
+  border: 1px solid $btn-font;
+  border-radius: 3px;
+  font-size: .9em;
+  padding: .7em .95em;
+  float: right;
+}
+
+button:hover {
+  background-color: $btn-font;
+  color: $btn;
+  border: 1px solid $btn;
+  cursor: pointer;
+}
+
+/* CLEARFIX */
+
+.clearfix:after {
+    content:" ";
+    display:block;
+    clear:both;
 }
