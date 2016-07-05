@@ -4,10 +4,10 @@ import { Link } from 'react-router';
 const ResidentPane = React.createClass({
   render() {
     return (
-      <div>
+      <div className='residentPane'>
         <p>Hi {this.props.getState.firstName}!
           <Link className='homeIcon' to='/resident/'>
-            <i className='material-icons'>
+            <i className='material-icons md-36 md-dark'>
             home
             </i>
           </Link>
