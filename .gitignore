@@ -7,3 +7,8 @@ build.css
 build.css.map
 questionsDB.js
 privateKeys.js
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
