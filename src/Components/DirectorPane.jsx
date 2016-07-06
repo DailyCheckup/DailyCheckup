@@ -4,9 +4,14 @@ import { Link } from 'react-router';
 const DirectorPane = React.createClass({
   render() {
     return (
-      <div>
-        <h1>Director Pane - Welcome Director!</h1>
-        <Link to='/director/'> Director Pane - Director Home </Link>
+      <div className="directorPane">
+        <p id="userFirstName">Hi {this.props.getState.firstName}!
+          <Link className='homeIcon' to='/director/'>
+            <i className='material-icons md-36 md-dark'>
+            home
+            </i>
+          </Link>
+        </p>
         {this.props.children && React.cloneElement(this.props.children,
           { setAppState: this.props.setAppState, getState: this.props.getState })}
       </div>

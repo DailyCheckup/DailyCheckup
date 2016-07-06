@@ -103,7 +103,6 @@ button {
   border-radius: 3px;
   font-size: .9em;
   padding: .7em .95em;
-  xfloat: right;
   cursor: pointer;
 
   a {
@@ -123,7 +122,8 @@ button:hover {
   }
 }
 
-.residentHome {
+.residentHome,
+.directorHome {
   a {
     color: $btn-font;
     background-color: $btn;
@@ -167,7 +167,8 @@ button:hover {
   float: right;
 }
 
-.residentHome {
+.residentHome,
+.directorHome {
   padding-top: 5%;
 }
 
