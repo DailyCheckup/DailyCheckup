@@ -5,7 +5,7 @@ const ResidentPane = React.createClass({
   render() {
     return (
       <div className='residentPane'>
-        <p>Hi {this.props.getState.firstName}!
+        <p id="userFirstName">Hi {this.props.getState.firstName}!
           <Link className='homeIcon' to='/resident/'>
             <i className='material-icons md-36 md-dark'>
             home
