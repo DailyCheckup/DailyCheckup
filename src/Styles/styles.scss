@@ -5,8 +5,9 @@ $btn-font: #FFFFFF;
 $btn-hover: #205493;
 $main-font: #323a45;
 $error-color: #cc0000;
+$success-color: #009933;
 $link-color: #FFFFFF;
-$header-color: #205493;
+$header-color: #1976d2;
 $logo-color: #FFFFFF;
 
 
@@ -158,10 +159,10 @@ button:hover {
   }
 }
 
-
 .signInBtn,
 .homeIcon,
-.quiz button {
+.quiz button,
+.changePassword button {
   float: right;
 }
 
@@ -179,11 +180,9 @@ button:hover {
 
 /* Resident Pane */
 
-.residentPane {
-  p {
-    font-size: 18px;
+#userFirstName {
+    font-size: 1.25em;
   }
-}
 
 /* QUIZ */
 
@@ -228,6 +227,71 @@ button:hover {
 
 }
 
+.quizError {
+  padding-top: .7em;
+}
+
+.quizError p {
+  text-align: center;
+  margin: 0;
+  font-size: 1.1em;
+}
+
+/* CHANGE PASSWORD */
+
+.changePassword {
+
+  h2 {
+    text-align: center;
+  }
+
+  p {
+    margin-top: .5em;
+  }
+
+  input[type=password] {
+    width: 100%;
+    padding: .75em;
+    font-size: .9em;
+    box-sizing: border-box;
+    margin: 0 auto;
+    display: block;
+    border: 1pt solid #84888F;
+  }
+
+  input:focus,
+  button {
+    outline: none;
+  }
+
+  #confirmPasswordError,
+  #samePasswordError {
+    color: $error-color;
+    margin: 1em auto;
+  }
+
+  #successfulPasswordChange {
+    color: $success-color;
+  }
+
+  .emailLogin,
+  .passwordLogin {
+    margin: 1em 0;
+  }
+
+  label {
+    margin-bottom: .8em;
+    display: block;
+    margin-top: 1.3em;
+    font-size: 1.1em;
+  }
+
+  button {
+    margin-top: 1.7em;
+    font-size: 1em;
+  }
+
+}
 
 /* CLEARFIX */
 

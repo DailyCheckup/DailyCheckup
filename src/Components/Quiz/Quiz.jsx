@@ -166,7 +166,10 @@ const Quiz = React.createClass({
           );
     } else if (this.props.getState.takenQuiz) {
       return (
-        <div> You have already taken today's quiz. Please return tommorrow to take a new quiz. </div>
+        <div className="quizError">
+          <p> You have already taken today's quiz.</p>
+          <p>Please return tommorrow to take a new quiz. </p>
+        </div>
       );
     } else if (!this.props.getState.quizAvailability) {
       <div> Hello, It's not time just yet to take this quiz. Try again later. </div>

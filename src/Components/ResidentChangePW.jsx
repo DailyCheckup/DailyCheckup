@@ -100,25 +100,25 @@ const ResidentChangePW = React.createClass({
 
   render() {
     return (
-      <div>
-        <h1>Change Password</h1>
-        <p>Fields are case sensitive</p>
+      <div className="changePassword">
+        <h2>Change Password</h2>
+        <p>*All fields are case sensitive</p>
         <form>
           <div id="confirmPasswordError" style={{ display: 'none' }}>
-            New password and confirm password fields did not match. Please reenter your new password.
+            The new password and confirm password fields did not match. Please reenter your new password.
           </div>
           <div id="successfulPasswordChange" style={{ display: 'none' }}>
             You have succesfully updated your password!
           </div>
           <div id="samePasswordError" style={{ display: 'none' }}>
-            Your old password is the same as your new password, please enter a new password.
+            The current password and new passwords are the same. Please enter a new password.
           </div>
           <label>Current Password</label>
-          <input ref='oldPW' type='password' placeholder='Current password' />
+          <input ref='oldPW' type='password' />
           <label>New Password</label>
-          <input ref='newPW' type='password' placeholder='New password' />
+          <input ref='newPW' type='password' />
           <label>Confirm New Password</label>
-          <input ref='confirmNewPW' type='password' placeholder='New password' />
+          <input ref='confirmNewPW' type='password' />
           <button onClick={this.submitPassword}>Submit</button>
         </form>
       </div>
