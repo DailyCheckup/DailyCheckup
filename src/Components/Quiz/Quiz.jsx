@@ -169,7 +169,7 @@ const Quiz = React.createClass({
       return (  
         <div className="quizError">
           <p> You have already taken today's quiz.</p>
-          <p>Please return tommorrow to take a new quiz. </p>
+          <p>Please return tomorrow to take a new quiz. </p>
         </div>
       );
     } else if (!this.props.getState.quizAvailability) {
