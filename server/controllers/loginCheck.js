@@ -35,6 +35,7 @@ const loginCheck = {
     })
     .then((user) => {
       req.results.changedPassword = user.dataValues.changedPassword;
+      req.results.firstName = user.dataValues.firstname;
       next();
     });
   },

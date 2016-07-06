@@ -4,12 +4,10 @@ import { Link } from 'react-router';
 const ResidentHome = React.createClass({
   render() {
     return (
-      <div>
-        <p>Resident Home</p>
-        {this.props.getState.userEmail}
-        <button><Link to='/resident/quiz'> Start Quiz! </Link></button>
-        <button><Link to='/resident/results'> Check your Results </Link></button>
-        <button><Link to='/resident/changePassword'> Change password </Link></button>
+      <div className="residentHome">
+        <Link to='/resident/quiz'> Start Quiz! </Link>
+        <Link to='/resident/results'> Check your Results </Link>
+        <Link to='/resident/changePassword'> Change password </Link>
       </div>
     );
   },

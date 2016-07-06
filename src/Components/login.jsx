@@ -77,6 +77,7 @@ const Login = React.createClass({
     const dailyQuestions = response.dailyQuestions;
     const takenQuiz = response.takenQuiz;
     const quizAvailability = response.quizAvailability;
+    const firstName = response.firstName;
     const newStateObj = {
       userEmail,
       changedPW,
@@ -84,6 +85,7 @@ const Login = React.createClass({
       dailyQuestions,
       takenQuiz,
       quizAvailability,
+      firstName,
     };
     this.redirectToUsersPane(isAdmin);
     this.props.setAppState(newStateObj);
