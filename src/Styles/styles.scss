@@ -5,6 +5,7 @@ $btn-font: #FFFFFF;
 $btn-hover: #205493;
 $main-font: #323a45;
 $error-color: #cc0000;
+$link-color: #FFFFFF;
 
 
 body {
@@ -25,7 +26,7 @@ a, p, div {
 .container {
   margin: 0 auto;
   padding: 0;
-  xwidth: 75%;
+  width: 85%;
 }
 
 /* HEADER */
@@ -42,7 +43,8 @@ header h1 {
   padding: 1em 2em;
   border-radius: 6px;
   margin: 0 auto;
-  width: 70%;
+  /* TODO: media query to change this width based on screen size */
+  xwidth: 70%;
   
   h2 {
     text-align: center;
@@ -84,7 +86,7 @@ header h1 {
 
 }
 
-/* BUTTONS */
+/* BUTTONS AND LINKS */
 
 button {
   color: $btn-font;
@@ -93,14 +95,74 @@ button {
   border-radius: 3px;
   font-size: .9em;
   padding: .7em .95em;
-  float: right;
+  xfloat: right;
+  cursor: pointer;
+
+  a {
+    text-decoration: none;
+    color: $btn-font;
+  }
+
 }
 
 button:hover {
   background-color: $btn-font;
   color: $btn;
   border: 1px solid $btn;
-  cursor: pointer;
+
+  a {
+    color: $btn;
+  }
+}
+
+.residentHome {
+  a {
+    color: $btn-font;
+    background-color: $btn;
+    border: 1px solid $btn-font;
+    border-radius: 3px;
+    font-size: 1.1em;
+    padding: .7em .95em;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    width: 50%;
+    margin: 0 auto .9em auto;
+    cursor: pointer;
+  }
+
+  a:hover {
+    background-color: $btn-font;
+    color: $btn;
+    border: 1px solid $btn;
+  }
+}
+
+
+.signInBtn,
+.homeIcon {
+  float: right;
+}
+
+.residentHome {
+  padding-top: 5%;
+}
+
+/* Material Icon Sizes */
+
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+
+.material-icons.md-dark { color: rgba(0, 0, 0, .7); }
+
+/* Resident Pane */
+
+.residentPane {
+  p {
+    font-size: 18px;
+  }
+
 }
 
 /* CLEARFIX */
