@@ -8,7 +8,7 @@ const Quiz = React.createClass({
       dailyQuestions: this.props.getState.dailyQuestions,
       currentQuestion: this.props.getState.dailyQuestions[0],
       questionNumber: 0,
-      count: 10,
+      count: 100,
       currentAnswer: 'N',
       stopTimer: false,
       results: [],
@@ -18,11 +18,11 @@ const Quiz = React.createClass({
   componentDidMount() {
     this.startCountdown();
   },
-  componentWillMount() {
-    if (this.props.getState.takenQuiz || !this.props.getState.quizAvailability) {
-      this.setState({questionNumber:this.state.dailyQuestions.length});
-    }
-  },
+  // componentWillMount() {
+  //   if (this.props.getState.takenQuiz || !this.props.getState.quizAvailability) {
+  //     this.setState({questionNumber:this.state.dailyQuestions.length});
+  //   }
+  // },
   startCountdown() {
     setTimeout(() => {
       if (!this.state.stopTimer) {
@@ -56,7 +56,7 @@ const Quiz = React.createClass({
     obj.results.push(currentSubmittedAnswer);
     count++;
     obj.currentAnswer = 'N';
-    obj.count = 10;
+    obj.count = 100;
     obj.questionNumber = count;
     if (count === this.state.dailyQuestions.length) {
       count--;
@@ -89,7 +89,7 @@ const Quiz = React.createClass({
     const changeAppState = { takenQuiz: true };
     number++;
     this.sendResults();
-    this.props.setAppState(changeAppState);
+    //this.props.setAppState(changeAppState);
     this.setState({
       questionNumber: number,
       stopTimer: true,
@@ -133,10 +133,10 @@ const Quiz = React.createClass({
 
   render() {
     if (this.state.questionNumber < this.state.dailyQuestions.length) {
-      const submitQuiz = (<button type="button" onClick={this.submitQuiz}>
-      Send Quiz </button>);
+      const submitQuiz = (<button onClick={this.submitQuiz}>
+      Submit Quiz </button>);
       const currentQuestion = this.state.dailyQuestions[this.state.questionNumber];
-      const nextQuestion = <button type="button" onClick={this.nextQuestion}> Next Question </button>;
+      const nextQuestion = <button onClick={this.nextQuestion}> Submit </button>;
       let questionE;
       if (currentQuestion.e) {
         questionE = (<div>
@@ -144,11 +144,10 @@ const Quiz = React.createClass({
           <label htmlFor="e"> {currentQuestion.e} </label> <br /> </div>);
       }
       return (
-        <div>
-            <div>TimeLeft: {this.state.count} seconds </div> <br />
-            <div>Question number {this.state.questionNumber + 1} of
-              {this.state.dailyQuestions.length} </div>
-            <div> Question: {currentQuestion.question} </div> <br />
+        <div className="quiz clearfix">
+            <p id="questionNum">Question: {this.state.questionNumber + 1} / {this.state.dailyQuestions.length}</p>
+            <p id="timeCountdown">Timer: {this.state.count} seconds </p>
+            <p id="singleQuestion"> Question: {currentQuestion.question} </p>
             <form>
               <input type="radio" name="options" id="a" value={currentQuestion.a[0]} onChange={this.updateAnswer}></input>
               <label htmlFor="a"> {currentQuestion.a} </label> <br />
@@ -167,7 +166,7 @@ const Quiz = React.createClass({
           );
     } else if (this.props.getState.takenQuiz) {
       return (
-        <div> Hello you have already taken this quiz today come back tommorrow. </div>
+        <div> You have already taken today's quiz. Please return tommorrow to take a new quiz. </div>
       );
     } else if (!this.props.getState.quizAvailability) {
       <div> Hello, It's not time just yet to take this quiz. Try again later. </div>
