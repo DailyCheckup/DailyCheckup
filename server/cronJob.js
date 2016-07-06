@@ -67,17 +67,17 @@ function setAvaiableToFalse() {
 }
 
 function runJob() {
-  var brendan = Users.build({
-    userid: 70,
-    firstname: 'Brendan',
-    lastname: 'Del Rosario',
-    email: 'test@hotmail.com',
-    password: 'abc123',
-    groupid: 1,
-    adminFlag: false,
-    changedPassword: false,
-  });
-  brendan.save();
+  // var brendan = Users.build({
+  //   userid: 70,
+  //   firstname: 'Brendan',
+  //   lastname: 'Del Rosario',
+  //   email: 'test@demo.com',
+  //   password: 'abc123',
+  //   groupid: 1,
+  //   adminFlag: false,
+  //   changedPassword: false,
+  // });
+  // brendan.save();
 
   const job = new CronJob({
     cronTime: '50 13 22 * * 1-7',
