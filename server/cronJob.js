@@ -90,7 +90,7 @@ function runJob() {
   });
 
   const releaseQuiz = new CronJob({
-    cronTime: '00 00 06 * * 1-7',
+    cronTime: '00 06 17 * * 1-7',
     onTick: () => {
       Questions.sync();
       //update avaiable in dailytquestions db
