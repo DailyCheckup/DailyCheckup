@@ -162,7 +162,8 @@ button:hover {
 .signInBtn,
 .homeIcon,
 .quiz button,
-.changePassword button {
+.changePassword button,
+.quizAnswers button {
   float: right;
 }
 
@@ -292,6 +293,48 @@ button:hover {
   }
 
 }
+
+/* QUIZ ANSWERS */
+
+.quizAnswers {
+
+  .answerContainer {
+    background-color: #FAFBFB;
+    padding: .2em 1em .4em 1em;
+  }
+
+  p {
+    text-align: justify;
+  }
+
+  #correctAnswer {
+    background-color: $success-color;
+  }
+
+  #wrongAnswer {
+    background-color: $error-color;
+  }
+
+  #correctAnswer,
+  #wrongAnswer {
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 1.2em;
+    margin-top: 1.5em;
+  }
+
+  .submittedQuiz {
+    text-align: center;
+    font-size: 1.2em;
+  }
+
+  button {
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+
+}
+
 
 /* CLEARFIX */
 

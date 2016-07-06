@@ -1,5 +1,6 @@
 const React = require('react');
 import { Link } from 'react-router';
+const QUIZ_TIME = 5;
 
 const Quiz = React.createClass({
   getInitialState() {
@@ -8,7 +9,7 @@ const Quiz = React.createClass({
       dailyQuestions: this.props.getState.dailyQuestions,
       currentQuestion: this.props.getState.dailyQuestions[0],
       questionNumber: 0,
-      count: 100,
+      count: QUIZ_TIME,
       currentAnswer: 'N',
       stopTimer: false,
       results: [],
@@ -18,11 +19,11 @@ const Quiz = React.createClass({
   componentDidMount() {
     this.startCountdown();
   },
-  // componentWillMount() {
-  //   if (this.props.getState.takenQuiz || !this.props.getState.quizAvailability) {
-  //     this.setState({questionNumber:this.state.dailyQuestions.length});
-  //   }
-  // },
+  componentWillMount() {
+    if (this.props.getState.takenQuiz || !this.props.getState.quizAvailability) {
+      this.setState({questionNumber:this.state.dailyQuestions.length});
+    }
+  },
   startCountdown() {
     setTimeout(() => {
       if (!this.state.stopTimer) {
@@ -56,7 +57,7 @@ const Quiz = React.createClass({
     obj.results.push(currentSubmittedAnswer);
     count++;
     obj.currentAnswer = 'N';
-    obj.count = 100;
+    obj.count = QUIZ_TIME;
     obj.questionNumber = count;
     if (count === this.state.dailyQuestions.length) {
       count--;
@@ -89,7 +90,7 @@ const Quiz = React.createClass({
     const changeAppState = { takenQuiz: true };
     number++;
     this.sendResults();
-    //this.props.setAppState(changeAppState);
+    this.props.setAppState(changeAppState);
     this.setState({
       questionNumber: number,
       stopTimer: true,
@@ -165,14 +166,16 @@ const Quiz = React.createClass({
         </div>
           );
     } else if (this.props.getState.takenQuiz) {
-      return (
+      return (  
         <div className="quizError">
           <p> You have already taken today's quiz.</p>
           <p>Please return tommorrow to take a new quiz. </p>
         </div>
       );
     } else if (!this.props.getState.quizAvailability) {
-      <div> Hello, It's not time just yet to take this quiz. Try again later. </div>
+      return (
+        <div> It is currently outside of quiz-taking hours. Please try again later.</div>
+      );
     } else {
       const dailyQs = this.props.getState.dailyQuestions;
       var answerArray = [];
@@ -182,21 +185,25 @@ const Quiz = React.createClass({
         var rightLetter = dailyQs[i].answer.toLowerCase();
         var userLetter = this.state.results[i].submittedAnswer.toLowerCase();
         if (rightLetter === userLetter) {
-            answerArray.push(<div> Correct! <br /><br /></div>);
+            answerArray.push(<div id="correctAnswer"> Correct</div>);
         } else {
-          answerArray.push(<div> Incorrect! <br /></div>);
+          answerArray.push(<div id="wrongAnswer"> Incorrect</div>);
         }
-        answerArray.push(<div><br /> Question: {dailyQs[i].question} </div>);
-        answerArray.push(<div> Your Answer: {dailyQs[i][userLetter]} <br /></div>);
-        answerArray.push(<div> Correct Answer: {dailyQs[i][rightLetter]} <br /><br /></div>);
-        answerArray.push(<div> Reason: {dailyQs[i].reason} <br /><br /></div>);
+        answerArray.push(
+          <div className="answerContainer">
+            <p> Question: {dailyQs[i].question} </p>
+            <p> Your Answer: {dailyQs[i][userLetter]}</p>
+            <p> Correct Answer: {dailyQs[i][rightLetter]}</p>
+            <p> Reason: {dailyQs[i].reason}</p>
+          </div>
+        );
       }
       return (
         //need to display answers and reasons here
-        <div>
-          Your Results Have Been Submitted! <br />
+        <div className="quizAnswers">
+          <p className="submittedQuiz">Your Results Have Been Submitted!</p>
           {answerArray}
-          <button> <Link to="/resident/"> Go Home </Link> </button>
+          <button> <Link to="/resident/"> Home </Link> </button>
         </div>
       );
     }
