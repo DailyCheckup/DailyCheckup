@@ -71,7 +71,7 @@ function runJob() {
   //   userid: 70,
   //   firstname: 'Brendan',
   //   lastname: 'Del Rosario',
-  //   email: 'test@hotmail.com',
+  //   email: 'test@demo.com',
   //   password: 'abc123',
   //   groupid: 1,
   //   adminFlag: false,
