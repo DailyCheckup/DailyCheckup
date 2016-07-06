@@ -9,7 +9,7 @@ const quizTakenController = require('./controllers/quizTakenController.js');
 const runJob = require('./cronJob.js');
 
 // Constants
-const PORT = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 const app = express();
 
 app.use(bodyParser.json());
@@ -58,8 +58,8 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../src/', 'main.html'));
 });
 
-app.listen(PORT);
-console.log('Running on http://localhost:' + PORT);
+app.listen(port);
+console.log('Running on http://localhost:' + port);
 
 module.exports = app;
 
