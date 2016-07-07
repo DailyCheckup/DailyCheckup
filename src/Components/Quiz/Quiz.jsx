@@ -1,7 +1,7 @@
 const React = require('react');
 const Answers = require('./Answers.jsx');
 import { Link } from 'react-router';
-const QUIZ_TIME = 5;
+const QUIZ_TIME = 300;
 
 const Quiz = React.createClass({
   getInitialState() {
@@ -64,7 +64,6 @@ const Quiz = React.createClass({
     obj.results.push(this.buildResults(this.state.questionNumber));
     count++;
     obj.currentAnswer = 'N';
-    obj.count = QUIZ_TIME;
     obj.questionNumber = count;
     if (count === this.state.dailyQuestions.length) {
       count--;
@@ -79,7 +78,6 @@ const Quiz = React.createClass({
     const obj = {};
     const currentQuestion = this.state.dailyQuestions[index];
     obj.email = this.props.getState.userEmail;
-    console.log(obj.email, 'this is the email we jsut cahnged');
     obj.questionid = currentQuestion.questionid;
     obj.respondedCorrectly = currentQuestion.answer === this.state.currentQuestion;
     obj.submittedAnswer = this.state.currentAnswer;
@@ -144,11 +142,16 @@ const Quiz = React.createClass({
 
     const submitQuiz = <button onClick={this.submitQuiz}> Submit Quiz </button>;
     const nextQuestion = <button onClick={this.nextQuestion}> Submit </button>;
+    let seconds = this.state.count % 60;
+    if(seconds < 10) {
+      seconds = "0" + seconds;
+    }
+
 
     return (
       <div className="quiz clearfix">
       <p id="questionNum">Question: {this.state.questionNumber + 1} / {this.state.dailyQuestions.length}</p>
-      <p id="timeCountdown">Timer: {this.state.count} seconds </p>
+      <p id="timeCountdown">Timer: {Math.floor(this.state.count/60)}:{seconds} </p>
       <p id="singleQuestion"> Question: {currentQuestion.question} </p>
       <Answers currentQuestion={currentQuestion} updateAnswer={this.updateAnswer} />
       {this.state.questionNumber === this.state.dailyQuestions.length - 1 ? submitQuiz : nextQuestion}
