@@ -144,12 +144,13 @@ button:focus {
 
   #changePW {
     background-color: transparent;
+    color: $btn;
     border: none;
     text-align: right;
-    float: right;
     padding-top: 1.7em;
     padding-right: 0;
-    color: $btn;
+    margin-right: 0;
+    margin-bottom: 1.5em;
   }
 
   #changePW:hover {
@@ -185,8 +186,10 @@ button:focus {
 
 .material-icons.md-dark { color: rgba(0, 0, 0, .7); }
 
-#warning { 
+#warning i { 
   color: rgb(204, 163, 0);
+  padding-right: .4em;
+  float: left;
 }
 
 /* Resident Pane */
