@@ -1,4 +1,5 @@
 const React = require('react');
+const Answer = require('./Answer.jsx');
 import { Link } from 'react-router';
 const QUIZ_TIME = 5;
 
@@ -134,39 +135,21 @@ const Quiz = React.createClass({
 
   render() {
     if (this.state.questionNumber < this.state.dailyQuestions.length) {
-      const submitQuiz = (<button onClick={this.submitQuiz}>
-      Submit Quiz </button>);
+      const submitQuiz = (<button onClick={this.submitQuiz}> Submit Quiz </button>);
       const currentQuestion = this.state.dailyQuestions[this.state.questionNumber];
       const nextQuestion = <button onClick={this.nextQuestion}> Submit </button>;
-      let questionE;
-      if (currentQuestion.e) {
-        questionE = (<div>
-          <input type="radio" value={currentQuestion.e[0]} name="options" id="e" onChange={this.updateAnswer}></input>
-          <label htmlFor="e"> {currentQuestion.e} </label> <br /> </div>);
-      }
+
       return (
         <div className="quiz clearfix">
-            <p id="questionNum">Question: {this.state.questionNumber + 1} / {this.state.dailyQuestions.length}</p>
-            <p id="timeCountdown">Timer: {this.state.count} seconds </p>
-            <p id="singleQuestion"> Question: {currentQuestion.question} </p>
-            <form>
-              <input type="radio" name="options" id="a" value={currentQuestion.a[0]} onChange={this.updateAnswer}></input>
-              <label htmlFor="a"> {currentQuestion.a} </label> <br />
-              <input type="radio" name="options" id="b" value={currentQuestion.b[0]} onChange={this.updateAnswer}></input>
-              <label htmlFor="b"> {currentQuestion.b} </label> <br />
-              <input type="radio" name="options" id="c" value={currentQuestion.c[0]} onChange={this.updateAnswer}></input>
-              <label htmlFor="c"> {currentQuestion.c} </label> <br />
-              <input type="radio" name="options" id="d" value={currentQuestion.d[0]} onChange={this.updateAnswer}></input>
-              <label htmlFor="d"> {currentQuestion.d} </label> <br />
-              {currentQuestion.e !== 'null' ?
-              questionE : ''}
-            </form>
-            {this.state.questionNumber === this.state.dailyQuestions.length - 1 ?
-              submitQuiz : nextQuestion}
+          <p id="questionNum">Question: {this.state.questionNumber + 1} / {this.state.dailyQuestions.length}</p>
+          <p id="timeCountdown">Timer: {this.state.count} seconds </p>
+          <p id="singleQuestion"> Question: {currentQuestion.question} </p>
+          <Answer currentQuestion={currentQuestion} updateAnswer={this.updateAnswer} />
+          {this.state.questionNumber === this.state.dailyQuestions.length - 1 ? submitQuiz : nextQuestion}
         </div>
           );
     } else if (this.props.getState.takenQuiz) {
-      return (  
+      return (
         <div className="quizError">
           <p> You have already taken today's quiz.</p>
           <p>Please return tommorrow to take a new quiz. </p>
