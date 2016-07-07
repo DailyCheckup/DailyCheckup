@@ -4,7 +4,7 @@ const DirectorResults = React.createClass({
   render() {
     return (
       <div>
-        <h1>Director Results</h1>
+        <h2>Group Statistics</h2>
         <h3>Coming soon!</h3>
       </div>
     );

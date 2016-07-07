@@ -6,7 +6,7 @@ const changePassword = {
     const userEmail = req.body.emailAddress;
     const newPassword = req.body.newPassword;
     Users.update(
-      { password: newPassword },
+      { password: newPassword, changedPassword: true },
       { where: { email: userEmail } }
     ).then((result) => {
       if (!result) {

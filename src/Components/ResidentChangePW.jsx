@@ -30,7 +30,6 @@ const ResidentChangePW = React.createClass({
 
       // If they do match, make sure the new pw isn't the same as the old pw
     } else if (this.checkNewPasswordIsOldPW(newPW, oldPW)) {
-      console.log('old pass = new pass');
       this.displaySamePasswordError();
 
       // Old pw !== new pw and new pw = confirm pw so send to db
@@ -40,7 +39,6 @@ const ResidentChangePW = React.createClass({
   },
 
   checkNewPasswordIsOldPW(newPW, oldPW) {
-    console.log('new pw = old pw');
     if (newPW === oldPW) {
       ReactDOM.findDOMNode(this.refs.newPW).value = '';
       ReactDOM.findDOMNode(this.refs.confirmNewPW).value = '';
@@ -89,6 +87,7 @@ const ResidentChangePW = React.createClass({
       // And status is OK
       if (xhr.status === 200) {
         console.log('status is 200');
+        this.props.setState({ changedPW: true });
         this.displaySuccessMessage();
       } else {
         // If error, email or password was incorrect so display error
