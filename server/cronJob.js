@@ -31,15 +31,16 @@ function update(questions, randomQ) {
 }
 
 function forLoop(nonChosenQuestionCount, randomQ, array, questions) {
-  for (let i = 0; i < 3; i++) {
-    randomQ = Math.floor(Math.random() * nonChosenQuestionCount);
+  var randomNums = [];
+  for (let i = 0; i < NUM_OF_QUESTIONS; i++) {
+    var randomQ = Math.floor(Math.random() * nonChosenQuestionCount);
+    while(randomNums.indexOf(randomQ) !== -1) {
+      randomQ = Math.floor(Math.random() * nonChosenQuestionCount);
+    }
     array.push(questions[randomQ].dataValues.questionid);
     update(questions, randomQ, i);
   }
-  //
 }
-
-
 
 function getRandomQ() {
   const array = [];
