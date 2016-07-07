@@ -1,7 +1,7 @@
 const React = require('react');
 
 
-const Answer = React.createClass({
+const Answers = React.createClass({
   render() {
     const currentQuestion = this.props.currentQuestion;
     let questionE;
@@ -20,11 +20,10 @@ const Answer = React.createClass({
         <label htmlFor="c"> {currentQuestion.c} </label> <br />
         <input type="radio" name="options" id="d" value={currentQuestion.d[0]} onChange={this.props.updateAnswer}></input>
         <label htmlFor="d"> {currentQuestion.d} </label> <br />
-        {currentQuestion.e !== 'null' ?
-        questionE : ''}
+        {currentQuestion.e !== 'null' ? questionE : ''}
       </form>
     );
   },
 });
 
-module.exports = Answer;
+module.exports = Answers;

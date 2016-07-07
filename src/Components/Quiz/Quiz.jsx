@@ -1,5 +1,5 @@
 const React = require('react');
-const Answer = require('./Answer.jsx');
+const Answers = require('./Answers.jsx');
 import { Link } from 'react-router';
 const QUIZ_TIME = 5;
 
@@ -18,14 +18,18 @@ const Quiz = React.createClass({
   },
 
   componentDidMount() {
-    this.startCountdown();
+    if(!this.props.getState.takenQuiz && this.props.getState.quizAvailability) {
+      this.startCountdown();
+    }
   },
   componentWillMount() {
     if (this.props.getState.takenQuiz || !this.props.getState.quizAvailability) {
-      this.setState({questionNumber:this.state.dailyQuestions.length});
+      this.setState({ questionNumber: this.state.dailyQuestions.length });
     }
   },
   startCountdown() {
+    // handles the timer countdown by calling setTimeout as long as the count is above 0
+    // or if the stopTimer flag is set to true to signal the end of a quiz
     setTimeout(() => {
       if (!this.state.stopTimer) {
         if (this.state.count > 0) {
@@ -36,7 +40,7 @@ const Quiz = React.createClass({
         } else {
           if (this.state.questionNumber === this.state.dailyQuestions.length - 1) {
             this.submitQuiz();
-            //then give answers
+            // then give answers
           } else {
             this.nextQuestion();
             this.startCountdown();
@@ -47,15 +51,17 @@ const Quiz = React.createClass({
   },
 
   updateAnswer(e) {
+    // sets state to the current chosen answer by the radio button
     const answer = e.currentTarget.value;
     this.setState({ currentAnswer: answer[0] });
   },
   nextQuestion() {
+    // next question builds up object to set state to the next question and pushes
+    // the current answer into a results array that will later be sent off to
     const obj = {};
     let count = this.state.questionNumber;
     obj.results = this.state.results;
-    const currentSubmittedAnswer = this.buildResults(this.state.questionNumber);
-    obj.results.push(currentSubmittedAnswer);
+    obj.results.push(this.buildResults(this.state.questionNumber));
     count++;
     obj.currentAnswer = 'N';
     obj.count = QUIZ_TIME;
@@ -133,21 +139,29 @@ const Quiz = React.createClass({
     console.log('Failed!!!');
   },
 
-  render() {
-    if (this.state.questionNumber < this.state.dailyQuestions.length) {
-      const submitQuiz = (<button onClick={this.submitQuiz}> Submit Quiz </button>);
-      const currentQuestion = this.state.dailyQuestions[this.state.questionNumber];
-      const nextQuestion = <button onClick={this.nextQuestion}> Submit </button>;
+  renderQuiz() {
+    const currentQuestion = this.state.dailyQuestions[this.state.questionNumber];
 
-      return (
-        <div className="quiz clearfix">
-          <p id="questionNum">Question: {this.state.questionNumber + 1} / {this.state.dailyQuestions.length}</p>
-          <p id="timeCountdown">Timer: {this.state.count} seconds </p>
-          <p id="singleQuestion"> Question: {currentQuestion.question} </p>
-          <Answer currentQuestion={currentQuestion} updateAnswer={this.updateAnswer} />
-          {this.state.questionNumber === this.state.dailyQuestions.length - 1 ? submitQuiz : nextQuestion}
-        </div>
-          );
+    const submitQuiz = <button onClick={this.submitQuiz}> Submit Quiz </button>;
+    const nextQuestion = <button onClick={this.nextQuestion}> Submit </button>;
+
+    return (
+      <div className="quiz clearfix">
+      <p id="questionNum">Question: {this.state.questionNumber + 1} / {this.state.dailyQuestions.length}</p>
+      <p id="timeCountdown">Timer: {this.state.count} seconds </p>
+      <p id="singleQuestion"> Question: {currentQuestion.question} </p>
+      <Answers currentQuestion={currentQuestion} updateAnswer={this.updateAnswer} />
+      {this.state.questionNumber === this.state.dailyQuestions.length - 1 ? submitQuiz : nextQuestion}
+      </div>
+    );
+  },
+
+  render() {
+    // if the quiz has questions still to take, render the quiz questions and answer
+    if (this.state.questionNumber < this.state.dailyQuestions.length) {
+      return this.renderQuiz();
+      // if the quiz has already been taken then show an error that lets the user know
+      // while displaying the results of the quiz they have taken that day
     } else if (this.props.getState.takenQuiz) {
       return (
         <div className="quizError">
