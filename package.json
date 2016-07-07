@@ -8,7 +8,8 @@
   "main": "build/bundle.js",
   "scripts": {
     "server-test": "node test/tests/server* | tap-spec",
-    "start": "nodemon server/server.js",
+    "start": "node server/server.js",
+    "dev-start": "nodemon server/server.js",
     "test": "mocha test/.setup.js test/tests/*-spec.js",
     "build": "webpack -w"
   },
@@ -23,6 +24,7 @@
   },
   "homepage": "https://github.com/Swimkitch92/MD_quiz#readme",
   "dependencies": {
+    "bcrypt": "^0.8.7",
     "body-parser": "^1.15.2",
     "cron": "^1.1.0",
     "express": "^4.14.0",

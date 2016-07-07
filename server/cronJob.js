@@ -3,18 +3,21 @@ const Questions = require('./Questions/QuestionsModel.js');
 const dailyQuestions = require('./Questions/dailyQuestionsModel.js');
 const CronJob = require('cron').CronJob;
 const Users = require('./Users/UserModel.js');
+const NUM_OF_QUESTIONS = 5;
+//if you change number of quesitons change dailyquestions model
 
 function removeAndInsertIntoDailyQuestions(array) {
+  var buildObj = {};
   dailyQuestions.sync();
   dailyQuestions.destroy({ where: {
     check: true,
   },
-   });
-  var dailyQs = dailyQuestions.build({
-    question1: array[0],
-    question2: array[1],
-    question3: array[2],
   });
+  for (let i = 0; i < NUM_OF_QUESTIONS; i++) {
+    const key = `question${i + 1}`
+    buildObj[key] = array[i]
+  }
+  const dailyQs = dailyQuestions.build(buildObj);
   dailyQs.save();
 }
 
@@ -24,21 +27,20 @@ function update(questions, randomQ) {
   Questions.update(
     { chosen: true },
     { where: { questionid: questions[randomQ].dataValues.questionid } }
-  ).then((result) => {
-    return result;
-  });
+  ).then((result) => result);
 }
 
 function forLoop(nonChosenQuestionCount, randomQ, array, questions) {
-  for (let i = 0; i < 3; i++) {
-    randomQ = Math.floor(Math.random() * nonChosenQuestionCount);
+  var randomNums = [];
+  for (let i = 0; i < NUM_OF_QUESTIONS; i++) {
+    var randomQ = Math.floor(Math.random() * nonChosenQuestionCount);
+    while(randomNums.indexOf(randomQ) !== -1) {
+      randomQ = Math.floor(Math.random() * nonChosenQuestionCount);
+    }
     array.push(questions[randomQ].dataValues.questionid);
     update(questions, randomQ, i);
   }
-  //
 }
-
-
 
 function getRandomQ() {
   const array = [];
@@ -80,7 +82,7 @@ function runJob() {
   // brendan.save();
 
   const job = new CronJob({
-    cronTime: '50 13 22 * * 1-7',
+    cronTime: '00 00 03 * * 1-7',
     onTick: () => {
       Questions.sync();
       getRandomQ();
@@ -90,7 +92,7 @@ function runJob() {
   });
 
   const releaseQuiz = new CronJob({
-    cronTime: '00 06 17 * * 1-7',
+    cronTime: '00 00 10 * * 1-7',
     onTick: () => {
       Questions.sync();
       //update avaiable in dailytquestions db
@@ -101,7 +103,7 @@ function runJob() {
   });
 
   const closeQuiz = new CronJob({
-    cronTime: '00 00 15 * * 1-7',
+    cronTime: '00 00 22 * * 1-7',
     onTick: () => {
       Questions.sync();
       //update avaiable in dailytquestions db
