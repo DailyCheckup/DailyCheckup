@@ -9,6 +9,7 @@ $success-color: #009933;
 $link-color: #FFFFFF;
 $header-color: #1976d2;
 $logo-color: #FFFFFF;
+$card-background: #FAFBFB;
 
 
 body {
@@ -51,8 +52,6 @@ header h1 {
   padding: 1em 2em;
   border-radius: 6px;
   margin: 0 auto;
-  /* TODO: media query to change this width based on screen size */
-  xwidth: 70%;
   
   h2 {
     text-align: center;
@@ -122,6 +121,10 @@ button:hover {
   }
 }
 
+button:focus {
+    outline: none;
+  }
+
 .residentHome,
 .directorHome {
   a {
@@ -141,11 +144,13 @@ button:hover {
 
   #changePW {
     background-color: transparent;
+    color: $btn;
     border: none;
     text-align: right;
-    float: right;
     padding-top: 1.7em;
-    color: $btn;
+    padding-right: 0;
+    margin-right: 0;
+    margin-bottom: 1.5em;
   }
 
   #changePW:hover {
@@ -163,7 +168,8 @@ button:hover {
 .homeIcon,
 .quiz button,
 .changePassword button,
-.quizAnswers button {
+.quizAnswers button,
+.todaysQuiz button {
   float: right;
 }
 
@@ -179,6 +185,12 @@ button:hover {
 .material-icons.md-36 { font-size: 36px; }
 
 .material-icons.md-dark { color: rgba(0, 0, 0, .7); }
+
+#warning i { 
+  color: rgb(204, 163, 0);
+  padding-right: .4em;
+  float: left;
+}
 
 /* Resident Pane */
 
@@ -300,7 +312,7 @@ button:hover {
 .quizAnswers {
 
   .answerContainer {
-    background-color: #FAFBFB;
+    background-color: $card-background;
     padding: .2em 1em .4em 1em;
   }
 
@@ -333,9 +345,53 @@ button:hover {
     margin-top: 1em;
     margin-bottom: 1em;
   }
-
 }
 
+/* TODAYS QUIZ */
+
+.todaysQuiz {
+
+  h2 {
+    text-align: center;
+  }
+
+  p {
+    text-align: justify;
+  }
+
+  .questionInfo {
+    background-color: $card-background;
+    padding: .2em 1em .4em 1em;
+    margin-top: 1.4em;
+  }
+
+  button {
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+}
+
+/* MEDIA QUERIES */
+
+/* Tablets */
+@media only screen and (min-device-width: 760px) {
+  .md-width-70 {
+    width: 70%;
+    margin-top: 3em;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Desktops */
+@media only screen and (min-device-width: 1220px) {
+  .lg-width-30 {
+    width: 35%;
+    margin-top: 3em;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
 
 /* CLEARFIX */
 

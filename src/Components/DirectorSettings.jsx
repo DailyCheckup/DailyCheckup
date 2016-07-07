@@ -4,7 +4,7 @@ const DirectorSettings = React.createClass({
   render() {
     return (
       <div>
-        <h1>Director Settings</h1>
+        <h2>Director Settings</h2>
         <h3>Coming Soon!</h3>
       </div>
     );

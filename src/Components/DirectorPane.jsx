@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 const DirectorPane = React.createClass({
   render() {
     return (
-      <div className="directorPane">
+      <div className="directorPane md-width-70 lg-width-30">
         <p id="userFirstName">Hi {this.props.getState.firstName}!
           <Link className='homeIcon' to='/director/'>
             <i className='material-icons md-36 md-dark'>

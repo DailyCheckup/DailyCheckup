@@ -3,7 +3,6 @@ const ReactDOM = require('react-dom');
 import { Link, browserHistory } from 'react-router';
 
 // TODO
-// 1. Make labels invisible but don't use 'display: none'
 // 2. Fill in route url
 // 3. Session
 // 4. Logic for first login
@@ -97,7 +96,7 @@ const Login = React.createClass({
 
   render() {
     return (
-      <div className="loginContainer">
+      <div className="loginContainer md-width-70 md-margin-top lg-width-30 lg-margin-top">
         <h2>Login</h2>
         <div id="loginError" style={{ display: 'none' }}>
           Incorrect email address or password.
@@ -105,7 +104,7 @@ const Login = React.createClass({
         <form className="clearfix">
           <div className="emailLogin">
             <label>Email Address</label>
-            <input ref="emailAddress" type="email" placeholder="JonDoe@example.com" />
+            <input ref="emailAddress" type="email" placeholder="JohnDoe@example.com" />
           </div>
 
           <div className="passwordLogin">
