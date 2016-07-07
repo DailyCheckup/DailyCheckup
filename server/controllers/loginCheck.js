@@ -43,12 +43,19 @@ const loginCheck = {
     dailyQuestionsModel.findAll({ where:
       { check: true } }).then((questionIDs) => {
         const questionNums = [];
-        questionNums.push(
-          questionIDs[0].dataValues.question1,
-          questionIDs[0].dataValues.question2,
-          questionIDs[0].dataValues.question3
-        );
+        // for (let i = 0; i < questionIDs[0].dataValues.length)
 
+        var num_of_questions = Object.keys(questionIDs[0].dataValues).length - 5;
+        for (let i = 0; i < num_of_questions; i++) {
+          var question = `question${i + 1}`;
+          questionNums.push(questionIDs[0].dataValues[question])
+        }
+        // questionNums.push(
+        //   questionIDs[0].dataValues.question1,
+        //   questionIDs[0].dataValues.question2,
+        //   questionIDs[0].dataValues.question3
+        // );
+        console.log(questionNums, 'this should be an array of 3 numbers');
         Questions.findAll({ where: { questionid: questionNums } })
         .then((questions) => {
           const dailyQuestions = [];

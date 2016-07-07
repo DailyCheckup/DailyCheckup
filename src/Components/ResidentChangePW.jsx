@@ -87,7 +87,7 @@ const ResidentChangePW = React.createClass({
       // And status is OK
       if (xhr.status === 200) {
         console.log('status is 200');
-        this.props.setState({ changedPW: true });
+        this.props.setAppState({ changedPW: true });
         this.displaySuccessMessage();
       } else {
         // If error, email or password was incorrect so display error
