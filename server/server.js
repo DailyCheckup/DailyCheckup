@@ -29,8 +29,8 @@ app.get('/', (req, res) => {
 // 4) First login flag
 app.post('/login',
   loginCheck.validUser,
-  loginCheck.isAdmin,
-  loginCheck.firstLogin,
+  // loginCheck.isAdmin,
+  // loginCheck.firstLogin,
   loginCheck.getQuestions,
   quizTakenController.checkQuizWasTaken,
   quizTakenController.checkQuizAvailability,
