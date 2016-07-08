@@ -14,6 +14,7 @@ const Quiz = React.createClass({
       currentAnswer: 'N',
       stopTimer: false,
       results: [],
+      showResults: false,
     });
   },
 
@@ -99,6 +100,7 @@ const Quiz = React.createClass({
     this.setState({
       questionNumber: number,
       stopTimer: true,
+      showResults: true,
     });
   },
   sendResults() {
@@ -165,6 +167,36 @@ const Quiz = React.createClass({
       return this.renderQuiz();
       // if the quiz has already been taken then show an error that lets the user know
       // while displaying the results of the quiz they have taken that day
+    } else if (this.state.showResults) {
+      const dailyQs = this.props.getState.dailyQuestions;
+      var answerArray = [];
+      //set answer to lowercase
+      //search taht key in dailyqs obj at slot i
+      for (let i = 0; i < dailyQs.length; i++) {
+        var rightLetter = dailyQs[i].answer.toLowerCase();
+        var userLetter = this.state.results[i].submittedAnswer.toLowerCase();
+        if (rightLetter === userLetter) {
+          answerArray.push(<div id="correctAnswer"> Correct</div>);
+        } else {
+          answerArray.push(<div id="wrongAnswer"> Incorrect</div>);
+        }
+        answerArray.push(
+          <div className="answerContainer">
+          <p> Question: {dailyQs[i].question} </p>
+          <p> Your Answer: {dailyQs[i][userLetter]}</p>
+          <p> Correct Answer: {dailyQs[i][rightLetter]}</p>
+          <p> Reason: {dailyQs[i].reason}</p>
+          </div>
+        );
+      }
+      return (
+        //need to display answers and reasons here
+        <div className="quizAnswers">
+        <p className="submittedQuiz">Your Results Have Been Submitted!</p>
+        {answerArray}
+        <button> <Link to="/resident/"> Home </Link> </button>
+        </div>
+      );
     } else if (this.props.getState.takenQuiz) {
       return (
         <div className="quizError">
@@ -175,36 +207,6 @@ const Quiz = React.createClass({
     } else if (!this.props.getState.quizAvailability) {
       return (
         <div> It is currently outside of quiz-taking hours. Please try again later.</div>
-      );
-    } else {
-      const dailyQs = this.props.getState.dailyQuestions;
-      var answerArray = [];
-      //set answer to lowercase
-      //search taht key in dailyqs obj at slot i
-      for (let i = 0; i < dailyQs.length; i++) {
-        var rightLetter = dailyQs[i].answer.toLowerCase();
-        var userLetter = this.state.results[i].submittedAnswer.toLowerCase();
-        if (rightLetter === userLetter) {
-            answerArray.push(<div id="correctAnswer"> Correct</div>);
-        } else {
-          answerArray.push(<div id="wrongAnswer"> Incorrect</div>);
-        }
-        answerArray.push(
-          <div className="answerContainer">
-            <p> Question: {dailyQs[i].question} </p>
-            <p> Your Answer: {dailyQs[i][userLetter]}</p>
-            <p> Correct Answer: {dailyQs[i][rightLetter]}</p>
-            <p> Reason: {dailyQs[i].reason}</p>
-          </div>
-        );
-      }
-      return (
-        //need to display answers and reasons here
-        <div className="quizAnswers">
-          <p className="submittedQuiz">Your Results Have Been Submitted!</p>
-          {answerArray}
-          <button> <Link to="/resident/"> Home </Link> </button>
-        </div>
       );
     }
   },
