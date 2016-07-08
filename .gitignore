@@ -3,7 +3,12 @@ node_modules
 npm-debug.log
 questionsDB.js
 
-
+#production files
+build.js
+build.js.map
+build.css
+build.css.map
+privateKeys.js
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
