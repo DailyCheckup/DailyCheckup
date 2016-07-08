@@ -59,6 +59,10 @@ app.get('*', (req, res) => {
 });
 
 app.listen(port);
+
+app.destroy = () => {
+  process.exit();
+};
 console.log('Running on http://localhost:' + port);
 
 module.exports = app;
