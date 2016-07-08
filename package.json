@@ -7,7 +7,7 @@
   "description": "\"A quiz to help medical residents study for the Board\"",
   "main": "build/bundle.js",
   "scripts": {
-    "server-test": "node test/tests/server* | tap-spec",
+    "server-test": "node test/tests/server-test.js | tap-spec",
     "start": "node server/server.js",
     "dev-start": "nodemon server/server.js",
     "client-test": "mocha test/.setup.js test/tests/*-spec.js",

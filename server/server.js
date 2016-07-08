@@ -7,7 +7,7 @@ const UserResponseController = require('./controllers/userResponseController');
 const changePW = require('./controllers/changePassword.js');
 const quizTakenController = require('./controllers/quizTakenController.js');
 const runJob = require('./cronJob.js');
-
+const Users = require('./Users/UserModel.js');
 // Constants
 const port = process.env.PORT || 3000;
 const app = express();
@@ -15,6 +15,9 @@ const app = express();
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, './../')));
 runJob();
+
+// Users.update(
+//   { email: 'demo'}, { where: {email: 'bignoob'}});
 
 // The root route serves the main html page
 app.get('/', (req, res) => {

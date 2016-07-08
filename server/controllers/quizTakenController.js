@@ -12,7 +12,9 @@ module.exports = {
     UserResponse.findAll({
       where: { email: userEmail, questionid: dailyQuestionIds[0] }
     }).then(function (results) {
-      if (!results.length) {
+      if (userEmail === 'demo') {
+        req.results.takenQuiz = false;
+      } else if (!results.length) {
         req.results.takenQuiz = false;
       } else {
         req.results.takenQuiz = true;
