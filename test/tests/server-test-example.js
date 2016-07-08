@@ -6,18 +6,20 @@ var app = require('./../fixtures/server-fixture.js');
 
 //this is testing if the status code has been
 //sent correctly to the route '/users'
-test('Correct status code', function (assert) {
+test('Correct status code', function (assert, done) {
+  assert.plan(1);
   request(app)
     .get('/users')
     .expect(200)
     .end(function (err, res) {
-      assert.same(res.status, 404, 'correct status code was sent');
+      assert.same(res.status, 200, 'correct status code was sent');
       assert.end();
     });
-  });
+});
 
 
 test('Correct users returned', function (assert) {
+  assert.plan(2);
   request(app)
     .get('/users')
     .expect('Content-Type', /json/)
@@ -28,5 +30,6 @@ test('Correct users returned', function (assert) {
       assert.error(err, 'No error');
       assert.same(res.body, expectedUsers, 'Users as expected');
       assert.end();
+      app.destroy();
     });
 });
