@@ -10,7 +10,8 @@
     "server-test": "node test/tests/server* | tap-spec",
     "start": "node server/server.js",
     "dev-start": "nodemon server/server.js",
-    "test": "mocha test/.setup.js test/tests/*-spec.js",
+    "client-test": "mocha test/.setup.js test/tests/*-spec.js",
+    "test": "npm run client-test && npm run server-test",
     "build": "webpack -w"
   },
   "repository": {

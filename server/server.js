@@ -29,8 +29,8 @@ app.get('/', (req, res) => {
 // 4) First login flag
 app.post('/login',
   loginCheck.validUser,
-  loginCheck.isAdmin,
-  loginCheck.firstLogin,
+  // loginCheck.isAdmin,
+  // loginCheck.firstLogin,
   loginCheck.getQuestions,
   quizTakenController.checkQuizWasTaken,
   quizTakenController.checkQuizAvailability,
@@ -59,6 +59,10 @@ app.get('*', (req, res) => {
 });
 
 app.listen(port);
+
+app.destroy = () => {
+  process.exit();
+};
 console.log('Running on http://localhost:' + port);
 
 module.exports = app;

@@ -11,7 +11,7 @@ const loginCheck = {
     })
       .then((user) => {
         req.results = {};
-        if (user.dataValues.changedPassword === false) {
+        if (user !== null && user.dataValues.changedPassword === false) {
           if (req.body.password === user.dataValues.password) {
             req.results.email = req.body.emailAddress;
             return next();
@@ -21,6 +21,9 @@ const loginCheck = {
         }
         if (user !== null && bcrypt.compareSync(req.body.password, user.dataValues.password)) {
           req.results.email = req.body.emailAddress;
+          req.results.isAdmin = user.dataValues.adminFlag;
+          req.results.changedPassword = user.dataValues.changedPassword;
+          req.results.firstName = user.dataValues.firstname;
           next();
         } else {
           res.sendStatus(400)
