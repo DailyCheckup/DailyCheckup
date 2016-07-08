@@ -11,7 +11,7 @@ const loginCheck = {
     })
       .then((user) => {
         req.results = {};
-        if (user.dataValues.changedPassword === false) {
+        if (user !== null && user.dataValues.changedPassword === false) {
           if (req.body.password === user.dataValues.password) {
             req.results.email = req.body.emailAddress;
             return next();
