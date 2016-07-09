@@ -6,11 +6,17 @@
   },
   "description": "\"A quiz to help medical residents study for the Board\"",
   "main": "build/bundle.js",
+  "nyc": {
+  "extension": [
+    ".jsx",
+    ".es6"
+    ]
+  },
   "scripts": {
-    "server-test": "node test/tests/server* | tap-spec",
+    "server-test": "nyc node test/tests/server* | tap-spec ",
     "start": "node server/server.js",
     "dev-start": "nodemon server/server.js",
-    "client-test": "mocha test/.setup.js test/tests/*-spec.js",
+    "client-test": "nyc mocha test/.setup.js test/tests/*-spec.js ",
     "test": "npm run client-test && npm run server-test",
     "build": "webpack -w"
   },
@@ -52,6 +58,7 @@
     "babel-register": "^6.9.0",
     "babel-runtime": "^6.9.2",
     "chai": "^3.5.0",
+    "coveralls": "^2.11.9",
     "css-loader": "^0.23.1",
     "enzyme": "^2.3.0",
     "eslint": "^2.13.1",
@@ -63,9 +70,11 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "jsdom": "^9.3.0",
     "mocha": "^2.5.3",
+    "mocha-lcov-reporter": "^1.2.0",
     "node-libs-browser": "^1.0.0",
     "node-sass": "^3.8.0",
     "nodemon": "^1.9.2",
+    "nyc": "^7.0.0",
     "react-addons-test-utils": "^15.1.0",
     "react-hot-loader": "^1.3.0",
     "sass-loader": "^4.0.0",
