@@ -12,7 +12,7 @@ const Login = React.createClass({
   submitForm(e) {
     e.preventDefault();
     console.log('inside submit form onclick');
-    const email = ReactDOM.findDOMNode(this.refs.emailAddress).value;
+    const email = ReactDOM.findDOMNode(this.refs.emailAddress).value.toLowerCase();
     const pw = ReactDOM.findDOMNode(this.refs.password).value;
     const pwAndEmailObj = {
       emailAddress: email,
