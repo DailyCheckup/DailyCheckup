@@ -10,6 +10,9 @@ const App = React.createClass({
       dailyQuestions: [],
       takenQuiz: false,
       quizAvailability: false,
+      confirmPasswordError: false,
+      successfulPasswordChange: false,
+      samePasswordError: false,
     };
   },
 
@@ -20,7 +23,7 @@ const App = React.createClass({
   render() {
     return (
       <div>
-        <Header />
+        <Header getState={this.state} setAppState={this.setAppState}/>
         <div className="container">
           {this.props.children && React.cloneElement(this.props.children,
             { setAppState: this.setAppState, getState: this.state })}

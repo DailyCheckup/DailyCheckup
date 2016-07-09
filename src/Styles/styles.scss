@@ -44,6 +44,12 @@ header h1 {
   padding-bottom: .45em;
 }
 
+header h1 a {
+  color: $logo-color;
+  text-decoration: none;
+  font-family: 'Oxygen', sans-serif;
+}
+
 /* LOGIN */
 
 .loginContainer {
