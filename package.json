@@ -7,16 +7,23 @@
   "description": "\"A quiz to help medical residents study for the Board\"",
   "main": "build/bundle.js",
   "scripts": {
-    "server-test": "node test/tests/server-test.js | tap-spec",
+    "server-test": "nyc node test/tests/server-test.js | tap-spec",
     "start": "node server/server.js",
     "dev-start": "nodemon server/server.js",
-    "client-test": "mocha test/.setup.js test/tests/*-spec.js",
+    "client-test": "nyc mocha test/.setup.js test/tests/*-spec.js",
     "test": "npm run client-test && npm run server-test",
-    "build": "webpack -w"
+    "build": "webpack -w",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Swimkitch92/MD_quiz.git"
+  },
+  "nyc": {
+    "extension": [
+      ".jsx",
+      ".es6"
+    ]
   },
   "author": "BBS Corp",
   "license": "ISC",
