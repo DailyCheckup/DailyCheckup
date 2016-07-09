@@ -5,6 +5,7 @@ const App = React.createClass({
   getInitialState() {
     return {
       userEmail: '',
+      firstName: '',
       changedPW: '',
       isAdmin: '',
       dailyQuestions: [],
@@ -13,6 +14,7 @@ const App = React.createClass({
       confirmPasswordError: false,
       successfulPasswordChange: false,
       samePasswordError: false,
+      loggedIn: false,
     };
   },
 

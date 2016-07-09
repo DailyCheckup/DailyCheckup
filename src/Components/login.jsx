@@ -5,17 +5,17 @@ import { Link, browserHistory } from 'react-router';
 // TODO
 // 2. Fill in route url
 // 3. Session
-// 4. Logic for first login
 
 const Login = React.createClass({
 
   submitForm(e) {
-    e.preventDefault();
+    //e.preventDefault();
     console.log('inside submit form onclick');
-    const email = ReactDOM.findDOMNode(this.refs.emailAddress).value;
-    const pw = ReactDOM.findDOMNode(this.refs.password).value;
+    const email = this.inputEmail.value;
+    const lowerEmail = email.toLowerCase();
+    const pw = this.inputPassword.value;
     const pwAndEmailObj = {
-      emailAddress: email,
+      emailAddress: lowerEmail,
       password: pw,
     };
     const url = 'http://localhost:3000/login'; // UPDATE WITH ROUTE
@@ -52,20 +52,6 @@ const Login = React.createClass({
     }
   },
 
-  // Seems uncessesary, when you can redirect before setting state
-
-  // componentWillReceiveProps(newprops) {
-  //   if (newprops.getState.isAdmin === false) {
-  //     console.log('isAdmin is false');
-  //     browserHistory.push('/resident/');
-  //   }
-  //   // Route to director pane
-  //   if (newprops.getState.isAdmin) {
-  //     console.log('isAdmin is true');
-  //     browserHistory.push('/director/');
-  //   }
-  // },
-
   parseDataAndSetState(responseData) {
     const response = JSON.parse(responseData);
     //localStorage.token = Math.random.toString(36).substring(7);
@@ -77,6 +63,7 @@ const Login = React.createClass({
     const takenQuiz = response.takenQuiz;
     const quizAvailability = response.quizAvailability;
     const firstName = response.firstName;
+    const loggedIn = true;
     const newStateObj = {
       userEmail,
       changedPW,
@@ -85,6 +72,7 @@ const Login = React.createClass({
       takenQuiz,
       quizAvailability,
       firstName,
+      loggedIn,
     };
     this.redirectToUsersPane(isAdmin);
     this.props.setAppState(newStateObj);
@@ -104,12 +92,12 @@ const Login = React.createClass({
         <form className="clearfix">
           <div className="emailLogin">
             <label>Email Address</label>
-            <input ref="emailAddress" type="email" placeholder="JohnDoe@example.com" />
+            <input ref={(ref) => this.inputEmail = ref} type="email" placeholder="JohnDoe@example.com" />
           </div>
 
           <div className="passwordLogin">
             <label>Password</label>
-            <input ref="password" type="password" placeholder="Password" />
+            <input ref={(ref) => this.inputPassword = ref} type="password" placeholder="Password" />
           </div>
 
           <button className="signInBtn" onClick={this.submitForm}>Sign In</button>
