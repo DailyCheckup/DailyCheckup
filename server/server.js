@@ -7,7 +7,6 @@ const UserResponseController = require('./controllers/userResponseController');
 const changePW = require('./controllers/changePassword.js');
 const quizTakenController = require('./controllers/quizTakenController.js');
 const runJob = require('./cronJob.js');
-const Users = require('./Users/UserModel.js');
 // Constants
 const port = process.env.PORT || 3000;
 const app = express();
