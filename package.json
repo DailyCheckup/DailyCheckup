@@ -7,16 +7,23 @@
   "description": "\"A quiz to help medical residents study for the Board\"",
   "main": "build/bundle.js",
   "scripts": {
-    "server-test": "node test/tests/server* | tap-spec",
+    "server-test": "nyc node test/tests/server-test.js | tap-spec",
     "start": "node server/server.js",
     "dev-start": "nodemon server/server.js",
-    "client-test": "mocha test/.setup.js test/tests/*-spec.js",
+    "client-test": "nyc mocha test/.setup.js test/tests/*-spec.js",
     "test": "npm run client-test && npm run server-test",
-    "build": "webpack -w"
+    "build": "webpack -w",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Swimkitch92/MD_quiz.git"
+  },
+  "nyc": {
+    "extension": [
+      ".jsx",
+      ".es6"
+    ]
   },
   "author": "BBS Corp",
   "license": "ISC",
@@ -30,6 +37,7 @@
     "cron": "^1.1.0",
     "express": "^4.14.0",
     "moment": "^2.13.0",
+    "nyc": "^6.6.1",
     "pg": "^6.0.1",
     "pg-hstore": "^2.3.2",
     "pg-native": "^1.10.0",
@@ -52,6 +60,7 @@
     "babel-register": "^6.9.0",
     "babel-runtime": "^6.9.2",
     "chai": "^3.5.0",
+    "coveralls": "^2.11.9",
     "css-loader": "^0.23.1",
     "enzyme": "^2.3.0",
     "eslint": "^2.13.1",

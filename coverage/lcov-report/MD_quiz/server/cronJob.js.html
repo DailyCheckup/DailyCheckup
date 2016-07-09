@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for MD_quiz/server/cronJob.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">MD_quiz/server/</a> cronJob.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">32.65% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>16/49</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/0</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">11.11% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/9</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">32.65% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>16/49</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
+const Questions = require('./Questions/QuestionsModel.js');
+const dailyQuestions = require('./Questions/dailyQuestionsModel.js');
+const CronJob = require('cron').CronJob;
+const Users = require('./Users/UserModel.js');
+const NUM_OF_QUESTIONS = 5;
+//if you change number of quesitons change dailyquestions model
+&nbsp;
+<span class="fstat-no" title="function not covered" >function removeAndInsertIntoDailyQuestions(array) {</span>
+<span class="cstat-no" title="statement not covered" >  var buildObj = {};</span>
+<span class="cstat-no" title="statement not covered" >  dailyQuestions.sync();</span>
+<span class="cstat-no" title="statement not covered" >  dailyQuestions.destroy({ where: {</span>
+    check: true,
+  },
+  });
+<span class="cstat-no" title="statement not covered" >  for (let i = 0; i &lt; NUM_OF_QUESTIONS; i++) {</span>
+<span class="cstat-no" title="statement not covered" >    const key = `question${i + 1}`</span>
+<span class="cstat-no" title="statement not covered" >    buildObj[key] = array[i]</span>
+  }
+<span class="cstat-no" title="statement not covered" >  const dailyQs = dailyQuestions.build(buildObj);</span>
+<span class="cstat-no" title="statement not covered" >  dailyQs.save();</span>
+}
+&nbsp;
+&nbsp;
+&nbsp;
+<span class="fstat-no" title="function not covered" >function update(questions, randomQ) {</span>
+<span class="cstat-no" title="statement not covered" >  Questions.update(</span>
+    { chosen: true },
+    { where: { questionid: questions[randomQ].dataValues.questionid } }
+  ).then((result) =&gt; <span class="cstat-no" title="statement not covered" >result)</span>;
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function forLoop(nonChosenQuestionCount, randomQ, array, questions) {</span>
+<span class="cstat-no" title="statement not covered" >  var randomNums = [];</span>
+<span class="cstat-no" title="statement not covered" >  for (let i = 0; i &lt; NUM_OF_QUESTIONS; i++) {</span>
+<span class="cstat-no" title="statement not covered" >    var randomQ = Math.floor(Math.random() * nonChosenQuestionCount);</span>
+<span class="cstat-no" title="statement not covered" >    while(randomNums.indexOf(randomQ) !== -1) {</span>
+<span class="cstat-no" title="statement not covered" >      randomQ = Math.floor(Math.random() * nonChosenQuestionCount);</span>
+    }
+<span class="cstat-no" title="statement not covered" >    array.push(questions[randomQ].dataValues.questionid);</span>
+<span class="cstat-no" title="statement not covered" >    update(questions, randomQ, i);</span>
+  }
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function getRandomQ() {</span>
+<span class="cstat-no" title="statement not covered" >  const array = [];</span>
+<span class="cstat-no" title="statement not covered" >  Questions.findAll({ where:</span>
+    { chosen: false } }).then((questions) =&gt; {
+<span class="cstat-no" title="statement not covered" >      const nonChosenQuestionCount = questions.length;</span>
+<span class="cstat-no" title="statement not covered" >      const randomQ = [];</span>
+<span class="cstat-no" title="statement not covered" >      forLoop(nonChosenQuestionCount, randomQ, array, questions);</span>
+<span class="cstat-no" title="statement not covered" >      removeAndInsertIntoDailyQuestions(array);</span>
+    });
+    // want to return array that has 3 integer values
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function setAvaiableToTrue() {</span>
+<span class="cstat-no" title="statement not covered" >  dailyQuestions.update({available: true}, {where: {available:false}})</span>
+  .then(<span class="fstat-no" title="function not covered" >function(result) {</span>
+<span class="cstat-no" title="statement not covered" >    console.log(result,' Succesfully updated');</span>
+  })
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function setAvaiableToFalse() {</span>
+<span class="cstat-no" title="statement not covered" >  dailyQuestions.update({available: false}, {where: {available:true}})</span>
+  .then(<span class="fstat-no" title="function not covered" >function(result) {</span>
+<span class="cstat-no" title="statement not covered" >    console.log(result,' Succesfully updated');</span>
+  })
+}
+&nbsp;
+function runJob() {
+  // var brendan = Users.build({
+  //   userid: 70,
+  //   firstname: 'Brendan',
+  //   lastname: 'Del Rosario',
+  //   email: 'test@demo.com',
+  //   password: 'abc123',
+  //   groupid: 1,
+  //   adminFlag: false,
+  //   changedPassword: false,
+  // });
+  // brendan.save();
+&nbsp;
+  const job = new CronJob({
+    cronTime: '00 00 03 * * 1-7',
+    onTick: () =&gt; {
+<span class="cstat-no" title="statement not covered" >      Questions.sync();</span>
+<span class="cstat-no" title="statement not covered" >      getRandomQ();</span>
+    },
+    start: true,
+    timeZone: 'America/Los_Angeles',
+  });
+&nbsp;
+  const releaseQuiz = new CronJob({
+    cronTime: '00 00 10 * * 1-7',
+    onTick: () =&gt; {
+<span class="cstat-no" title="statement not covered" >      Questions.sync();</span>
+      //update avaiable in dailytquestions db
+<span class="cstat-no" title="statement not covered" >      setAvaiableToTrue();</span>
+    },
+    start: true,
+    timeZone: 'America/Los_Angeles',
+  });
+&nbsp;
+  const closeQuiz = new CronJob({
+    cronTime: '00 00 22 * * 1-7',
+    onTick: () =&gt; {
+<span class="cstat-no" title="statement not covered" >      Questions.sync();</span>
+      //update avaiable in dailytquestions db
+<span class="cstat-no" title="statement not covered" >      setAvaiableToFalse();</span>
+    },
+    start: true,
+    timeZone: 'America/Los_Angeles',
+  });
+}
+module.exports = runJob;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jul 08 2016 21:06:40 GMT-0700 (PDT)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>
