@@ -7,7 +7,6 @@ const UserResponseController = require('./controllers/userResponseController');
 const changePW = require('./controllers/changePassword.js');
 const quizTakenController = require('./controllers/quizTakenController.js');
 const runJob = require('./cronJob.js');
-
 // Constants
 const port = process.env.PORT || 3000;
 const app = express();
@@ -15,7 +14,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, './../')));
 runJob();
-
 // The root route serves the main html page
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../src/', 'main.html'));
