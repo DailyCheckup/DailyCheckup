@@ -35,21 +35,21 @@ reason:"78Emollients are a mainstay of chronic therapy for atopic dermatitis (SO
 updatedAt:"2016-07-08T01:32:24.410Z"}
 ];
 
-describe('Testing Quiz Component', () => {
-  const testState = {
-    userEmail: '',
-    changedPW: '',
-    isAdmin: '',
-    dailyQuestions: testQuestions,
-    takenQuiz: false,
-    quizAvailability: false,
-  };
-
-  const wrapper = mount(<Quiz getState={testState} />);
-
-  it('should have an Answers Component', () => {
-    //console.log(wrapper.find('Answers'), 'download atom pls')
-    expect(wrapper.find(Answers)).to.have.length(0);
-  });
-
-});
+// describe('Testing Quiz Component', () => {
+//   const testState = {
+//     userEmail: '',
+//     changedPW: '',
+//     isAdmin: '',
+//     dailyQuestions: testQuestions,
+//     takenQuiz: false,
+//     quizAvailability: false,
+//   };
+//
+//   //const wrapper = mount(<Quiz getState={testState} />);
+//
+//   it('should have an Answers Component', () => {
+//     //console.log(wrapper.find('Answers'), 'download atom pls')
+//     expect(wrapper.find(Answers)).to.have.length(0);
+//   });
+//
+// });
