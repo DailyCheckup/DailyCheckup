@@ -1,5 +1,4 @@
 const React = require('react');
-const ReactDOM = require('react-dom');
 
 const ResidentChangePW = React.createClass({
 
@@ -7,14 +6,10 @@ const ResidentChangePW = React.createClass({
     console.log('inside submit pw');
     e.preventDefault();
 
-    // Clear old error messages
-    document.getElementById('confirmPasswordError').style.display = 'none';
-    document.getElementById('samePasswordError').style.display = 'none';
-
     // Grab values out of form fields
-    const oldPW = ReactDOM.findDOMNode(this.refs.oldPW).value;
-    const newPW = ReactDOM.findDOMNode(this.refs.newPW).value;
-    const confirmNewPW = ReactDOM.findDOMNode(this.refs.confirmNewPW).value;
+    const oldPW = this.inputOldPW.value;
+    const newPW = this.inputNewPW.value;
+    const confirmNewPW = this.inputConfirmPW.value;
 
     // Check for errors in password fields
     this.checkPasswordFieldsMatch(newPW, confirmNewPW, oldPW);
@@ -24,13 +19,21 @@ const ResidentChangePW = React.createClass({
     console.log('inside check passwords');
     // New password and confirm password do not match
     if (newPW !== confirmNewPW) {
-      ReactDOM.findDOMNode(this.refs.newPW).value = '';
-      ReactDOM.findDOMNode(this.refs.confirmNewPW).value = '';
-      this.displayConfirmPasswordError();
+      this.inputNewPW.value = '';
+      this.inputConfirmPW.value = '';
+      this.props.setAppState({
+        confirmPasswordError: true,
+        successfulPasswordChange: false,
+        samePasswordError: false,
+      });
 
       // If they do match, make sure the new pw isn't the same as the old pw
     } else if (this.checkNewPasswordIsOldPW(newPW, oldPW)) {
-      this.displaySamePasswordError();
+      this.props.setAppState({
+        confirmPasswordError: false,
+        successfulPasswordChange: false,
+        samePasswordError: true,
+      });
 
       // Old pw !== new pw and new pw = confirm pw so send to db
     } else {
@@ -40,24 +43,12 @@ const ResidentChangePW = React.createClass({
 
   checkNewPasswordIsOldPW(newPW, oldPW) {
     if (newPW === oldPW) {
-      ReactDOM.findDOMNode(this.refs.newPW).value = '';
-      ReactDOM.findDOMNode(this.refs.confirmNewPW).value = '';
-      ReactDOM.findDOMNode(this.refs.oldPW).value = '';
+      this.inputNewPW.value = '';
+      this.inputConfirmPW.value = '';
+      this.inputOldPW.value = '';
       return true;
     }
     return false;
-  },
-
-  displayConfirmPasswordError() {
-    document.getElementById('confirmPasswordError').style.display = '';
-  },
-
-  displaySuccessMessage() {
-    document.getElementById('successfulPasswordChange').style.display = '';
-  },
-
-  displaySamePasswordError() {
-    document.getElementById('samePasswordError').style.display = '';
   },
 
   sendNewPasswordToDB(newPW) {
@@ -87,37 +78,66 @@ const ResidentChangePW = React.createClass({
       // And status is OK
       if (xhr.status === 200) {
         console.log('status is 200');
+        // Set state that the user has changed their password
         this.props.setAppState({ changedPW: true });
-        this.displaySuccessMessage();
+        // Clear all input fields
+        this.inputNewPW.value = '';
+        this.inputConfirmPW.value = '';
+        this.inputOldPW.value = '';
+        // Display success message
+        this.props.setAppState({
+          confirmPasswordError: false,
+          successfulPasswordChange: true,
+          samePasswordError: false,
+        });
       } else {
         // If error, email or password was incorrect so display error
         console.log('Error: ' + xhr.status);
-        console.log('some type of server error - yikes!!');
       }
     }
   },
 
+  displayMessage() {
+    if (this.props.getState.confirmPasswordError) {
+      return (
+        <div id="confirmPasswordError">
+          The new password and confirm password fields did not match. Please reenter your new password.
+        </div>
+      );
+    }
+    if (this.props.getState.successfulPasswordChange) {
+      return (
+        <div id="successfulPasswordChange">
+          You have succesfully updated your password!
+        </div>
+      );
+    }
+    if (this.props.getState.samePasswordError) {
+      return (
+        <div id="samePasswordError">
+          The current password and new passwords are the same. Please enter a new password.
+        </div>
+      );
+    }
+    return '';
+  },
+
   render() {
+
+    const message = this.displayMessage();
+
     return (
       <div className="changePassword">
         <h2>Change Password</h2>
         <p>*All fields are case sensitive</p>
         <form>
-          <div id="confirmPasswordError" style={{ display: 'none' }}>
-            The new password and confirm password fields did not match. Please reenter your new password.
-          </div>
-          <div id="successfulPasswordChange" style={{ display: 'none' }}>
-            You have succesfully updated your password!
-          </div>
-          <div id="samePasswordError" style={{ display: 'none' }}>
-            The current password and new passwords are the same. Please enter a new password.
-          </div>
+          {message}
           <label>Current Password</label>
-          <input ref='oldPW' type='password' />
+          <input ref={(ref) => this.inputOldPW = ref} type='password' />
           <label>New Password</label>
-          <input ref='newPW' type='password' />
+          <input ref={(ref) => this.inputNewPW = ref} type='password' />
           <label>Confirm New Password</label>
-          <input ref='confirmNewPW' type='password' />
+          <input ref={(ref) => this.inputConfirmPW = ref} type='password' />
           <button onClick={this.submitPassword}>Submit</button>
         </form>
       </div>
