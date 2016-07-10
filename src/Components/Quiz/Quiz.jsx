@@ -3,6 +3,7 @@ const Answers = require('./Answers.jsx');
 import { Link } from 'react-router';
 const SubmitQuiz = require('./SubmitQuiz.jsx');
 const Timer = require('./Timer.jsx');
+const QuizResults = require('./QuizResults.jsx');
 const QUIZ_TIME = 300;
 
 
@@ -14,8 +15,8 @@ const Quiz = React.createClass({
   getInitialState() {
     // need to check after last currentquestion
     return ({
-      dailyQuestions: this.props.getState.dailyQuestions,
-      currentQuestion: this.props.getState.dailyQuestions[0],
+      // dailyQuestions: this.props.getState.dailyQuestions,
+      // currentQuestion: this.props.getState.dailyQuestions[0],
       questionNumber: 0,
       count: QUIZ_TIME,
       currentAnswer: 'N',
@@ -27,7 +28,7 @@ const Quiz = React.createClass({
   },
   componentWillMount() {
     if (this.props.getState.takenQuiz || !this.props.getState.quizAvailability) {
-      this.setState({ questionNumber: this.state.dailyQuestions.length });
+      this.setState({ questionNumber: this.props.getState.dailyQuestions.length });
     }
   },
   componentDidMount() {
@@ -73,33 +74,33 @@ const Quiz = React.createClass({
     count++;
     obj.currentAnswer = 'N';
     obj.questionNumber = count;
-    if (obj.questionNumber === this.state.dailyQuestions.length - 1) {
+    if (obj.questionNumber === this.props.getState.dailyQuestions.length - 1) {
       obj.submitQuiz = true;
     }
-    if (count === this.state.dailyQuestions.length) {
+    if (count === this.props.getState.dailyQuestions.length) {
       count--;
       // might not need this anymore
     }
-    obj.currentQuestion = this.state.dailyQuestions[count];
+    obj.currentQuestion = this.props.getState.dailyQuestions[count];
     this.clearbuttons();
     console.log(obj);
     this.setState(obj);
   },
   buildResults(index) {
     const obj = {};
-    const currentQuestion = this.state.dailyQuestions[index];
+    const currentQuestion = this.props.getState.dailyQuestions[index];
     obj.email = this.props.getState.userEmail;
     obj.questionid = currentQuestion.questionid;
-    obj.respondedCorrectly = currentQuestion.answer === this.state.currentQuestion;
+    obj.respondedCorrectly = currentQuestion.answer === this.props.getState.dailyQuestions[this.state.questionNumber];
     obj.submittedAnswer = this.state.currentAnswer;
     return obj;
   },
   buildAnswers() {
-    const currentQuestion = this.state.currentQuestion;
+    const currentQuestion = this.props.getState.dailyQuestions[this.state.questionNumber];
     const answerArray = [];
     for (let key in currentQuestion) {
       if (key === 'a' || key === 'b' || key === 'c' || key === 'd' || key === 'e') {
-        if (currentQuestion.key !== 'null') {
+        if (currentQuestion[key] !== 'null') {
           answerArray.push(<Answers
             id={key}
             currentQuestion={currentQuestion}
@@ -167,11 +168,11 @@ const Quiz = React.createClass({
   render() {
     // if the quiz has questions still to take, render the quiz questions and answer
     if (!this.state.showResults) {
-      const currentQuestion = this.state.currentQuestion;
+      const currentQuestion = this.props.getState.dailyQuestions[this.state.questionNumber];
       const answerArray = this.buildAnswers();
       return (
         <div className="quiz clearfix">
-          <p id="questionNum">Question: {this.state.questionNumber + 1} / {this.state.dailyQuestions.length}</p>
+          <p id="questionNum">Question: {this.state.questionNumber + 1} / {this.props.getState.dailyQuestions.length}</p>
           <Timer seconds={this.state.count} />
           <p id="singleQuestion"> Question: {currentQuestion.question} </p>
           {answerArray}
@@ -184,7 +185,7 @@ const Quiz = React.createClass({
       // will show the results of the quiz that was just taken
       return (
         <div>
-          Hello I am the results
+          <QuizResults dailyQuestions={this.props.getState.dailyQuestions} results={this.state.results} />
         </div>
       );
     } else if (this.props.getState.takenQuiz) {
