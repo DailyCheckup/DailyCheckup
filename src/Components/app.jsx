@@ -5,11 +5,16 @@ const App = React.createClass({
   getInitialState() {
     return {
       userEmail: '',
+      firstName: '',
       changedPW: '',
       isAdmin: '',
       dailyQuestions: [],
       takenQuiz: false,
       quizAvailability: false,
+      confirmPasswordError: false,
+      successfulPasswordChange: false,
+      samePasswordError: false,
+      loggedIn: false,
     };
   },
 
@@ -20,7 +25,7 @@ const App = React.createClass({
   render() {
     return (
       <div>
-        <Header />
+        <Header getState={this.state} setAppState={this.setAppState}/>
         <div className="container">
           {this.props.children && React.cloneElement(this.props.children,
             { setAppState: this.setAppState, getState: this.state })}
