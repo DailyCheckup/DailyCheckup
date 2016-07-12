@@ -1,17 +1,17 @@
+'use strict'
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('testing', 'username', 'password');
+let privateKey = require('./../../testingKeys.js').dbKey;
+const DB = new Sequelize(privateKey);
 
-const User = sequelize.define('user', {
-  email: Sequelize.STRING,
-  password: Sequelize.STRING,
-});
+  const UserTests = DB.define('usertest', {
+    email: Sequelize.TEXT,
+    password: Sequelize.TEXT,
+    changePassword: Sequelize.BOOLEAN,
+  });
 
-sequelize.sync().then(() =>
-  User.create({
-    username: 'Brendan',
-    password: 'hihi',
-  }).then((Brendan) => {
-  console.log(Brendan.get({
-    plain: true,
-  }));
-});
+UserTests.sync();
+
+  // UserTests.build({ email: 'Brendan', password: 'hihi', changedPassword: false }).save();
+
+
+module.exports = UserTests;

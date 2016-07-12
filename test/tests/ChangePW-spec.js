@@ -7,7 +7,6 @@ import App from './../../src/Components/app.jsx';
 describe('Change Password Component', () => {
 
   const appWrapper = mount(<App />);
-  console.log('appwrapper ', appWrapper.node);
   const setAppState = appWrapper.node.setAppState;
   const state = appWrapper.node.state;
   const wrapper = mount(<ChangePW setAppState={setAppState} getState={state} />);
