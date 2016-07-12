@@ -14,3 +14,8 @@ privateKeys.js
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+
+.nyc_output/
+Makefile
+bin/
