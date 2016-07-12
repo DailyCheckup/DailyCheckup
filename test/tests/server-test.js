@@ -2,8 +2,8 @@
 const test = require('tape');
 const request = require('supertest');
 const app = require('./../../server/server.js');
-const Sequelize = require('./../fixtures/DB-fixture.js');
-
+const Sequelize = require('./../fixtures/DB-fixture.js').DB;
+const UserTests = require('./../fixtures/DB-fixture.js').UserTests;
 test('Successful Login with Correct Info Returned', (t) => {
   t.plan(6);
   request(app)
@@ -43,33 +43,23 @@ test('Changed Password Was Successful', (t) => {
       app.destroy();
     });
 });
-
-//this is testing if the status code has been
-//sent correctly to the route '/users'
-// test('Correct status code', function (assert, done) {
-//   assert.plan(1);
-//   request(app2)
-//     .get('/users')
+// {
+//   data: results,
+// }
+// test('User Response was sent succesfully', (t) => {
+// var results = 0;
+//   t.plan(2);
+//   request(app)
+//     .post('/userResponse')
+//     .send({
+//       data: results,
+//     })
 //     .expect(200)
-//     .end(function (err, res) {
-//       assert.same(res.status, 200, 'correct status code was sent');
-//       assert.end();
-//     });
-// });
-//
-//
-// test('Correct users returned', function (assert) {
-//   assert.plan(2);
-//   request(app2)
-//     .get('/users')
-//     .expect('Content-Type', /json/)
-//     .expect(200)
-//     .end(function (err, res) {
-//       var expectedUsers = ['John', 'Betty', 'Hal'];
-//       //error with catch any of the expects or the get if they fail
-//       assert.error(err, 'No error');
-//       assert.same(res.body, expectedUsers, 'Users as expected');
-//       assert.end();
-//       app2.destroy();
+//     // .expect('Content-Type', /json/)
+//     .end((err, res) => {
+//       t.same(res.status, 200, 'correct status code');
+//       t.same(res.req.res.text, '"Succesfully updated password"', 'correctly changed pw');
+//       t.end();
+//       app.destroy();
 //     });
 // });

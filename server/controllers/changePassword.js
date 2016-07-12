@@ -1,5 +1,5 @@
 const Users = require('./../Users/UserModel.js');
-const TestUser = require('./../../test/fixtures/DB-fixture.js')
+const TestUser = require('./../../test/fixtures/DB-fixture.js').UserTests;
 const changePassword = {
 
   changePasswordInDB(req, res, next) {

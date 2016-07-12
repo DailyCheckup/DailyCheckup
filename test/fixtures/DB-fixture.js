@@ -17,5 +17,8 @@ const DB = new Sequelize(privateKey);
 
   // UserTests.build({ uuid: 69, email: 'Brendan', password: 'hello', changePassword: false }).save();
 
-
-module.exports = UserTests;
+  var objectToExport = {
+    DB: DB,
+    UserTests: UserTests
+  };
+module.exports = objectToExport;
