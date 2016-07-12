@@ -75,9 +75,13 @@ describe('Change Password Component', () => {
     expect(actualState.samePasswordError).to.be.false;
     expect(actualState.samePasswordError).to.be.false;
   });
-  it('will set state parameters for a same password error to be true', ()=> {
-    
-  });
+
+  // it('will set state parameters for a same password error to be true', ()=> {
+  //
+  // });
+  // it( 'will set state parameters for a successfulPasswordChange to true', () => {
+  //
+  // });
 
 
 });
