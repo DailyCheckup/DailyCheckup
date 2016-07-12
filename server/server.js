@@ -6,6 +6,7 @@ const loginCheck = require('./controllers/loginCheck.js');
 const UserResponseController = require('./controllers/userResponseController');
 const changePW = require('./controllers/changePassword.js');
 const quizTakenController = require('./controllers/quizTakenController.js');
+const gatherResults = require('./controllers/gatherResultsController.js');
 const runJob = require('./cronJob.js');
 // Constants
 const port = process.env.PORT || 3000;
@@ -20,11 +21,6 @@ app.get('/', (req, res) => {
 });
 
 // Post requests to the login route validates email and password
-// DB should return:
-// 1) If Admin flag
-// 2) 3 questions
-// 3) Error if doesn't match
-// 4) First login flag
 app.post('/login',
   loginCheck.validUser,
   // loginCheck.isAdmin,
@@ -43,8 +39,9 @@ app.post('/changePassword', changePW.changePasswordInDB, function (req, res) {
 });
 
 // Get requests to results will return user or admin data
-app.get('/results', function (req, res) {
-
+app.post('/results', gatherResults.isUserAdmin, gatherResults.gatherQuestions, function (req, res) {
+  res.statusCode = 200;
+  res.send(JSON.stringify('Here is your data'));
 });
 
 app.post('/userResponse', UserResponseController.addResults , function(req, res) {
