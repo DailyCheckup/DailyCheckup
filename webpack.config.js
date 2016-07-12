@@ -1,4 +1,4 @@
-// const webpack = require('webpack');
+const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
@@ -31,7 +31,10 @@ module.exports = {
     }]
   },
   plugins: [
-    new ExtractTextPlugin('build.css', { allChunks: true })
+    new ExtractTextPlugin('build.css', { allChunks: true }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: { warnings: false },
+    }),
   ],
   // plugins: [
   //   new webpack.HotModuleReplacementPlugin(),
