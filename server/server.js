@@ -7,10 +7,11 @@ const UserResponseController = require('./controllers/userResponseController');
 const changePW = require('./controllers/changePassword.js');
 const quizTakenController = require('./controllers/quizTakenController.js');
 const runJob = require('./cronJob.js');
+const compression = require('compression');
 // Constants
 const port = process.env.PORT || 3000;
 const app = express();
-
+app.use(compression());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, './../')));
 runJob();

@@ -1,5 +1,6 @@
-// const webpack = require('webpack');
+const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CompressionPlugin = require("compression-webpack-plugin");
 
 module.exports = {
   devtool: 'source-map',
@@ -31,7 +32,17 @@ module.exports = {
     }]
   },
   plugins: [
-    new ExtractTextPlugin('build.css', { allChunks: true })
+    new ExtractTextPlugin('build.css', { allChunks: true }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: { warnings: false },
+    }),
+    // new CompressionPlugin({
+		// 	asset: "[path].gz[query]",
+		// 	algorithm: "gzip",
+		// 	test: /\.js$|\.html$/,
+		// 	threshold: 10240,
+		// 	minRatio: 0.8
+		// }),
   ],
   // plugins: [
   //   new webpack.HotModuleReplacementPlugin(),
