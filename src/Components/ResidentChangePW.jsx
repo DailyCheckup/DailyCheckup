@@ -86,7 +86,7 @@ const ResidentChangePW = React.createClass({
         // Set state that the user has changed their password
         // Display success message
         this.props.setAppState({
-          changedPW: true
+          changedPW: true,
           confirmPasswordError: false,
           successfulPasswordChange: true,
           samePasswordError: false,
