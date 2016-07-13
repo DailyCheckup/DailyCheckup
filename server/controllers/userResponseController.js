@@ -9,6 +9,7 @@ UserResponseController.addResults = function (req, res, next) {
   }
   // expecting req.body to be an object with a key-value pair of data: to an
   // array of objects with the correct model requirements for a userResponse row
+  console.log('this is the req body-----------------------------------' + req.body.data[0].respondedCorrectly);
   UserResponse.bulkCreate(req.body.data).then((result) => {
     console.log(result);
     if (!result) {
