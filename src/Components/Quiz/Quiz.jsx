@@ -91,7 +91,7 @@ const Quiz = React.createClass({
     const currentQuestion = this.props.getState.dailyQuestions[index];
     obj.email = this.props.getState.userEmail;
     obj.questionid = currentQuestion.questionid;
-    obj.respondedCorrectly = currentQuestion.answer === this.props.getState.dailyQuestions[this.state.questionNumber];
+    obj.respondedCorrectly = currentQuestion.answer === this.state.currentAnswer;
     obj.submittedAnswer = this.state.currentAnswer;
     return obj;
   },
