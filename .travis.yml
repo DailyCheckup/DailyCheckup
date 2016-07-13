@@ -4,11 +4,13 @@ node_js:
 env:
   global:
     - CXX=g++-4.8
-    - secure: wIpNanXvK4+VrNgnflnve1oTX29pk7YeivSqy40sWXwTjbeZy/rfPk0kSsHRm7OIOm2muVkC2emK8NbdAxhNIUOp6xZ9T4jZZwW1nu8msmEipuddmG4ih3rd7tkC7Dr2qT4nkU5ApLcu62K+kdQ1CAswGs67YPTxDDU5onjqYG1zXuMp9ujTwMAoHlB5T0ehxnavl6ShCpUOL6Wi5w9aafql1dj/8IAdBaGgkmnYo/PBRKfeTnICFU6u/925jvbmwHVXFIBpK+G8ZFeQkW9HtHEo0L9rjcaU9v/hvPu3j9HxyD3q7g3pyGawX56TfvQk6BvyesHA4BYaUsujSREz2HzF1oj+bKtAWSoXlWXRr9JBJ2UtMBE8OFzKSswEeISyIch2ntf0GXDO76m7CgDCML2+OcMmqkR3o/EU1saDW+B8UNO13Ym1waBA3PMRDn2fUhV4u6NsUIzo1Pj7iKOiZ6g8mUYG7wxX4rNdCuLgxtRhtat8D86ROIk8PNGoQebq8+tx2KxyQj7LltsyHjRpz3iESvk0O/gNbNfnw2kQnrk7JpVI9/clULrnXkjqapbhWslEE/l3U/zaub+CTSjQUyj1vtLsOHVIfaZWlNsQT1Azg6aa2fuag0eQc33bpG8a3CdiKXE2pWjX2Jak8uc5MEYxjMt0mUHqZuuP62SyHWk=
+    - POSTGRES=POSTGRES
 addons:
   apt:
     sources:
       - ubuntu-toolchain-r-test
     packages:
       - g++-4.8
+services:
+  - postgresql
 after_success: npm run coverage

@@ -82,7 +82,7 @@ function runJob() {
   // brendan.save();
 
   const job = new CronJob({
-    cronTime: '00 00 03 * * 1-7',
+    cronTime: '00 00 03 * * 1-5',
     onTick: () => {
       Questions.sync();
       getRandomQ();
@@ -92,7 +92,7 @@ function runJob() {
   });
 
   const releaseQuiz = new CronJob({
-    cronTime: '00 00 10 * * 1-7',
+    cronTime: '00 00 10 * * 1-5',
     onTick: () => {
       Questions.sync();
       //update avaiable in dailytquestions db
@@ -103,7 +103,7 @@ function runJob() {
   });
 
   const closeQuiz = new CronJob({
-    cronTime: '00 00 22 * * 1-7',
+    cronTime: '00 00 22 * * 1-5',
     onTick: () => {
       Questions.sync();
       //update avaiable in dailytquestions db
