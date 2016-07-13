@@ -38,18 +38,20 @@ describe('Login Component', () => {
     expect(wrapper.find('button')).to.have.length(1);
   });
 
-  // it('should setState with the response that the component receives from the server', () => {
-  //   wrapper = mount(<Login setAppState={checkState} getState={state} />);
-  //   const email = wrapper.find('input [type="email"]');
-  //   const password = wrapper.find('input [type="password"]');
-  //   email.value = 'sandra@hi.com';
-  //   password.value = 'blah';
-  //   wrapper.find('button').simulate('click');
-  //   setTimeout(() => {
-  //     console.log('the actualState is ', actualState);
-  //     expect(Object.keys(actualState).length).to.equal(0);
-  //   }, 3000);
-  // });
+  it('should setState with the response that the component receives from the server', () => {
+    wrapper = mount(<Login setAppState={checkState} getState={state} />);
+    const responseData = {
+      userEmail: 'sandra@hi.com',
+      changedPW: false,
+      isAdmin: false,
+      dailyQuestions: [1, 2, 3, 4, 5],
+      takenQuiz: false,
+      quizAvailability: false,
+      firstName: 'Sandra',
+    }
+    wrapper.node.parseDataAndSetState(JSON.stringify(responseData));
+    expect(Object.keys(actualState)).to.have.length(0);
+  });
   //
   // it('should fail and display a login error', () => {
   //   wrapper = mount(<Login setAppState={checkState} getState={state} />);
