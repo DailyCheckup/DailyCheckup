@@ -7,9 +7,9 @@
   "description": "\"A quiz to help medical residents study for the Board\"",
   "main": "build/bundle.js",
   "nyc": {
-  "extension": [
-    ".jsx",
-    ".es6"
+    "extension": [
+      ".jsx",
+      ".es6"
     ]
   },
   "scripts": {
@@ -35,7 +35,7 @@
     "body-parser": "^1.15.2",
     "cron": "^1.1.0",
     "express": "^4.14.0",
-    "moment": "^2.13.0",
+    "moment": "^2.14.1",
     "pg": "^6.0.1",
     "pg-hstore": "^2.3.2",
     "pg-native": "^1.10.0",

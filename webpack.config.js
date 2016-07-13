@@ -1,15 +1,15 @@
-// const webpack = require('webpack');
+const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   devtool: 'source-map',
-  entry: "./src/Components/index",
+  entry: './src/Components/index',
 
   // This will not actually create a bundle.js file in ./client. It is used
   // by the dev server for dynamic hot loading.
   output: {
-    path: __dirname + "/build/",
-    filename: "build.js"
+    path: __dirname + '/build/',
+    filename: 'build.js',
   },
   // entry:'./src/main.jsx',
   // output: {
@@ -17,25 +17,28 @@ module.exports = {
   //   filename: 'bundle.js'
   // },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx'],
   },
   module: {
     loaders: [{
       test: /\.jsx?$/,
       loaders: ['babel-loader?presets[]=react,presets[]=es2015'],
-      exclude: /node_modules/
+      exclude: /node_modules/,
     },
     {
       test: /\.scss$/,
-      loader: ExtractTextPlugin.extract('css!sass')
-    }]
+      loader: ExtractTextPlugin.extract('css!sass'),
+    }],
   },
   plugins: [
-    new ExtractTextPlugin('build.css', { allChunks: true })
+    new ExtractTextPlugin('build.css', { allChunks: true }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: { warnings: false },
+    }),
   ],
   // plugins: [
   //   new webpack.HotModuleReplacementPlugin(),
   //   // new ExtractTextPlugin('style.css', { allChunks: true })
   //   new webpack.NoErrorsPlugin()
   // ],
-}
+};
