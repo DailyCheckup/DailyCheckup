@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 const drawPieChart = require('./../Graphs/pieChart.js');
 const drawColumnChart = require('./../Graphs/columnChart.js');
 const AJAX = require('./AJAX.js');
+const herokuURL = require('./../../privateKeys.js').herokuURL;
 google.charts.load('current', {'packages':['corechart', 'bar']});
 
 const DirectorHome = React.createClass({
@@ -22,7 +23,7 @@ const DirectorHome = React.createClass({
       takenQuiz: this.props.getState.takenQuiz,
     };
     console.log('post obj ', postObj);
-    AJAX.postRequest('http://localhost:3000/results', postObj, this.printData, this.error);
+    AJAX.postRequest(`${herokuURL}/results`, postObj, this.printData, this.error);
     // add more charts with more set on load callback functions
     google.charts.setOnLoadCallback(drawPieChart.drawChart);
     //google.charts.setOnLoadCallback(drawColumnChart.drawChart);
