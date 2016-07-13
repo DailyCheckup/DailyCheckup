@@ -10,6 +10,8 @@ build.css
 build.css.map
 privateKeys.js
 
+.nyc_output/
+
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml

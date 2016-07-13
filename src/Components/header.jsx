@@ -22,11 +22,11 @@ const Header = React.createClass({
 
   render() {
 
-    const headerLink = this.props.getState.isAdmin ? 
-      <Link to='/director/'>Daily Checkup</Link> : 
+    const headerLink = this.props.getState.isAdmin ?
+      <Link to='/director/'>Daily Checkup</Link> :
       <Link to='/resident/'>Daily Checkup</Link>;
     const logoutButton = this.props.getState.loggedIn ?
-      <button id="logout" onClick={this.clearState}><Link to='/'> Logout </Link></button> :
+      <Link to='/'><button id="logout" onClick={this.clearState}> Logout </button></Link>:
       '';
 
     return (

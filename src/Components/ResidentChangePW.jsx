@@ -78,14 +78,15 @@ const ResidentChangePW = React.createClass({
       // And status is OK
       if (xhr.status === 200) {
         console.log('status is 200');
-        // Set state that the user has changed their password
-        this.props.setAppState({ changedPW: true });
+
         // Clear all input fields
         this.inputNewPW.value = '';
         this.inputConfirmPW.value = '';
         this.inputOldPW.value = '';
+        // Set state that the user has changed their password
         // Display success message
         this.props.setAppState({
+          changedPW: true,
           confirmPasswordError: false,
           successfulPasswordChange: true,
           samePasswordError: false,
@@ -98,6 +99,7 @@ const ResidentChangePW = React.createClass({
   },
 
   displayMessage() {
+    console.log("we are inside dislayMessage");
     if (this.props.getState.confirmPasswordError) {
       return (
         <div id="confirmPasswordError">
@@ -125,6 +127,7 @@ const ResidentChangePW = React.createClass({
   render() {
 
     const message = this.displayMessage();
+    // console.log("insde the render function with the message equal to::", message);
 
     return (
       <div className="changePassword">
