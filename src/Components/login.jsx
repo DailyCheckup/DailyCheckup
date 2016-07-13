@@ -1,7 +1,6 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 const AJAX = require('./AJAX.js');
-const herokuURL = require('./../../privateKeys.js').herokuURL;
 import { Link, browserHistory } from 'react-router';
 
 // TODO
@@ -20,7 +19,7 @@ const Login = React.createClass({
       emailAddress: lowerEmail,
       password: pw,
     };
-    AJAX.postRequest(`${herokuURL}/login`, pwAndEmailObj, this.parseDataAndSetState, this.displayError);
+    AJAX.postRequest('/login', pwAndEmailObj, this.parseDataAndSetState, this.displayError);
   },
 
   redirectToUsersPane(isAdmin) {
