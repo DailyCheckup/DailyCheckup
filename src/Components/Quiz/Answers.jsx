@@ -17,7 +17,7 @@ const Answers = React.createClass({
           value={this.props.currentQuestion[this.props.id][0]}
           onChange={this.props.updateAnswer}
         ></input>
-        <label htmlFor="a"> {this.props.currentQuestion[this.props.id]} </label> <br />
+        <label htmlFor={this.props.id}> {this.props.currentQuestion[this.props.id]} </label> <br />
       </div>
     );
   },
