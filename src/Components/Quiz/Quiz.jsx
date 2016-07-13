@@ -1,7 +1,6 @@
 const React = require('react');
 const Answers = require('./Answers.jsx');
 import { Link } from 'react-router';
-const herokuURL = require('./../../../privateKeys.js').herokuURL;
 const SubmitQuiz = require('./SubmitQuiz.jsx');
 const Timer = require('./Timer.jsx');
 const QuizResults = require('./QuizResults.jsx');
@@ -138,7 +137,7 @@ const Quiz = React.createClass({
     const resultsData = {
       data: results,
     };
-    const url = `${herokuURL}/userResponse`; // UPDATE WITH ROUTE
+    const url = '/userResponse'; // UPDATE WITH ROUTE
     const xhr = new XMLHttpRequest();
     xhr.open('POST', url);
     xhr.setRequestHeader('Content-Type', 'application/json');

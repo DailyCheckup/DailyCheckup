@@ -1,5 +1,4 @@
 const React = require('react');
-const herokuURL = require('./../../privateKeys.js').herokuURL;
 const ResidentChangePW = React.createClass({
 
   submitPassword(e) {
@@ -59,7 +58,7 @@ const ResidentChangePW = React.createClass({
       emailAddress: userEmail,
       newPassword: pw,
     };
-    const url = `${herokuURL}/changePassword`; // UPDATE WITH ROUTE
+    const url = '/changePassword'; // UPDATE WITH ROUTE
     const xhr = new XMLHttpRequest();
     xhr.open('POST', url);
     xhr.setRequestHeader('Content-Type', 'application/json');
