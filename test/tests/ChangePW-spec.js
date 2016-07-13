@@ -82,9 +82,4 @@ describe('Change Password Component', () => {
   // it( 'will set state parameters for a successfulPasswordChange to true', () => {
   //
   // });
-<<<<<<< HEAD
-=======
-
-
->>>>>>> master
 });
