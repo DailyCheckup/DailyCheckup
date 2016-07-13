@@ -7,6 +7,7 @@ const UserResponseController = require('./controllers/userResponseController');
 const changePW = require('./controllers/changePassword.js');
 const quizTakenController = require('./controllers/quizTakenController.js');
 const gatherResults = require('./controllers/gatherResultsController.js');
+const calculateStats = require('./controllers/calculateStatsController.js');
 const runJob = require('./cronJob.js');
 // Constants
 const port = process.env.PORT || 3000;
@@ -39,12 +40,17 @@ app.post('/changePassword', changePW.changePasswordInDB, function (req, res) {
 });
 
 // Get requests to results will return user or admin data
-app.post('/results', gatherResults.isUserAdmin, gatherResults.gatherQuestions, function (req, res) {
-  res.statusCode = 200;
-  res.send(JSON.stringify('Here is your data'));
+app.post('/results', 
+  gatherResults.isUserAdmin,
+  calculateStats.questionResultsPerDay,
+  gatherResults.gatherQuestions,
+  gatherResults.addQuestionInfoToResults,
+  function (req, res) {
+    res.statusCode = 200;
+    res.send(JSON.stringify('Here is your data'));
 });
 
-app.post('/userResponse', UserResponseController.addResults , function(req, res) {
+app.post('/userResponse', UserResponseController.addResults, function(req, res) {
   res.send('Successful post request!');
 });
 
