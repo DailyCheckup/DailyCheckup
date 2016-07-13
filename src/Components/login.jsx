@@ -1,5 +1,6 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
+const AJAX = require('./AJAX.js');
 import { Link, browserHistory } from 'react-router';
 
 // TODO
@@ -9,7 +10,7 @@ import { Link, browserHistory } from 'react-router';
 const Login = React.createClass({
 
   submitForm(e) {
-    //e.preventDefault();
+    e.preventDefault();
     console.log('inside submit form onclick');
     const email = this.inputEmail.value;
     const lowerEmail = email.toLowerCase();
@@ -18,37 +19,14 @@ const Login = React.createClass({
       emailAddress: lowerEmail,
       password: pw,
     };
-    const url = 'http://localhost:3000/login'; // UPDATE WITH ROUTE
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', url);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify(pwAndEmailObj));
-    xhr.onreadystatechange = function () {
-      this.processResponse(xhr);
-    }.bind(this);
-  },
-
-  processResponse(xhr) {
-    // If request is done
-    if (xhr.readyState === 4) {
-      console.log('readystate is 4');
-      // And status is OK
-      if (xhr.status === 200) {
-        console.log('status is 200');
-        this.parseDataAndSetState(xhr.responseText);
-      } else {
-        // If error, email or password was incorrect so display error
-        console.log('Error: ' + xhr.status);
-        this.displayError();
-      }
-    }
+    AJAX.postRequest('http://localhost:3000/login', pwAndEmailObj, this.parseDataAndSetState, this.displayError);
   },
 
   redirectToUsersPane(isAdmin) {
     if (isAdmin) {
       browserHistory.push('/director/');
     } else {
-      browserHistory.push('/resident');
+      browserHistory.push('/resident/');
     }
   },
 
@@ -74,8 +52,8 @@ const Login = React.createClass({
       firstName,
       loggedIn,
     };
-    this.redirectToUsersPane(isAdmin);
     this.props.setAppState(newStateObj);
+    this.redirectToUsersPane(isAdmin);
   },
 
   displayError() {
