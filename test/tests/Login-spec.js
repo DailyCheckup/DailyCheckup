@@ -1,12 +1,22 @@
 import React from 'react';
 import { expect } from 'chai';
-import { shallow, mount, render } from 'enzyme';
+import { mount } from 'enzyme';
 import Login from './../../src/Components/login.jsx';
-// import App from './../../src/Components/app.jsx';
+import App from './../../src/Components/app.jsx';
+// import Server from './../fixtures/server-fixture.js';
+
+let actualState = {};
+
+function checkState(state) {
+  actualState = state;
+}
 
 describe('Login Component', () => {
 
-  const wrapper = shallow(<Login />);
+  const appWrapper = mount(<App />);
+  const setAppState = appWrapper.node.setAppState;
+  let state = appWrapper.node.state;
+  let wrapper = mount(<Login setAppState={setAppState} getState={state} />);
 
   it('contains a form component', () => {
     expect(wrapper.find('form')).to.have.length(1);
@@ -28,16 +38,33 @@ describe('Login Component', () => {
     expect(wrapper.find('button')).to.have.length(1);
   });
 
-  // it('should retrieve email entered into input field', () => {
-  //   const wrapperMount = mount(<Login />);
-  //   //const emailLoginWrapper = wrapperMount.find('.emailLogin').mount();
-  //   const form = wrapperMount.find('input [type="email"]');
-  //   form.value = 'sandra@hi.com';
-  //   console.log('form value', form.value);
-  //   //console.log('ref input email value', emailLoginWrapper.find('input').ref('inputEmail'));
-  //   wrapperMount.find('button').simulate('click');
-  //   expect(wrapperMount.find('input [type="email"]').node.ref('inputEmail')).to.equal('sandra@hi.com');
+  // it('should setState with the response that the component receives from the server', () => {
+  //   wrapper = mount(<Login setAppState={checkState} getState={state} />);
+  //   const email = wrapper.find('input [type="email"]');
+  //   const password = wrapper.find('input [type="password"]');
+  //   email.value = 'sandra@hi.com';
+  //   password.value = 'blah';
+  //   wrapper.find('button').simulate('click');
+  //   setTimeout(() => {
+  //     console.log('the actualState is ', actualState);
+  //     expect(Object.keys(actualState).length).to.equal(0);
+  //   }, 3000);
   // });
+  //
+  // it('should fail and display a login error', () => {
+  //   wrapper = mount(<Login setAppState={checkState} getState={state} />);
+  //   const email = wrapper.find('input [type="email"]');
+  //   const password = wrapper.find('input [type="password"]');
+  //   email.value = 'sandra@hi.com';
+  //   password.value = '';
+  //   wrapper.find('button').simulate('click');
+  //   setTimeout(() => {
+  //     expect(wrapper.find('div #loginError')).to.have.length(1);
+  //     Server.destroy();
+  //   }, 3000);
+  // });
+
+
 
   // it('parses response data and sets state', () => {
   //   const appWrapper = mount(<App />);
