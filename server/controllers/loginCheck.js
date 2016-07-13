@@ -16,7 +16,8 @@ const loginCheck = {
             req.results.email = req.body.emailAddress;
             return next();
           } else {
-            throw new Error('Invalid User2');
+            res.sendStatus(400);
+            throw new Error('Invalid User');
           }
         }
         if (user !== null && bcrypt.compareSync(req.body.password, user.dataValues.password)) {
@@ -26,7 +27,7 @@ const loginCheck = {
           req.results.firstName = user.dataValues.firstname;
           next();
         } else {
-          res.sendStatus(400)
+          res.sendStatus(400);
           throw new Error('Invalid User');
         }
       });
