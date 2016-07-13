@@ -11,6 +11,8 @@ build.css.map
 privateKeys.js
 
 .nyc_output/
+Makefile
+bin/
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
