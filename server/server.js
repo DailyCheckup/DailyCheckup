@@ -8,7 +8,10 @@ const changePW = require('./controllers/changePassword.js');
 const quizTakenController = require('./controllers/quizTakenController.js');
 const gatherResults = require('./controllers/gatherResultsController.js');
 const calculateStats = require('./controllers/calculateStatsController.js');
+const answerCount = require('./controllers/answerCountController.js');
 const runJob = require('./cronJob.js');
+//const allRows = require('./controllers/resultsTable.js');
+//const groupData = require('./Questions/groupDataModel.js');
 // Constants
 const port = process.env.PORT || 3000;
 const app = express();
@@ -40,14 +43,15 @@ app.post('/changePassword', changePW.changePasswordInDB, function (req, res) {
 });
 
 // Get requests to results will return user or admin data
-app.post('/results', 
-  gatherResults.isUserAdmin,
-  calculateStats.questionResultsPerDay,
-  gatherResults.gatherQuestions,
-  gatherResults.addQuestionInfoToResults,
+app.post('/results',
+  answerCount.dailyQuestionData,
+  // gatherResults.isUserAdmin,
+  // calculateStats.questionResultsPerDay,
+  // gatherResults.gatherQuestions,
+  // gatherResults.addQuestionInfoToResults,
   function (req, res) {
     res.statusCode = 200;
-    res.send(JSON.stringify('Here is your data'));
+    res.send(JSON.stringify(req.todaysResults));
 });
 
 app.post('/userResponse', UserResponseController.addResults, function(req, res) {
@@ -58,6 +62,10 @@ app.post('/userResponse', UserResponseController.addResults, function(req, res) 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../src/', 'main.html'));
 });
+
+// groupData.bulkCreate(allRows).then(function() {
+//   console.log('created rows in table');
+// });
 
 app.listen(port);
 
