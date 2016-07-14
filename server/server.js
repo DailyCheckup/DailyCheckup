@@ -40,7 +40,7 @@ app.post('/changePassword', changePW.changePasswordInDB, function (req, res) {
 });
 
 // Get requests to results will return user or admin data
-app.post('/results', 
+app.post('/results',
   gatherResults.isUserAdmin,
   calculateStats.questionResultsPerDay,
   gatherResults.gatherQuestions,
@@ -50,7 +50,10 @@ app.post('/results',
     res.send(JSON.stringify('Here is your data'));
 });
 
-app.post('/userResponse', UserResponseController.addResults, function(req, res) {
+app.post('/userResponse',
+UserResponseController.addResults,
+UserResponseController.postToGroupDataTable,
+ function(req, res) {
   res.send('Successful post request!');
 });
 
