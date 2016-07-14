@@ -21,4 +21,5 @@ const groupData = DB.define('groupdata', {
   d_option: Sequelize.TEXT,
   e_option: Sequelize.TEXT,
 });
+
 module.exports = groupData;
