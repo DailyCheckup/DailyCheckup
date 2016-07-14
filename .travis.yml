@@ -1,14 +1,17 @@
 language: node_js
 node_js:
-  - "4"
+- '4'
 env:
   global:
-    - CXX=g++-4.8
-    - secure: wIpNanXvK4+VrNgnflnve1oTX29pk7YeivSqy40sWXwTjbeZy/rfPk0kSsHRm7OIOm2muVkC2emK8NbdAxhNIUOp6xZ9T4jZZwW1nu8msmEipuddmG4ih3rd7tkC7Dr2qT4nkU5ApLcu62K+kdQ1CAswGs67YPTxDDU5onjqYG1zXuMp9ujTwMAoHlB5T0ehxnavl6ShCpUOL6Wi5w9aafql1dj/8IAdBaGgkmnYo/PBRKfeTnICFU6u/925jvbmwHVXFIBpK+G8ZFeQkW9HtHEo0L9rjcaU9v/hvPu3j9HxyD3q7g3pyGawX56TfvQk6BvyesHA4BYaUsujSREz2HzF1oj+bKtAWSoXlWXRr9JBJ2UtMBE8OFzKSswEeISyIch2ntf0GXDO76m7CgDCML2+OcMmqkR3o/EU1saDW+B8UNO13Ym1waBA3PMRDn2fUhV4u6NsUIzo1Pj7iKOiZ6g8mUYG7wxX4rNdCuLgxtRhtat8D86ROIk8PNGoQebq8+tx2KxyQj7LltsyHjRpz3iESvk0O/gNbNfnw2kQnrk7JpVI9/clULrnXkjqapbhWslEE/l3U/zaub+CTSjQUyj1vtLsOHVIfaZWlNsQT1Azg6aa2fuag0eQc33bpG8a3CdiKXE2pWjX2Jak8uc5MEYxjMt0mUHqZuuP62SyHWk=
+  - CXX=g++-4.8
+  - secure: qFu76NwJNav8DaQitIOsVtmSUPhRvszirP8HC+pwmZQV4Pt252/a5m+evDIpIBxS5Ia7B7vf0JJd+fPMOA/9hdUdhD7tVi36dAcM0JiGTTb9G7+szh5UdPhD+rWUi+QrhfYZpGmhk60bGkmVL/S1yxpyNU1LSyvu0CW+Vifwd0Ex7cs05tGqiQ150bGTAK1mXeT0AeqRPmISUahwn45y1eHFR/5VksIXcr+om21PkNy57uU9Sqa4gWzjWMOlyRopljNVLOgbXi4qgGq5mQCqjQ+XOapOXYg63/CD2n9t41EenUbOwF/+Z0nxr7/HAjnmWgUhhmfLs02BX0NQ4n9MCH16sgoAM3veRAJS2mTY5qnHFDbo2+UX+xiVOQiRTYZdgW/1+8923bfOknyDqDol4mrNT927v+lXxIXIq7v1ZhoKs2Z2VUFjTwIzbmbHz4nx4FToZBiRf4I4+6ZqyQPelqAm7qk9r7/lv8cOmCC8FVQ8YHxlLPDqBkpxC8pr7dzpMAUhTr+w6fHRmhA1/JRumg7+HIRDV//4W4R+9OPEWXCY5gGHwHzU61Ew9S6r9Oj72UPDhpQcNC/Mt50KFlawng1Qwv0GQovZFL7pBkDJTX1G/ZQtp86KPI4sAuGHc8ueiNW29S7/FNf+nb4SAFQtGtxJsHO3/h4p8eZ0GjyG5Dk=
+  - secure: x795C33Wm68xvwRV6KILVuOJZQDbZ0LKHUmkyl7GCZI+uUNAM6ie6BQJd5ykij2ekho7HHZeg8/YRVSt7YCaFAdmvzwgswhQYmHA55+TBu92Icyg+qqtrD7obwSIuF8RGiVucQZ22ycRUO1zxK6fRQ3ZFsB1nwVQEGkgzgPygfSmt6gX0yM8NbSI41Ap0H7YqWumQHzVheOn6mUeeIBpd4qOAzl6uUDAIdTmHnMyWvXK0QNVu0nJzVzMHUum0zCgbI0kVHKsn4RFxd9KMWrCmWi8tueMTXHWUAZjYMYl0DDr0s8KRgOmudCrhzxEpqlA6bRBiW5WJ0w4ZNb2Mhmdcsv425rV6EtA8DBulLuKtGubV7mfZbkFPbl1S0vdNNKRMrMzKs0QWp42IiNqaMmwzO5k+yHsJIO9iXrrLB8pJTQUwF3WKFcd5LIWpIMgrOuOOBNgJgfcXorcrVFeEI2YSkk2dGoeiEfnh87jeWMHm5r9RWOVT6RvUF6TJavw1mGo9PqQrFuN+/s10UJyEk6FlBbpVI2LBMrP3oah/xVCf6SNIYB3bBv7av00+l+rSU0ZjphUmsBdXsz7LzgUgfoCwccF2OrR6k4lka9g4OsogDSPBN8+x4T/CUZP8E/q2oql6bwd+VUqLXdMnUN+XtxmCtll+lDGMFbLgJFDrHFNACg=
 addons:
   apt:
     sources:
-      - ubuntu-toolchain-r-test
+    - ubuntu-toolchain-r-test
     packages:
-      - g++-4.8
+    - g++-4.8
+services:
+- postgresql
 after_success: npm run coverage
