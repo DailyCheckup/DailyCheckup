@@ -1,10 +1,34 @@
 'use strict';
 const Questions = require('./Questions/QuestionsModel.js');
 const dailyQuestions = require('./Questions/dailyQuestionsModel.js');
+const GroupData = require('./Questions/groupDataModel.js');
 const CronJob = require('cron').CronJob;
 const Users = require('./Users/UserModel.js');
 const NUM_OF_QUESTIONS = 5;
+const moment = require('moment');
 //if you change number of quesitons change dailyquestions model
+
+function buildGroupData (questions) {
+  const dateTimeZoneAdjusted = moment(Date.now()).utcOffset(-5);
+  const formattedDate = moment(dateTimeZoneAdjusted).format('YYYY-MM-DD');
+  const createRowsArray = [];
+  for (let i = 0; i < questions.length; i++) {
+    let obj = {};
+    obj.questionid = questions[i].dataValues.questionid;
+    obj.date = formattedDate;
+    obj.question = questions[i].dataValues.question;
+    obj.answer = questions[i].dataValues.answer;
+    obj.reason = questions[i].dataValues.reason;
+    obj.genre = questions[i].dataValues.genre;
+    obj.a_option = questions[i].dataValues.a;
+    obj.b_option = questions[i].dataValues.b;
+    obj.c_option = questions[i].dataValues.c;
+    obj.d_option = questions[i].dataValues.d;
+    obj.e_option = questions[i].dataValues.e;
+    createRowsArray.push(obj);
+  }
+  return createRowsArray;
+}
 
 function removeAndInsertIntoDailyQuestions(array) {
   var buildObj = {};
@@ -20,8 +44,6 @@ function removeAndInsertIntoDailyQuestions(array) {
   const dailyQs = dailyQuestions.build(buildObj);
   dailyQs.save();
 }
-
-
 
 function update(questions, randomQ) {
   Questions.update(
@@ -48,8 +70,11 @@ function getRandomQ() {
     { chosen: false } }).then((questions) => {
       const nonChosenQuestionCount = questions.length;
       const randomQ = [];
+      const todaysDataToAdd = buildGroupData(questions);
+      GroupData.bulkCreate(todaysDataToAdd);
       forLoop(nonChosenQuestionCount, randomQ, array, questions);
       removeAndInsertIntoDailyQuestions(array);
+      // array is N number of unique question ids
     });
     // want to return array that has 3 integer values
 }
@@ -68,6 +93,7 @@ function setAvaiableToFalse() {
   })
 }
 
+
 function runJob() {
   // var brendan = Users.build({
   //   userid: 70,
@@ -81,6 +107,9 @@ function runJob() {
   // });
   // brendan.save();
 
+
+// this is releasing the daily questions
+// setting 5 empty rows in groupdata table
   const job = new CronJob({
     cronTime: '00 00 03 * * 1-5',
     onTick: () => {
