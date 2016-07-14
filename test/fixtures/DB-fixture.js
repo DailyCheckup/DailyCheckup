@@ -1,5 +1,6 @@
 'use strict'
 const Sequelize = require('sequelize');
+console.log(process.env);
 let privateKey = process.env.TEST_DB_ENV;
 if (privateKey === undefined) {
   privateKey = require('./../../testingKeys.js').dbKey;
