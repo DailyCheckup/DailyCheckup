@@ -13,18 +13,18 @@ const calculateStats = {
     allResponses.forEach(function (response) {
       // Adjust the date to be in Los Angeles time by subtracting 7 hours from UTC time
       const dateTimeZoneAdjusted = moment(response.createdAt).utcOffset(-5);
-      const formattedDate = moment(dateTimeZoneAdjusted).format('MM-DD-YYYY');
+      const formattedDate = moment(dateTimeZoneAdjusted).format('YYYY-MM-DD');
       const questionResults = {
         questionid: response.questionid,
-        true: response.respondedCorrectly ? 1 : 0,
-        false: response.respondedCorrectly ? 0 : 1,
-        a: response.submittedAnswer === 'A' ? 1 : 0,
-        b: response.submittedAnswer === 'B' ? 1 : 0,
-        c: response.submittedAnswer === 'C' ? 1 : 0,
-        d: response.submittedAnswer === 'D' ? 1 : 0,
-        e: response.submittedAnswer === 'E' ? 1 : 0,
+        num_of_people_correct: response.respondedCorrectly ? 1 : 0,
+        num_of_people_incorrect: response.respondedCorrectly ? 0 : 1,
+        date: formattedDate,
+        a_count: response.submittedAnswer === 'A' ? 1 : 0,
+        b_count: response.submittedAnswer === 'B' ? 1 : 0,
+        c_count: response.submittedAnswer === 'C' ? 1 : 0,
+        d_count: response.submittedAnswer === 'D' ? 1 : 0,
+        e_count: response.submittedAnswer === 'E' ? 1 : 0,
       };
-      //let releasedQuestionsByDay[formattedDate] = releasedQuestionsByDay[formattedDate];
 
       // Check only for responses from the aspirus residents
       if (response.email.indexOf('@aspirus.org') > -1) {
@@ -39,11 +39,11 @@ const calculateStats = {
             const arrayLocation = calculateStats.objectLocation(releasedQuestionsByDay[formattedDate], response.questionid);
             const singleDailyQuestion = releasedQuestionsByDay[formattedDate][arrayLocation];
             if (response.respondedCorrectly) {
-              ++singleDailyQuestion.true;
+              ++singleDailyQuestion.num_of_people_correct;
             } else {
-              ++singleDailyQuestion.false;
+              ++singleDailyQuestion.num_of_people_incorrect;
             }
-            ++singleDailyQuestion[response.submittedAnswer.toLowerCase()];
+            ++singleDailyQuestion[response.submittedAnswer.toLowerCase() + '_count'];
           }
           // Else add date and start new array
         } else {
@@ -51,8 +51,8 @@ const calculateStats = {
         }
       }
     });
-    console.log('released questions ', releasedQuestionsByDay);
     req.dataResults.questionResultsPerDay = releasedQuestionsByDay;
+    //console.log('released questions ', releasedQuestionsByDay);
     next();
   },
 
