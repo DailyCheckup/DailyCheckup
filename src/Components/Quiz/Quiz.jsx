@@ -26,11 +26,7 @@ const Quiz = React.createClass({
       submitQuiz: false,
     });
   },
-  componentWillMount() {
-    if (this.props.getState.takenQuiz || !this.props.getState.quizAvailability) {
-      this.setState({ questionNumber: this.props.getState.dailyQuestions.length });
-    }
-  },
+
   componentDidMount() {
     if (!this.props.getState.takenQuiz && this.props.getState.quizAvailability) {
       this.startCountdown();
@@ -167,7 +163,7 @@ const Quiz = React.createClass({
   },
   render() {
     // if the quiz has questions still to take, render the quiz questions and answer
-    if (!this.state.showResults) {
+    if (!this.state.showResults && this.props.getState.quizAvailability && !this.props.getState.takenQuiz) {
       const currentQuestion = this.props.getState.dailyQuestions[this.state.questionNumber];
       const answerArray = this.buildAnswers();
       return (

@@ -8,6 +8,7 @@ const changePW = require('./controllers/changePassword.js');
 const quizTakenController = require('./controllers/quizTakenController.js');
 const gatherResults = require('./controllers/gatherResultsController.js');
 const calculateStats = require('./controllers/calculateStatsController.js');
+const ChosenController = require('./controllers/chosenController.js');
 const runJob = require('./cronJob.js');
 // Constants
 const port = process.env.PORT || 3000;
@@ -57,6 +58,9 @@ UserResponseController.postToGroupDataTable,
   res.send('Successful post request!');
 });
 
+// app.get('/reset', ChosenController.resetChosenToFalse, ChosenController.setChosenToTrue, (req, res) => {
+//   res.send('send successful reset');
+// })
 // For all other requests, serve main html page
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../src/', 'main.html'));
