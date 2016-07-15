@@ -46,6 +46,8 @@ const DirectorHome = React.createClass({
     let columnGraphArray = [];
     if (this.state.dailyQuestionData.length === 0) {
       columnGraphArray = (<p>Loading...</p>);
+    } else if (typeof this.state.dailyQuestionData === 'string') {
+      columnGraphArray = (<p>No quizzes have been submitted yet today.</p>);
     } else {
       for (let i = 0; i < this.state.dailyQuestionData.length; i++) {
         columnGraphArray.push(<DailyColumnChart data={this.state.dailyQuestionData[i]} key={i} index={i} />);

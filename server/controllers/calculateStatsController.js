@@ -24,6 +24,7 @@ const calculateStats = {
         c_count: response.submittedAnswer === 'C' ? 1 : 0,
         d_count: response.submittedAnswer === 'D' ? 1 : 0,
         e_count: response.submittedAnswer === 'E' ? 1 : 0,
+        n_count: response.submittedAnswer === 'N' ? 1 : 0,
       };
 
       // Check only for responses from the aspirus residents
