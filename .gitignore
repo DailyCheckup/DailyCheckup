@@ -9,6 +9,7 @@ build.js.map
 build.css
 build.css.map
 privateKeys.js
+testingKeys.js
 
 .nyc_output/
 Makefile
