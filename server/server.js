@@ -51,7 +51,10 @@ app.post('/results',
     res.send(JSON.stringify('Here is your data'));
 });
 
-app.post('/userResponse', UserResponseController.addResults, function(req, res) {
+app.post('/userResponse',
+UserResponseController.addResults,
+UserResponseController.postToGroupDataTable,
+ function(req, res) {
   res.send('Successful post request!');
 });
 

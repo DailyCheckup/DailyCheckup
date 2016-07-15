@@ -133,7 +133,7 @@ const Quiz = React.createClass({
     const resultsData = {
       data: results,
     };
-    const url = 'http://localhost:3000/userResponse'; // UPDATE WITH ROUTE
+    const url = '/userResponse'; // UPDATE WITH ROUTE
     const xhr = new XMLHttpRequest();
     xhr.open('POST', url);
     xhr.setRequestHeader('Content-Type', 'application/json');
