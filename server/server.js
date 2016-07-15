@@ -10,6 +10,7 @@ const quizTakenController = require('./controllers/quizTakenController.js');
 // const calculateStats = require('./controllers/calculateStatsController.js');
 const dailyQuestionsData = require('./controllers/dailyQuestionsDataController.js');
 const resultsByGenre = require('./controllers/resultsByGenreController.js');
+const ChosenController = require('./controllers/chosenController.js');
 const runJob = require('./cronJob.js');
 // const allRows = require('./controllers/resultsTable.js');
 // const groupData = require('./Questions/groupDataModel.js');
@@ -56,10 +57,16 @@ app.post('/results',
     res.send(JSON.stringify(req.results));
 });
 
-app.post('/userResponse', UserResponseController.addResults, function(req, res) {
+app.post('/userResponse',
+UserResponseController.addResults,
+UserResponseController.postToGroupDataTable,
+ function(req, res) {
   res.send('Successful post request!');
 });
 
+// app.get('/reset', ChosenController.resetChosenToFalse, ChosenController.setChosenToTrue, (req, res) => {
+//   res.send('send successful reset');
+// })
 // For all other requests, serve main html page
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../src/', 'main.html'));

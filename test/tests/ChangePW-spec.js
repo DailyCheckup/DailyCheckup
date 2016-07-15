@@ -5,6 +5,10 @@ import ChangePW from './../../src/Components/ResidentChangePW.jsx';
 import App from './../../src/Components/app.jsx';
 
 
+// TODO:
+// 1. add a test to see if the right error state is set for when the password is the same
+// 2. need error handling for a bad request
+
 // replace setAppState with this function when testing to see what is going to be
 // sent to the stateful component (in this example, App is the stateful component)
 // when testing to see what is being sent to state look at actualState
@@ -73,15 +77,34 @@ describe('Change Password Component', () => {
     wrapper.find('button').simulate('click');
     expect(actualState.confirmPasswordError).to.be.true;
     expect(actualState.samePasswordError).to.be.false;
-    expect(actualState.samePasswordError).to.be.false;
+    expect(actualState.successfulPasswordChange).to.be.false;
+    actualState = {};
   });
-
   // it('will set state parameters for a same password error to be true', ()=> {
   //
   // });
-  // it( 'will set state parameters for a successfulPasswordChange to true', () => {
-  //
-  // });
 
+  it( 'will set state parameters after a successful response from the server', () => {
+    wrapper = mount(<ChangePW setAppState={checkState} getState={state} />);
+    const responseData = {
+      readyState: 4,
+      status: 200,
+    };
+    wrapper.node.processResponse(responseData);
+    expect(actualState.confirmPasswordError).to.be.false;
+    expect(actualState.samePasswordError).to.be.false;
+    expect(actualState.successfulPasswordChange).to.be.true;
+    actualState = {};
+  });
+
+  it('will not set state after an unsuccessful response from the server', ()=> {
+    wrapper = mount(<ChangePW setAppState={checkState} getState={state} />);
+    const responseData = {
+      readyState: 4,
+      status: 400,
+    };
+    wrapper.node.processResponse(responseData);
+    expect(Object.keys(actualState)).to.have.length(0);
+  });
 
 });
