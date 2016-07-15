@@ -26,11 +26,7 @@ const Quiz = React.createClass({
       submitQuiz: false,
     });
   },
-  componentWillMount() {
-    if (this.props.getState.takenQuiz || !this.props.getState.quizAvailability) {
-      this.setState({ questionNumber: this.props.getState.dailyQuestions.length });
-    }
-  },
+
   componentDidMount() {
     if (!this.props.getState.takenQuiz && this.props.getState.quizAvailability) {
       this.startCountdown();
@@ -137,7 +133,7 @@ const Quiz = React.createClass({
     const resultsData = {
       data: results,
     };
-    const url = 'http://localhost:3000/userResponse'; // UPDATE WITH ROUTE
+    const url = '/userResponse'; // UPDATE WITH ROUTE
     const xhr = new XMLHttpRequest();
     xhr.open('POST', url);
     xhr.setRequestHeader('Content-Type', 'application/json');
@@ -167,7 +163,7 @@ const Quiz = React.createClass({
   },
   render() {
     // if the quiz has questions still to take, render the quiz questions and answer
-    if (!this.state.showResults) {
+    if (!this.state.showResults && this.props.getState.quizAvailability && !this.props.getState.takenQuiz) {
       const currentQuestion = this.props.getState.dailyQuestions[this.state.questionNumber];
       const answerArray = this.buildAnswers();
       return (

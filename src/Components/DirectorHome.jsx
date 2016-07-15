@@ -5,6 +5,7 @@ const drawColumnChart = require('./../Graphs/columnChart.js');
 const AJAX = require('./AJAX.js');
 const DailyColumnChart = require('./../Graphs/DailyColumnChart.jsx');
 const GenreChart = require('./../Graphs/GenreChart.jsx');
+
 google.charts.load('current', {'packages':['corechart', 'bar']});
 
 const DirectorHome = React.createClass({
@@ -24,7 +25,7 @@ const DirectorHome = React.createClass({
       takenQuiz: this.props.getState.takenQuiz,
     };
     console.log('post obj ', postObj);
-    AJAX.postRequest('http://localhost:3000/results', postObj, this.printData, this.error);
+    AJAX.postRequest('/results', postObj, this.printData, this.error);
     // add more charts with more set on load callback functions
     //google.charts.setOnLoadCallback(drawPieChart.drawChart);
   },

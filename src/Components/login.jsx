@@ -19,7 +19,7 @@ const Login = React.createClass({
       emailAddress: lowerEmail,
       password: pw,
     };
-    AJAX.postRequest('http://localhost:3000/login', pwAndEmailObj, this.parseDataAndSetState, this.displayError);
+    AJAX.postRequest('/login', pwAndEmailObj, this.parseDataAndSetState, this.displayError);
   },
 
   redirectToUsersPane(isAdmin) {
