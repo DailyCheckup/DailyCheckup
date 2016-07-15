@@ -18,8 +18,7 @@
     "dev-start": "nodemon server/server.js",
     "client-test": "nyc mocha test/.setup.js test/tests/*-spec.js ",
     "test": "export PROD_DB_ENV=PROD_DB_ENV export TEST_DB_ENV=TEST_DB_ENV npm run client-test && npm run server-test",
-    "build": "webpack -w",
-
+    "build": "webpack -w"
   },
   "repository": {
     "type": "git",
