@@ -8,7 +8,7 @@ const dailyResults = {
   dailyQuestionsResults(req, res, next) {
     groupData.findAll({
       where: {
-        date: '2016-07-11'
+        date: todaysDate
       }
     }).then((dayResults) => {
       // daily results is an array of objects, grab the dataValues
@@ -19,6 +19,9 @@ const dailyResults = {
       results.forEach(function (result) {
         result.columnChartArray = dailyResults.buildColumnChartData(result);
       });
+      if (results.length === 0) {
+        results = 'No quizzes have been taken today';
+      }
       req.results = {};
       req.results.todaysResults = results;
       next();
@@ -30,12 +33,12 @@ const dailyResults = {
     // Need to add {role: 'style'} for colors to column axis
     const columnAxes = ['Selection', 'Count', {role: 'style'}];
     columnChartData.push(columnAxes);
-    const selections = ['A', 'B', 'C', 'D', 'E'];
+    const selections = ['A', 'B', 'C', 'D', 'E', 'N'];
     selections.forEach(function (select) {
       // Works only for traditional charts, not material charts
-      let color = 'color: #1976d2';
+      let color = 'color: #536DFE';
       if (data.answer === select) {
-        color = 'color: #009933';
+        color = 'color: #66BB6A';
       }
       columnChartData.push([select, data[select.toLowerCase() + '_count'], color]);
     });
