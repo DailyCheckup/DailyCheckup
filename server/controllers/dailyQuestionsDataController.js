@@ -3,23 +3,24 @@ const groupData = require('./../Questions/groupDataModel.js');
 const moment = require('moment');
 const todaysDate = moment(Date.now()).format('YYYY-MM-DD');
 
-const answerCount = {
+const dailyResults = {
 
-  dailyQuestionData(req, res, next) {
+  dailyQuestionsResults(req, res, next) {
     groupData.findAll({
       where: {
         date: '2016-07-11'
       }
-    }).then((dailyResults) => {
+    }).then((dayResults) => {
       // daily results is an array of objects, grab the dataValues
-      let results = dailyResults.map(function (result) {
+      let results = dayResults.map(function (result) {
         return result.dataValues;
       });
       // Create column chart arrays
       results.forEach(function (result) {
-        result.columnChartArray = answerCount.buildColumnChartData(result);
+        result.columnChartArray = dailyResults.buildColumnChartData(result);
       });
-      req.todaysResults = results;
+      req.results = {};
+      req.results.todaysResults = results;
       next();
     });
   },
@@ -34,7 +35,6 @@ const answerCount = {
       // Works only for traditional charts, not material charts
       let color = 'color: #1976d2';
       if (data.answer === select) {
-        console.log('inside if statement');
         color = 'color: #009933';
       }
       columnChartData.push([select, data[select.toLowerCase() + '_count'], color]);
@@ -43,4 +43,4 @@ const answerCount = {
   },
 };
 
-module.exports = answerCount;
+module.exports = dailyResults;

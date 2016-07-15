@@ -1,11 +1,11 @@
 const React = require('react');
 const drawColumnChart = require('./../Graphs/columnChart.js');
-google.charts.load('current', {'packages':['corechart', 'bar']});
+// google.charts.load('current', {'packages':['corechart', 'bar']});
 
 const DailyColumnChart = React.createClass({
 
   componentDidMount() {
-    google.charts.setOnLoadCallback(drawColumnChart.drawChart(this.props.data, this.props.index));
+    google.charts.setOnLoadCallback(drawColumnChart.drawChart('dailyData', this.props.data.columnChartArray, this.props.index, 'dailyColChart'));
   },
 
   determineQuestionDifficulty() {
@@ -21,21 +21,33 @@ const DailyColumnChart = React.createClass({
     }
   },
 
+  buildAnswers(obj) {
+    const answersArray = [];
+    const selections = ['a_option', 'b_option', 'c_option', 'd_option', 'e_option'];
+    selections.forEach(function (letter) {
+      if (obj[letter] !== 'null') {
+        answersArray.push(<p>{obj[letter]}</p>);
+      }
+    });
+    return answersArray;
+  },
+
   render() {
 
     const questionDifficulty = this.determineQuestionDifficulty();
+    const totalPeople = this.props.data.num_of_people_correct + this.props.data.num_of_people_incorrect;
+    const answers = this.buildAnswers(this.props.data);
+    //const style = {height: '400px'};
 
-    return(
+    return (
       <div>
         <h2>Question {this.props.index + 1}</h2>
-        <h3>{questionDifficulty} {100 * (this.props.data.num_of_people_correct / (this.props.data.num_of_people_correct + this.props.data.num_of_people_incorrect))}% Responded Correctly</h3>
+        <h3>{questionDifficulty} 
+          {Math.round(100 * (this.props.data.num_of_people_correct / totalPeople))}
+          % Responded Correctly of {totalPeople} Residents</h3>
         <p>{this.props.data.question}</p>
-        <p>{this.props.data.a_option}</p>
-        <p>{this.props.data.b_option}</p>
-        <p>{this.props.data.c_option}</p>
-        <p>{this.props.data.d_option}</p>
-        <p>{this.props.data.e_option}</p>
-        <div id={'colChart_div' + this.props.index}></div>
+        {answers}
+        <div id={'dailyColChart' + this.props.index} ></div>
       </div>
     );
   },
