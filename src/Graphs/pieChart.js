@@ -18,7 +18,7 @@ const drawPieChart = {
 
     var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
     chart.draw(data, options);
-    google.visualization.events.addListener(chart, 'select', drawColumnChart.drawChart);
+    //google.visualization.events.addListener(chart, 'select', drawColumnChart.drawChart);
   },
 
   // pieChartHandler(e) {
