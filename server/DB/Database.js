@@ -2,7 +2,7 @@
 const Sequelize = require('sequelize');
 let privateKey = process.env.PROD_DB_ENV;
 if (process.env.TRAVIS_SECURE_ENV_VARS) {
-  console.log('WE HAVE SECURE VARS AVAILABLE');
+  console.log(process.env, 'this is process env');
 }
 if (privateKey === undefined) {
   privateKey = require('./../../privateKeys.js').dbKey;
