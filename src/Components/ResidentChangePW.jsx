@@ -98,7 +98,6 @@ const ResidentChangePW = React.createClass({
   },
 
   displayMessage() {
-    console.log("we are inside dislayMessage");
     if (this.props.getState.confirmPasswordError) {
       return (
         <div id="confirmPasswordError">
