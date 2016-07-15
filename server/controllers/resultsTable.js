@@ -1,5 +1,5 @@
 'use strict';
-const allRows = [ { questionid: 70,
+let allRows = [ { questionid: 70,
     num_of_people_correct: 0,
     num_of_people_incorrect: 8,
     date: '2016-07-11',
@@ -449,5 +449,10 @@ const allRows = [ { questionid: 70,
     c_option: 'C) Plain radiography',
     d_option: 'D) MRI without contrast',
     e_option: 'E) MRI with contrast' } ];
+
+    // Adding in total num of people
+    allRows.forEach(function(entry) {
+        entry.num_of_people_total = entry.num_of_people_correct + entry.num_of_people_incorrect;
+    });
 
     module.exports = allRows;
