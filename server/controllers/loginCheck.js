@@ -20,6 +20,13 @@ const loginCheck = {
             throw new Error('Invalid User');
           }
         }
+        // if (req.body.emailAddress === 'demo' && req.body.password === 'testing') {
+        //   req.results.email = req.body.emailAddress;
+        //   req.results.isAdmin = user.dataValues.adminFlag;
+        //   req.results.changedPassword = user.dataValues.changedPassword;
+        //   req.results.firstName = user.dataValues.firstname;
+        //   next();
+        // } else 
         if (user !== null && bcrypt.compareSync(req.body.password, user.dataValues.password)) {
           req.results.email = req.body.emailAddress;
           req.results.isAdmin = user.dataValues.adminFlag;
@@ -33,26 +40,26 @@ const loginCheck = {
       });
   },
 
-  isAdmin(req, res, next) {
-    Users.findOne({ where:
-      { email: req.body.emailAddress },
-    })
-    .then((user) => {
-      req.results.isAdmin = user.dataValues.adminFlag;
-      next();
-    });
-  },
+  // isAdmin(req, res, next) {
+  //   Users.findOne({ where:
+  //     { email: req.body.emailAddress },
+  //   })
+  //   .then((user) => {
+  //     req.results.isAdmin = user.dataValues.adminFlag;
+  //     next();
+  //   });
+  // },
 
-  firstLogin(req, res, next) {
-    Users.findOne({ where:
-      { email: req.body.emailAddress },
-    })
-    .then((user) => {
-      req.results.changedPassword = user.dataValues.changedPassword;
-      req.results.firstName = user.dataValues.firstname;
-      next();
-    });
-  },
+  // firstLogin(req, res, next) {
+  //   Users.findOne({ where:
+  //     { email: req.body.emailAddress },
+  //   })
+  //   .then((user) => {
+  //     req.results.changedPassword = user.dataValues.changedPassword;
+  //     req.results.firstName = user.dataValues.firstname;
+  //     next();
+  //   });
+  // },
 
   getQuestions(req, res, next) {
     dailyQuestionsModel.findAll({ where:

@@ -14,10 +14,10 @@
   },
   "scripts": {
     "server-test": "nyc node test/tests/server* | tap-spec ",
-    "start": "node server/server.js",
+    "start": "export PROD_DB_ENV=PROD_DB_ENV; export TEST_DB_ENV=TEST_DB_ENV; node server/server.js",
     "dev-start": "nodemon server/server.js",
     "client-test": "nyc mocha test/.setup.js test/tests/*-spec.js ",
-    "test": "npm run client-test && npm run server-test",
+    "test": "export PROD_DB_ENV=PROD_DB_ENV; export TEST_DB_ENV=TEST_DB_ENV; npm run client-test && npm run server-test",
     "build": "webpack -w"
   },
   "repository": {
