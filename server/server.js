@@ -8,10 +8,11 @@ const changePW = require('./controllers/changePassword.js');
 const quizTakenController = require('./controllers/quizTakenController.js');
 const gatherResults = require('./controllers/gatherResultsController.js');
 const calculateStats = require('./controllers/calculateStatsController.js');
-const answerCount = require('./controllers/answerCountController.js');
+const dailyQuestionsData = require('./controllers/dailyQuestionsDataController.js');
+const resultsByGenre = require('./controllers/resultsByGenreController.js');
 const runJob = require('./cronJob.js');
-//const allRows = require('./controllers/resultsTable.js');
-//const groupData = require('./Questions/groupDataModel.js');
+// const allRows = require('./controllers/resultsTable.js');
+// const groupData = require('./Questions/groupDataModel.js');
 // Constants
 const port = process.env.PORT || 3000;
 const app = express();
@@ -44,14 +45,15 @@ app.post('/changePassword', changePW.changePasswordInDB, function (req, res) {
 
 // Get requests to results will return user or admin data
 app.post('/results',
-  answerCount.dailyQuestionData,
+  dailyQuestionsData.dailyQuestionsResults,
+  resultsByGenre.gatherResultsByGenre,
   // gatherResults.isUserAdmin,
   // calculateStats.questionResultsPerDay,
   // gatherResults.gatherQuestions,
   // gatherResults.addQuestionInfoToResults,
   function (req, res) {
     res.statusCode = 200;
-    res.send(JSON.stringify(req.todaysResults));
+    res.send(JSON.stringify(req.results));
 });
 
 app.post('/userResponse', UserResponseController.addResults, function(req, res) {

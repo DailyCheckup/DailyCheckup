@@ -4,13 +4,15 @@ import { Link } from 'react-router';
 const drawColumnChart = require('./../Graphs/columnChart.js');
 const AJAX = require('./AJAX.js');
 const DailyColumnChart = require('./../Graphs/DailyColumnChart.jsx');
-//google.charts.load('current', {'packages':['corechart', 'bar']});
+const GenreChart = require('./../Graphs/GenreChart.jsx');
+google.charts.load('current', {'packages':['corechart', 'bar']});
 
 const DirectorHome = React.createClass({
 
   getInitialState() {
     return ({
       dailyQuestionData: [],
+      genreResults: '',
     });
   },
 
@@ -31,36 +33,47 @@ const DirectorHome = React.createClass({
     console.log('Error!!! with the post request');
   },
 
-  printData(responseData) {
-    const dailyData = JSON.parse(responseData);
-    this.setState({dailyQuestionData: dailyData});
-
-    // google.charts.setOnLoadCallback(drawColumnChart.drawChart(dailyData[0], 0));
-    // google.charts.setOnLoadCallback(drawColumnChart.drawChart(dailyData[1], 1));
-    // google.charts.setOnLoadCallback(drawColumnChart.drawChart(dailyData[2], 2));
-    // google.charts.setOnLoadCallback(drawColumnChart.drawChart(dailyData[3], 3));
-    // google.charts.setOnLoadCallback(drawColumnChart.drawChart(dailyData[4], 4));
-    console.log('response data ', responseData);
+  printData(results) {
+    const dailyData = JSON.parse(results);
+    this.setState({
+      dailyQuestionData: dailyData.todaysResults,
+      genreData: dailyData.genreResults
+    });
+    console.log('response data ', results);
   },
 
-  render() {
-    var columnGraphArray = [];
+  buildDailyGraphs() {
+    let columnGraphArray = [];
     if (this.state.dailyQuestionData.length === 0) {
       columnGraphArray = (<p>Loading...</p>);
     } else {
-      for (var i = 0; i < this.state.dailyQuestionData.length; i++) {
+      for (let i = 0; i < this.state.dailyQuestionData.length; i++) {
         columnGraphArray.push(<DailyColumnChart data={this.state.dailyQuestionData[i]} key={i} index={i} />);
       }
     }
+    return columnGraphArray;
+  },
 
-    const style = {width: '400px', height: '300px'};
+  buildGenreGraph() {
+    let genreGraph = '';
+    if (this.state.genreData) {
+      genreGraph = (<GenreChart data={this.state.genreData} />);
+    }
+    return genreGraph;
+  },
 
+  render() {
+
+    const columnGraphArray = this.buildDailyGraphs();
+    const genreGraph = this.buildGenreGraph();
+    
     return (
       <div className="directorHome">
         <Link to='/director/todaysQuiz'> Todays Quiz </Link>
         <Link to='/director/results'> Group Stats </Link>
         <Link to='/director/settings'> Settings </Link>
         {columnGraphArray}
+        {genreGraph}
       </div>
     );
   },
