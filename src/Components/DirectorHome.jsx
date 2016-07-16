@@ -5,8 +5,9 @@ const drawColumnChart = require('./../Graphs/columnChart.js');
 const AJAX = require('./AJAX.js');
 const DailyColumnChart = require('./../Graphs/DailyColumnChart.jsx');
 const GenreChart = require('./../Graphs/GenreChart.jsx');
+const QuizTakenTable = require('./../Graphs/QuizTakenList.jsx');
 
-google.charts.load('current', {'packages':['corechart', 'bar']});
+google.charts.load('current', {'packages':['corechart', 'bar', 'table']});
 
 const DirectorHome = React.createClass({
 
@@ -38,7 +39,8 @@ const DirectorHome = React.createClass({
     const dailyData = JSON.parse(results);
     this.setState({
       dailyQuestionData: dailyData.todaysResults,
-      genreData: dailyData.genreResults
+      genreData: dailyData.genreResults,
+      takenQuizData: dailyData.takenQuizListData,
     });
     console.log('response data ', results);
   },
@@ -65,18 +67,28 @@ const DirectorHome = React.createClass({
     return genreGraph;
   },
 
+  buildQuizTakenTable() {
+    let quizTaken = '';
+    if (this.state.takenQuizData) {
+      quizTaken = (<QuizTakenTable data={this.state.takenQuizData} />);
+    }
+    return quizTaken;
+  },
+
   render() {
 
     const columnGraphArray = this.buildDailyGraphs();
     const genreGraph = this.buildGenreGraph();
+    const quizTakenTable = this.buildQuizTakenTable();
     
     return (
       <div className="directorHome">
         <Link to='/director/todaysQuiz'> Todays Quiz </Link>
         <Link to='/director/results'> Group Stats </Link>
         <Link to='/director/settings'> Settings </Link>
-        {columnGraphArray}
+        {/*quizTakenTable*/}
         {genreGraph}
+        {columnGraphArray}
       </div>
     );
   },
