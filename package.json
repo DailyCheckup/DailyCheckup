@@ -13,7 +13,7 @@
     ]
   },
   "scripts": {
-    "server-test": "echo $PROD_DB_URI && nyc node test/tests/server* | tap-spec ",
+    "server-test": "export $PROD_DB_URI && nyc node test/tests/server* | tap-spec ",
     "start": "node server/server.js",
     "dev-start": "nodemon server/server.js",
     "client-test": "nyc mocha test/.setup.js test/tests/*-spec.js ",
