@@ -11,6 +11,7 @@ const quizTakenController = require('./controllers/quizTakenController.js');
 const dailyQuestionsData = require('./controllers/dailyQuestionsDataController.js');
 const resultsByGenre = require('./controllers/resultsByGenreController.js');
 const ChosenController = require('./controllers/chosenController.js');
+const quizTakenList = require('./controllers/quizTakenListController.js');
 const runJob = require('./cronJob.js');
 // const allRows = require('./controllers/resultsTable.js');
 // const groupData = require('./Questions/groupDataModel.js');
@@ -48,6 +49,8 @@ app.post('/changePassword', changePW.changePasswordInDB, function (req, res) {
 app.post('/results',
   dailyQuestionsData.dailyQuestionsResults,
   resultsByGenre.gatherResultsByGenre,
+  quizTakenController.allWhoHaveTakenQuiz,
+  quizTakenList.findAllResidents,
   // gatherResults.isUserAdmin,
   // calculateStats.questionResultsPerDay,
   // gatherResults.gatherQuestions,
