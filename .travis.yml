@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "4"
+- '4'
 env:
   global:
     - CXX=g++-4.8
@@ -8,10 +8,10 @@ env:
 addons:
   apt:
     sources:
-      - ubuntu-toolchain-r-test
+    - ubuntu-toolchain-r-test
     packages:
-      - g++-4.8
+    - g++-4.8
 sudo: required
 services:
-  - postgresql      
+  - postgresql
 after_success: npm run coverage

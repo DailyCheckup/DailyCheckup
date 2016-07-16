@@ -13,16 +13,16 @@
     ]
   },
   "scripts": {
-    "server-test": "nyc node test/tests/server* | tap-spec ",
+    "server-test": "export $PROD_DB_URI && node test/tests/server* | tap-spec ",
     "start": "node server/server.js",
     "dev-start": "nodemon server/server.js",
-    "client-test": "nyc mocha test/.setup.js test/tests/*-spec.js ",
+    "client-test": "mocha test/.setup.js test/tests/*-spec.js ",
     "test": "npm run client-test && npm run server-test",
     "build": "webpack -w"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Swimkitch92/MD_quiz.git"
+    "url": "git+https://github.com/DailyCheckup/DailyCheckup.git"
   },
   "author": "BBS Corp",
   "license": "ISC",
