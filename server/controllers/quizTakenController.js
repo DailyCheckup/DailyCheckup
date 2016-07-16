@@ -1,5 +1,12 @@
+'use strict';
 const UserResponse = require('./../UserResponse/UserResponseModel');
 const DailyQuestions = require('./../Questions/dailyQuestionsModel');
+const moment = require('moment');
+const todaysDate = moment(Date.now()).format('MM-DD-YYYY');
+const todayBeginning = `${todaysDate} 17:00:00.00`;
+const todayEnd = `${todaysDate + 1} 05:00:00.00`;
+// 5pm 15th
+// 5am 16th
 
 module.exports = {
 
@@ -34,6 +41,30 @@ module.exports = {
       }
       next();
     });
-  }
+  },
+
+  allWhoHaveTakenQuiz(req, res, next) {
+    UserResponse.findAll({
+      attributes: ['email'],
+      where: {
+        createdAt: {
+          $between: [todayBeginning, todayEnd]
+        }
+      },
+     }).then((emails) => {
+      let results = emails.map(function (email) {
+        return email.dataValues;
+      });
+      let uniqueEmails = [];
+      results.forEach(function (result) {
+        if (uniqueEmails.indexOf(result.email) === -1) {
+          uniqueEmails.push(result.email);
+        }
+      });
+      console.log('found emails at todays date ', uniqueEmails);
+      req.results.takenQuizEmailArray = uniqueEmails;
+      next();
+     });
+  },
 
 };
