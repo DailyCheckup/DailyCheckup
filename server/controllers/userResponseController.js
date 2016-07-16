@@ -40,7 +40,8 @@ UserResponseController.postToGroupDataTable = (req, res, next) => {
   }
   for (let i = 0; i < resultData.length; i++) {
     let letter = resultData[i].submittedAnswer.toLowerCase();
-    updateRow(i, letter);
+    if (req.body.data[0].email.indexOf('@aspirus.org') === -1) next();
+    else updateRow(i, letter);
   }
   next();
 };
