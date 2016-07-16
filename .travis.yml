@@ -4,17 +4,14 @@ node_js:
 env:
   global:
   - CXX=g++-4.8
-  - secure: 5AK+HgJdF8aXvMAVxO8R86nfB+/uCVUs5cHE45JdrZ8lk5iGT+DGx+qCCkFEkQBOnv4U9AhOUaDs1axzVZU28/u+PSN7iMswJgqHpZ3DJ7JfOjiRx3Vz6RqNw4lLt+ri5A0cMHGUNEpEAv2KVyRaXcRTrvsiNe7jvL+bP3dGVpHTz8bGVrRGYv6Q6oFxZBsvNeAY2og/+zLu9GlgMoRPRKCRwVv+tgrzJh79zOVUIWw1DcrXRJO9FR6cCLSEZx3vAu7mL9v8ADIjRu4tK3LuvLmL7nop3ylsObBD3ufzCes5TJp5WzoWsPNpykmYj7bdTO1EtTBrjgGwMUSPhJz55ez5sJM/jeTGh/PrqQZ8GWjFybOvMnXDei0cshVDaHM2w+MFj8563kAMcURs2CCEPo4pml8QXCfUYQVsTWW1ptrSrOWc1b+j00JjktDLKsUakTJDY/WqQjgG5yOFyn8GRKaaPGGsE2GNHrRku94kNA8OQTzcvWQTQWCtSZlAM/ogpi0msufWE6lZLc9nMA2yw/U26jU/gIelMdRxkVYImB99h5n+sAp0a1Ph/rEYe+38ptgLKFdmDe0GdI9B1N+hJEnuiKKBg8eeoR9gSiBBng6AY4fLQprEAeLXaOMsbz+ZnGfcYj/7XPpVsUs1jO3yb/anzLhvfvuzgS4IP9gi8XE=
+  - PROD_DB_URI=postgres://BBSCorp:_chiaPower17@mymdquizdb.cwyegj8iv25h.us-west-1.rds.amazonaws.com/MD_Quiz_DB
 addons:
   apt:
     sources:
     - ubuntu-toolchain-r-test
     packages:
     - g++-4.8
+sudo: required
 services:
   - postgresql
-scripts:
-  - export $PROD_DB_URI
-  - echo $value
-  - npm test
 after_success: npm run coverage
