@@ -2,8 +2,8 @@
 const test = require('tape');
 const request = require('supertest');
 const app = require('./../../server/server.js');
-const Sequelize = require('./../fixtures/DB-fixture.js').DB;
-const UserTests = require('./../fixtures/DB-fixture.js').UserTests;
+const Sequelize = require('./../fixtures/DB-Fixture.js').DB;
+const UserTests = require('./../fixtures/DB-Fixture.js').UserTests;
 test('Successful Login with Correct Info Returned', (t) => {
   t.plan(6);
   request(app)
