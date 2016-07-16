@@ -6,10 +6,14 @@ const loginCheck = require('./controllers/loginCheck.js');
 const UserResponseController = require('./controllers/userResponseController');
 const changePW = require('./controllers/changePassword.js');
 const quizTakenController = require('./controllers/quizTakenController.js');
-const gatherResults = require('./controllers/gatherResultsController.js');
-const calculateStats = require('./controllers/calculateStatsController.js');
+// const gatherResults = require('./controllers/gatherResultsController.js');
+// const calculateStats = require('./controllers/calculateStatsController.js');
+const dailyQuestionsData = require('./controllers/dailyQuestionsDataController.js');
+const resultsByGenre = require('./controllers/resultsByGenreController.js');
 const ChosenController = require('./controllers/chosenController.js');
 const runJob = require('./cronJob.js');
+// const allRows = require('./controllers/resultsTable.js');
+// const groupData = require('./Questions/groupDataModel.js');
 // Constants
 const port = process.env.PORT || 3000;
 const app = express();
@@ -42,13 +46,15 @@ app.post('/changePassword', changePW.changePasswordInDB, function (req, res) {
 
 // Get requests to results will return user or admin data
 app.post('/results',
-  gatherResults.isUserAdmin,
-  calculateStats.questionResultsPerDay,
-  gatherResults.gatherQuestions,
-  gatherResults.addQuestionInfoToResults,
+  dailyQuestionsData.dailyQuestionsResults,
+  resultsByGenre.gatherResultsByGenre,
+  // gatherResults.isUserAdmin,
+  // calculateStats.questionResultsPerDay,
+  // gatherResults.gatherQuestions,
+  // gatherResults.addQuestionInfoToResults,
   function (req, res) {
     res.statusCode = 200;
-    res.send(JSON.stringify('Here is your data'));
+    res.send(JSON.stringify(req.results));
 });
 
 app.post('/userResponse',
@@ -65,6 +71,10 @@ UserResponseController.postToGroupDataTable,
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../src/', 'main.html'));
 });
+
+// groupData.bulkCreate(allRows).then(function() {
+//   console.log('created rows in table');
+// });
 
 app.listen(port);
 
