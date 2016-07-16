@@ -2,7 +2,7 @@
 const Sequelize = require('sequelize');
 let privateKey;
 if (process.env.PROD_DB_URI) {
-  privateKey = PROD_DB_URI;
+  privateKey = process.env.PROD_DB_URI;
 } else {
   privateKey = require('./../../testingKeys.js').dbKey;
 }
