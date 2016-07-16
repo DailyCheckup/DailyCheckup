@@ -1,14 +1,14 @@
 language: node_js
 node_js:
-  - "4"
+- '4'
 env:
   global:
-    - CXX=g++-4.8
-    - secure: wIpNanXvK4+VrNgnflnve1oTX29pk7YeivSqy40sWXwTjbeZy/rfPk0kSsHRm7OIOm2muVkC2emK8NbdAxhNIUOp6xZ9T4jZZwW1nu8msmEipuddmG4ih3rd7tkC7Dr2qT4nkU5ApLcu62K+kdQ1CAswGs67YPTxDDU5onjqYG1zXuMp9ujTwMAoHlB5T0ehxnavl6ShCpUOL6Wi5w9aafql1dj/8IAdBaGgkmnYo/PBRKfeTnICFU6u/925jvbmwHVXFIBpK+G8ZFeQkW9HtHEo0L9rjcaU9v/hvPu3j9HxyD3q7g3pyGawX56TfvQk6BvyesHA4BYaUsujSREz2HzF1oj+bKtAWSoXlWXRr9JBJ2UtMBE8OFzKSswEeISyIch2ntf0GXDO76m7CgDCML2+OcMmqkR3o/EU1saDW+B8UNO13Ym1waBA3PMRDn2fUhV4u6NsUIzo1Pj7iKOiZ6g8mUYG7wxX4rNdCuLgxtRhtat8D86ROIk8PNGoQebq8+tx2KxyQj7LltsyHjRpz3iESvk0O/gNbNfnw2kQnrk7JpVI9/clULrnXkjqapbhWslEE/l3U/zaub+CTSjQUyj1vtLsOHVIfaZWlNsQT1Azg6aa2fuag0eQc33bpG8a3CdiKXE2pWjX2Jak8uc5MEYxjMt0mUHqZuuP62SyHWk=
+  - CXX=g++-4.8
+  - secure: s6/R8v6Nxe8Vw0gnge+0/my7AHHEscWivpT9u847G/haqmULznNg3rCI3g6x2ws9JL7gcR4MsHH0giaxg1/qxT2qgvi3PiMd1Gwt8B7mfGIRm7nznAfU3KvsRpOlvTUdHzagldX1SfNvo5ouARI7EDALzkWiXik06eWArpQ0qlLr/zZWtVdlTmBaIWGseyB8dc2qkGgZNGmy3QqhwWX1IX5URqQ45EgtKcUuaWMFvmII4WpMIgqGMZ94HJPQ92Ubf4SULf8pZzNNS36L8Tf12XTr8rQcYnplz52W09O/Vydtwbz35xkuPnMTu1lRaUm/wUIbQxfVMLeHfkyPWk7H4nuGQTs5lk1se+3ZwpL3hN+dXYp0N4vnz0gfuxLRMSzuJcSgUwG7pndwdjA56o77ANpyS2POtOsSySfkKBEmFNbAGD1juVbOFmACbNz7pBDaGg1xjrqmvRLnIkLhN6uthSUtUDbIYoe3C4aygOnSSMFbe9Iet4cNiGfyNM8vtBitTiNtxY8F2hCkeEtiuYz353kj9VGkwaR482uep0CQzcdHlvzq1XLuXhDwwYK57x6ZcBOpHWWwjM7wOBnSVpL/OX9fhbn4HQpCy0m3Nw3K7WDdfqJr2wboPbn3mxxeH2rhUnHLQiNN8RG4eVbDXXGdSwbFoSk+f+cE+LVuAE5yx8w=
 addons:
   apt:
     sources:
-      - ubuntu-toolchain-r-test
+    - ubuntu-toolchain-r-test
     packages:
-      - g++-4.8
+    - g++-4.8
 after_success: npm run coverage
