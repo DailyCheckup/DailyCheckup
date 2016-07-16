@@ -8,7 +8,7 @@ const dailyResults = {
   dailyQuestionsResults(req, res, next) {
     groupData.findAll({
       where: {
-        date: todaysDate
+        date: todaysDate,
       }
     }).then((dayResults) => {
       // daily results is an array of objects, grab the dataValues
