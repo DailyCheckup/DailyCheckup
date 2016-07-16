@@ -3,12 +3,15 @@ node_js:
 - '4'
 env:
   global:
-  - CXX=g++-4.8
-  - secure: s6/R8v6Nxe8Vw0gnge+0/my7AHHEscWivpT9u847G/haqmULznNg3rCI3g6x2ws9JL7gcR4MsHH0giaxg1/qxT2qgvi3PiMd1Gwt8B7mfGIRm7nznAfU3KvsRpOlvTUdHzagldX1SfNvo5ouARI7EDALzkWiXik06eWArpQ0qlLr/zZWtVdlTmBaIWGseyB8dc2qkGgZNGmy3QqhwWX1IX5URqQ45EgtKcUuaWMFvmII4WpMIgqGMZ94HJPQ92Ubf4SULf8pZzNNS36L8Tf12XTr8rQcYnplz52W09O/Vydtwbz35xkuPnMTu1lRaUm/wUIbQxfVMLeHfkyPWk7H4nuGQTs5lk1se+3ZwpL3hN+dXYp0N4vnz0gfuxLRMSzuJcSgUwG7pndwdjA56o77ANpyS2POtOsSySfkKBEmFNbAGD1juVbOFmACbNz7pBDaGg1xjrqmvRLnIkLhN6uthSUtUDbIYoe3C4aygOnSSMFbe9Iet4cNiGfyNM8vtBitTiNtxY8F2hCkeEtiuYz353kj9VGkwaR482uep0CQzcdHlvzq1XLuXhDwwYK57x6ZcBOpHWWwjM7wOBnSVpL/OX9fhbn4HQpCy0m3Nw3K7WDdfqJr2wboPbn3mxxeH2rhUnHLQiNN8RG4eVbDXXGdSwbFoSk+f+cE+LVuAE5yx8w=
+    - CXX=g++-4.8
+    - secure: 5AK+HgJdF8aXvMAVxO8R86nfB+/uCVUs5cHE45JdrZ8lk5iGT+DGx+qCCkFEkQBOnv4U9AhOUaDs1axzVZU28/u+PSN7iMswJgqHpZ3DJ7JfOjiRx3Vz6RqNw4lLt+ri5A0cMHGUNEpEAv2KVyRaXcRTrvsiNe7jvL+bP3dGVpHTz8bGVrRGYv6Q6oFxZBsvNeAY2og/+zLu9GlgMoRPRKCRwVv+tgrzJh79zOVUIWw1DcrXRJO9FR6cCLSEZx3vAu7mL9v8ADIjRu4tK3LuvLmL7nop3ylsObBD3ufzCes5TJp5WzoWsPNpykmYj7bdTO1EtTBrjgGwMUSPhJz55ez5sJM/jeTGh/PrqQZ8GWjFybOvMnXDei0cshVDaHM2w+MFj8563kAMcURs2CCEPo4pml8QXCfUYQVsTWW1ptrSrOWc1b+j00JjktDLKsUakTJDY/WqQjgG5yOFyn8GRKaaPGGsE2GNHrRku94kNA8OQTzcvWQTQWCtSZlAM/ogpi0msufWE6lZLc9nMA2yw/U26jU/gIelMdRxkVYImB99h5n+sAp0a1Ph/rEYe+38ptgLKFdmDe0GdI9B1N+hJEnuiKKBg8eeoR9gSiBBng6AY4fLQprEAeLXaOMsbz+ZnGfcYj/7XPpVsUs1jO3yb/anzLhvfvuzgS4IP9gi8XE=
 addons:
   apt:
     sources:
     - ubuntu-toolchain-r-test
     packages:
-    - g++-4.8
+      - g++-4.8
+sudo: required
+services:
+  - postgresql      
 after_success: npm run coverage
