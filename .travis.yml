@@ -13,4 +13,7 @@ addons:
     - g++-4.8
 services:
   - postgresql
+script:
+  - export $PROD_DB_URI
+  - npm test
 after_success: npm run coverage
