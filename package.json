@@ -19,7 +19,7 @@
     "client-test": "nyc mocha test/.setup.js test/tests/*-spec.js ",
     "test": "npm run client-test && npm run server-test",
     "build": "webpack -w",
-    "build-prod": "webpack",
+    "build-prod": "webpack"
   },
   "repository": {
     "type": "git",
