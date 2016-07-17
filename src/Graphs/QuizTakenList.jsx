@@ -1,9 +1,19 @@
 const React = require('react');
-const drawTable = require('./../Graphs/listTable.js');
+const drawListTable = require('./../Graphs/listTable.js');
 
 const QuizTakenList = React.createClass({
+
+  componentDidMount() {
+    google.charts.setOnLoadCallback(drawListTable.drawTable('quizTaken', this.props.data, 'quizTakenTable'));
+  },
+
   render() {
-    
+    return (
+      <div>
+        <h2>Taken Todays Quiz</h2>
+        <div id="quizTakenTable"></div>
+      </div>
+    );
   }
 });
 
