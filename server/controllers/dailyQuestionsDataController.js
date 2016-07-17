@@ -19,6 +19,7 @@ const dailyResults = {
       results.forEach(function (result) {
         result.columnChartArray = dailyResults.buildColumnChartData(result);
       });
+      // Need to add in new condition for checking if no quizzes have been taken
       if (results.length === 0) {
         results = 'No quizzes have been taken today';
       }
