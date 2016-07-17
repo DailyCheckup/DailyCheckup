@@ -22,7 +22,8 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.jsx?$/,
-      loaders: ['babel-loader?presets[]=react,presets[]=es2015'],
+      loaders: ['babel-loader?presets[]=react,presets[]=es2015',
+      WebpackStrip.loader('console.log')],
       exclude: /node_modules/,
     },
     {
