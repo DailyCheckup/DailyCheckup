@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
+const WebpackStrip = require('strip-loader');
 module.exports = {
   devtool: 'source-map',
   entry: './src/Components/index',
@@ -22,7 +22,8 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.jsx?$/,
-      loaders: ['babel-loader?presets[]=react,presets[]=es2015'],
+      loaders: ['babel-loader?presets[]=react,presets[]=es2015',
+      WebpackStrip.loader('console.log')],
       exclude: /node_modules/,
     },
     {
