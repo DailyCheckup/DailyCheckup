@@ -15,7 +15,7 @@ addons:
 sudo: required
 services:
 - postgresql
-after_success: npm run coverage
+after_success: npm run build-prod
 deploy:
   provider: heroku
   api_key:
