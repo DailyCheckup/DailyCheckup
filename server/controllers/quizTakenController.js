@@ -3,8 +3,12 @@ const UserResponse = require('./../UserResponse/UserResponseModel');
 const DailyQuestions = require('./../Questions/dailyQuestionsModel');
 const moment = require('moment');
 const todaysDate = moment(Date.now()).format('MM-DD-YYYY');
+const tomorrowsDate = moment(Date.now()).add(1, 'd').format('MM-DD-YYYY');
+// const todaysDate = '2016-07-11';
+// const tomorrowsDate = '2016-07-12';
+// Dates are set for a 12 hour window, if time is updated need to update the below variables
 const todayBeginning = `${todaysDate} 17:00:00.00`;
-const todayEnd = `${todaysDate + 1} 05:00:00.00`;
+const todayEnd = `${tomorrowsDate} 05:00:00.00`;
 // 5pm 15th
 // 5am 16th
 
@@ -45,24 +49,30 @@ module.exports = {
 
   allWhoHaveTakenQuiz(req, res, next) {
     UserResponse.findAll({
-      attributes: ['email'],
+      attributes: ['email', 'respondedCorrectly'],
       where: {
         createdAt: {
           $between: [todayBeginning, todayEnd]
         }
       },
-     }).then((emails) => {
-      let results = emails.map(function (email) {
-        return email.dataValues;
+     }).then((residents) => {
+      // Gather residents who have taken the quiz today
+      let results = residents.map(function (resident) {
+        return resident.dataValues;
       });
-      let uniqueEmails = [];
-      results.forEach(function (result) {
-        if (uniqueEmails.indexOf(result.email) === -1) {
-          uniqueEmails.push(result.email);
+      console.log('results ', results);
+      // Associate residents and their number responded correctly
+      let residentResponses = {};
+      results.forEach(function(result) {
+        // If resident is already in the object, increment its value if responded correctly is true
+        if (residentResponses[result.email]) {
+          residentResponses[result.email] += result.respondedCorrectly ? 1 : 0;
+        } else {
+          residentResponses[result.email] = result.respondedCorrectly ? 1 : 0;
         }
       });
-      console.log('found emails at todays date ', uniqueEmails);
-      req.results.takenQuizEmailArray = uniqueEmails;
+      console.log('found emails at todays date ', residentResponses);
+      req.results.takenQuizEmailObj = residentResponses;
       next();
      });
   },

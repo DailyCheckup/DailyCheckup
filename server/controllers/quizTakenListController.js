@@ -17,18 +17,24 @@ const quizTakenListData = {
         residentObj.name = `${user.dataValues.firstname} ${user.dataValues.lastname}`;
         return residentObj;
       });
-      const quizTakenDataArray = quizTakenListData.buildListData(results, req.results.takenQuizEmailArray);
+      const quizTakenDataArray = quizTakenListData.buildListData(results, req.results.takenQuizEmailObj);
       req.results.takenQuizListData = quizTakenDataArray;
       next();
     });
   },
 
   buildListData(allResidents, quizTaken) {
+    console.log('all redidents ', allResidents);
+    console.log('quiz taken ', quizTaken);
     const listData = [];
-    const tableHeaders = ['Name', 'Taken Quiz'];
+    const tableHeaders = ['Name', 'Taken Quiz', 'No. Correct'];
     listData.push(tableHeaders);
     allResidents.forEach(function (resident) {
-      listData.push([resident.name, quizTaken.indexOf(resident.email) > -1]);
+      let numCorrect = quizTaken[resident.email];
+      if (!numCorrect) {
+        numCorrect = 0;
+      }
+      listData.push([resident.name, resident.email in quizTaken, numCorrect]);
     });
     return listData;
   },
