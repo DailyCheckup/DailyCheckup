@@ -22,27 +22,27 @@ test('Successful Login with Correct Info Returned', (t) => {
       t.same(results.dailyQuestions.length, 5, 'correct amount of questions');
       t.same(res.status, 200, 'correct status code was sent');
       t.end();
-      app.destroy();
+      // app.destroy();
     });
 });
 
-// test('Changed Password Was Successful', (t) => {
-//   t.plan(2);
-//   request(app)
-//     .post('/changePassword')
-//     .send({
-//       emailAddress: 'Brendan',
-//       password: 'newPW',
-//     })
-//     .expect(200)
-//     // .expect('Content-Type', /json/)
-//     .end((err, res) => {
-//       t.same(res.status, 200, 'correct status code');
-//       t.same(res.req.res.text, '"Succesfully updated password"', 'correctly changed pw');
-//       t.end();
-//       app.destroy();
-//     });
-// });
+test('Changed Password Was Successful', (t) => {
+  t.plan(2);
+  request(app)
+    .post('/changePassword')
+    .send({
+      emailAddress: 'Brendan',
+      password: 'newPW',
+    })
+    .expect(200)
+    // .expect('Content-Type', /json/)
+    .end((err, res) => {
+      t.same(res.status, 200, 'correct status code');
+      t.same(res.req.res.text, '"Succesfully updated password"', 'correctly changed pw');
+      t.end();
+      app.destroy();
+    });
+});
 // {
 //   data: results,
 // }
