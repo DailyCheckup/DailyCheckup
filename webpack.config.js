@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
+const WebpackStrip = require('strip-loader');
 module.exports = {
   devtool: 'source-map',
   entry: './src/Components/index',
