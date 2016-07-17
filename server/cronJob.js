@@ -30,6 +30,29 @@ function buildGroupData (questions) {
   return createRowsArray;
 }
 
+
+
+function setDailyGroupData(questionIDsArray) {
+  Questions.findAll({ where: {questionid: questionIDsArray } })
+  .then((questions) => {
+    const todaysDataToAdd = buildGroupData(questions);
+    GroupData.bulkCreate(todaysDataToAdd);
+  });
+}
+
+function getQuestionIDs() {
+  const questionIDsArray = [];
+  dailyQuestions.findOne({ where: { check: true } })
+  .then((questions) => {
+    // console.log(questions.dataValues);
+    for (let i = 0; i < NUM_OF_QUESTIONS; i++) {
+      let id = `question${i + 1}`;
+      questionIDsArray.push(questions.dataValues[id]);
+    }
+    setDailyGroupData(questionIDsArray);
+  });
+}
+
 function removeAndInsertIntoDailyQuestions(array) {
   var buildObj = {};
   dailyQuestions.sync();
@@ -70,8 +93,6 @@ function getRandomQ() {
     { chosen: false } }).then((questions) => {
       const nonChosenQuestionCount = questions.length;
       const randomQ = [];
-      const todaysDataToAdd = buildGroupData(questions);
-      GroupData.bulkCreate(todaysDataToAdd);
       forLoop(nonChosenQuestionCount, randomQ, array, questions);
       removeAndInsertIntoDailyQuestions(array);
       // array is N number of unique question ids
@@ -107,7 +128,6 @@ function runJob() {
   // });
   // brendan.save();
 
-
 // this is releasing the daily questions
 // setting 5 empty rows in groupdata table
   const job = new CronJob({
@@ -115,6 +135,7 @@ function runJob() {
     onTick: () => {
       Questions.sync();
       getRandomQ();
+      getQuestionIDs();
     },
     start: true,
     timeZone: 'America/Los_Angeles',
