@@ -1,9 +1,11 @@
 'use strict'
 const Sequelize = require('sequelize');
 let privateKey;
+//travis will have this secure var
 if (process.env.TEST_DB_URI) {
-  privateKey = TEST_DB_URI;
+  privateKey = process.env.TEST_DB_URI;
 } else {
+  // this is is avaiable during dev
   privateKey = require('./../../testingKeys.js').dbKey;
 }
 const DB = new Sequelize(privateKey);
