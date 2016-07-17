@@ -1,6 +1,6 @@
 'use strict'
 const Sequelize = require('sequelize');
-let privateKey = process.env.POSTGRES;
+let privateKey = process.env.PROD_DB_URI;
 if (privateKey === undefined) {
   privateKey = require('./../../privateKeys.js').dbKey;
 }
