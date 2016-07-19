@@ -16,7 +16,6 @@ const dailyResults = {
       let results = dayResults.map(function (result) {
         return result.dataValues;
       });
-      //console.log('dayresults data values', results);
       // Create column chart arrays
       results.forEach(function (result) {
         result.columnChartArray = dailyResults.buildColumnChartData(result);
@@ -27,7 +26,6 @@ const dailyResults = {
       }
       req.results = {};
       req.results.todaysResults = results;
-      console.log(results, 'this should be text');
       next();
     });
   },
