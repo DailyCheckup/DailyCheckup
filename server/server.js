@@ -7,6 +7,7 @@ const changePW = require('./controllers/changePassword.js');
 const quizTakenController = require('./controllers/quizTakenController.js');
 const dailyQuestionsData = require('./controllers/dailyQuestionsDataController.js');
 const resultsByGenre = require('./controllers/resultsByGenreController.js');
+const questionDifficultyData = require('./controllers/questionDifficultyController.js');
 const quizTakenList = require('./controllers/quizTakenListController.js');
 const jwtController = require('./controllers/jwtController.js');
 const runJob = require('./cronJob.js');
@@ -55,6 +56,7 @@ app.post('/results',
   resultsByGenre.gatherResultsByGenre,
   quizTakenController.allWhoHaveTakenQuiz,
   quizTakenList.findAllResidents,
+  questionDifficultyData.gatherQuestionsByDifficulty,
   // gatherResults.isUserAdmin,
   // calculateStats.questionResultsPerDay,
   // gatherResults.gatherQuestions,
