@@ -21,4 +21,5 @@ deploy:
   api_key:
     secure: MLHrvFA35U6CDYntWA4jX2lcGKxDKRkjo2CEkXdxjVqUHGSfN36pveiAlb57w2BTuNc2CYaj1ByzjDAdmfs28L9nZmncpCvCVDZUJ/w38XMDPDEOfvZ8qcUIxUtEUrZSVR1tKKd8iqdVqTzeWI+FS1Eze1lhWPhknuQK0H/LWJHuM9+OGn9WVXao6QaWeNiG0HlG9U31L5z+cSS+bAjvsbjpj1cX+OfDkPLcRhEelYzvy59sJ6SU2QHVwL1AjZvrAvNyGvgnYgUmyMngYDJPRYQZLgck5sly3Hn40zWXu7gQKpGF93w8VwMBGDDnzqesr8Jv7lcgN/SUH/V+vnWGjxDTa9Y4UWP8gvi2LWSM1ySL1hHkmm0WbayzYdKqk4QpveqwCuPHfFSYG9SxavfcObTa8khwbLspDvYCS9nBz+v4lZiIIYi/BL1HUl6SLML7vq8jPE9bnfmoMvq6YOG3tv2QCqtuH550wUtDfTYlYyom2m9iG7qI2kDbm+1RSMXWloDTyKEeKhx+tt1waMTZC0CdfxB5EtHAcuvNLeJVyZXT2NGOkrhWAhIhL8Q4g3PbShjo3HKtPDMj3/KduWHv2Wg/dMdhjLMqMeEfeLn8uCmoIlNNTNNARub3UcA75vYot8D4Q5MKDZWMJ8z6CujJSNFZUDfzRqjF03DFXQ18KVw=
   app: bibliotheque-saucisson-10448
-  run: "npm run build-prod"
+    - run: "npm run build-prod"
+    # - run: "npm start"
