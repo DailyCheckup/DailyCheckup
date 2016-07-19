@@ -1,20 +1,24 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const Sequelize = require('sequelize');
 const loginCheck = require('./controllers/loginCheck.js');
 const UserResponseController = require('./controllers/userResponseController');
 const changePW = require('./controllers/changePassword.js');
 const quizTakenController = require('./controllers/quizTakenController.js');
-// const gatherResults = require('./controllers/gatherResultsController.js');
-// const calculateStats = require('./controllers/calculateStatsController.js');
 const dailyQuestionsData = require('./controllers/dailyQuestionsDataController.js');
 const resultsByGenre = require('./controllers/resultsByGenreController.js');
-const ChosenController = require('./controllers/chosenController.js');
+const questionDifficultyData = require('./controllers/questionDifficultyController.js');
 const quizTakenList = require('./controllers/quizTakenListController.js');
+const jwtController = require('./controllers/jwtController.js');
 const runJob = require('./cronJob.js');
+
+// const Sequelize = require('sequelize');
+// const gatherResults = require('./controllers/gatherResultsController.js');
+// const calculateStats = require('./controllers/calculateStatsController.js');
+// const ChosenController = require('./controllers/chosenController.js');
 // const allRows = require('./controllers/resultsTable.js');
 // const groupData = require('./Questions/groupDataModel.js');
+
 // Constants
 const port = process.env.PORT || 3000;
 const app = express();
@@ -35,9 +39,10 @@ app.post('/login',
   loginCheck.getQuestions,
   quizTakenController.checkQuizWasTaken,
   quizTakenController.checkQuizAvailability,
-(req, res) => {
-  res.send(JSON.stringify(req.results));
-});
+  jwtController.create,
+  (req, res) => {
+    res.send(JSON.stringify(req.results));
+  });
 
 // Post requests to change password changes user's pw in the db
 app.post('/changePassword', changePW.changePasswordInDB, function (req, res) {
@@ -51,6 +56,7 @@ app.post('/results',
   resultsByGenre.gatherResultsByGenre,
   quizTakenController.allWhoHaveTakenQuiz,
   quizTakenList.findAllResidents,
+  questionDifficultyData.gatherQuestionsByDifficulty,
   // gatherResults.isUserAdmin,
   // calculateStats.questionResultsPerDay,
   // gatherResults.gatherQuestions,
