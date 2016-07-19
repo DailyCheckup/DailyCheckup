@@ -2,12 +2,12 @@
 const UserResponse = require('./../UserResponse/UserResponseModel');
 const DailyQuestions = require('./../Questions/dailyQuestionsModel');
 const moment = require('moment');
-const todaysDate = moment(Date.now()).format('MM-DD-YYYY');
-const tomorrowsDate = moment(Date.now()).add(1, 'd').format('MM-DD-YYYY');
+const todaysDate = moment(Date.now()).utcOffset(-5).format('YYYY-MM-DD');
+const tomorrowsDate = moment(Date.now()).utcOffset(-5).add(1, 'd').format('YYYY-MM-DD');
 // const todaysDate = '2016-07-11';
 // const tomorrowsDate = '2016-07-12';
 // Dates are set for a 12 hour window, if time is updated need to update the below variables
-const todayBeginning = `${todaysDate} 17:00:00.00`;
+const todayBeginning = `${todaysDate} 05:00:00.00`;
 const todayEnd = `${tomorrowsDate} 05:00:00.00`;
 // 5pm 15th
 // 5am 16th
