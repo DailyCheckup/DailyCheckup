@@ -10,7 +10,7 @@ const quizTakenController = require('./controllers/quizTakenController.js');
 // const calculateStats = require('./controllers/calculateStatsController.js');
 const dailyQuestionsData = require('./controllers/dailyQuestionsDataController.js');
 const resultsByGenre = require('./controllers/resultsByGenreController.js');
-const ChosenController = require('./controllers/chosenController.js');
+// const ChosenController = require('./controllers/chosenController.js');
 const questionDifficultyData = require('./controllers/questionDifficultyController.js');
 const quizTakenList = require('./controllers/quizTakenListController.js');
 const runJob = require('./cronJob.js');
@@ -46,8 +46,14 @@ app.post('/changePassword', changePW.changePasswordInDB, function (req, res) {
   res.send(JSON.stringify('Succesfully updated password'));
 });
 
-// Get requests to results will return user or admin data
-app.post('/results',
+app.post('/residentResults',
+  dailyQuestionsData.dailyQuestionsResults,
+  function (req, res) {
+    res.statusCode = 200;
+    res.send(JSON.stringify(req.results));
+});
+
+app.post('/directorResults',
   dailyQuestionsData.dailyQuestionsResults,
   resultsByGenre.gatherResultsByGenre,
   quizTakenController.allWhoHaveTakenQuiz,
