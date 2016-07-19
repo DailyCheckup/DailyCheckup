@@ -2,6 +2,17 @@ const React = require('react');
 import { Link } from 'react-router';
 
 const ResidentPane = React.createClass({
+
+  getInitialState() {
+    return ({
+      dailyQuestionData: [],
+    });
+  },
+
+  setResidentState(stateObj) {
+    this.setState(stateObj);
+  },
+
   render() {
     return (
       <div className='residentPane md-width-70 lg-width-30'>
@@ -13,7 +24,10 @@ const ResidentPane = React.createClass({
           </Link>
         </p>
         {this.props.children && React.cloneElement(this.props.children,
-          { setAppState: this.props.setAppState, getState: this.props.getState })}
+          { setAppState: this.props.setAppState,
+            getState: this.props.getState,
+            setResidentState: this.setResidentState,
+            residentState: this.state })}
       </div>
     );
   },
