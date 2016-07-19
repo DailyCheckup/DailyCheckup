@@ -391,12 +391,17 @@ button:focus {
   color: #FF5722;
 }
 
-.google-visualization-table-td-number {
+#quizTakenContainer h2 {
   text-align: center;
 }
 
-/* check 2714
-x 2717 */
+#quizTakenContainer {
+  padding-bottom: 2.2em;
+}
+
+.google-visualization-table-td-number {
+  text-align: center;
+}
 
 /* MEDIA QUERIES */
 
@@ -408,6 +413,18 @@ x 2717 */
     margin-left: auto;
     margin-right: auto;
   }
+
+  .md-width-55 {
+    width: 55%;
+    margin-top: 3em;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #quizTakenTable {
+  width: 80%;
+  margin: 0 auto;
+}
 }
 
 /* Desktops */
@@ -418,6 +435,19 @@ x 2717 */
     margin-left: auto;
     margin-right: auto;
   }
+
+  .lg-width-40 {
+    width: 40%;
+    margin-top: 3em;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #quizTakenTable {
+  width: 45%;
+  margin: 0 auto;
+}
+
 }
 
 /* CLEARFIX */
