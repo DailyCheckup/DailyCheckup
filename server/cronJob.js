@@ -9,7 +9,7 @@ const moment = require('moment');
 //if you change number of quesitons change dailyquestions model
 
 function buildGroupData (questions) {
-  const dateTimeZoneAdjusted = moment(Date.now()).utcOffset(-5);
+  const dateTimeZoneAdjusted = moment(Date.now());
   const formattedDate = moment(dateTimeZoneAdjusted).format('YYYY-MM-DD');
   const createRowsArray = [];
   for (let i = 0; i < questions.length; i++) {
@@ -131,36 +131,43 @@ function runJob() {
 // this is releasing the daily questions
 // setting 5 empty rows in groupdata table
   const job = new CronJob({
-    cronTime: '00 00 03 * * 1-5',
+    cronTime: '00 00 22 * * 0-4',
     onTick: () => {
       Questions.sync();
       getRandomQ();
+    },
+    start: true,
+    timeZone: 'America/Los_Angeles',
+  });
+
+  const job2 = new CronJob({
+    cronTime: '30 00 22 * * 0-4',
+    onTick: () => {
       getQuestionIDs();
     },
     start: true,
     timeZone: 'America/Los_Angeles',
   });
-
-  const releaseQuiz = new CronJob({
-    cronTime: '00 00 10 * * 1-5',
-    onTick: () => {
-      Questions.sync();
-      //update avaiable in dailytquestions db
-      setAvaiableToTrue();
-    },
-    start: true,
-    timeZone: 'America/Los_Angeles',
-  });
-
-  const closeQuiz = new CronJob({
-    cronTime: '00 00 22 * * 1-5',
-    onTick: () => {
-      Questions.sync();
-      //update avaiable in dailytquestions db
-      setAvaiableToFalse();
-    },
-    start: true,
-    timeZone: 'America/Los_Angeles',
-  });
+  // const releaseQuiz = new CronJob({
+  //   cronTime: '00 00 10 * * 1-5',
+  //   onTick: () => {
+  //     Questions.sync();
+  //     //update avaiable in dailytquestions db
+  //     setAvaiableToTrue();
+  //   },
+  //   start: true,
+  //   timeZone: 'America/Los_Angeles',
+  // });
+  //
+  // const closeQuiz = new CronJob({
+  //   cronTime: '00 00 22 * * 1-5',
+  //   onTick: () => {
+  //     Questions.sync();
+  //     //update avaiable in dailytquestions db
+  //     setAvaiableToFalse();
+  //   },
+  //   start: true,
+  //   timeZone: 'America/Los_Angeles',
+  // });
 }
 module.exports = runJob;
