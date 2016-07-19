@@ -1,7 +1,18 @@
 const React = require('react');
+const jwtDecode = require('jwt-decode');
 import { Link } from 'react-router';
 
+
 const ResidentPane = React.createClass({
+  componentWillMount() {
+    // check to see if there is state in app
+    console.log('changing state');
+    if (this.props.getState.firstName === '') {
+      const token = jwtDecode(localStorage.DailyCheckupToken);
+      this.props.setAppState(token);
+    }
+  },
+
   render() {
     return (
       <div className='residentPane md-width-70 lg-width-30'>
