@@ -9,7 +9,7 @@ const moment = require('moment');
 //if you change number of quesitons change dailyquestions model
 
 function buildGroupData (questions) {
-  const dateTimeZoneAdjusted = moment(Date.now()).utcOffset(-5);
+  const dateTimeZoneAdjusted = moment(Date.now()).utcOffset(+2);
   const formattedDate = moment(dateTimeZoneAdjusted).format('YYYY-MM-DD');
   const createRowsArray = [];
   for (let i = 0; i < questions.length; i++) {
@@ -28,6 +28,29 @@ function buildGroupData (questions) {
     createRowsArray.push(obj);
   }
   return createRowsArray;
+}
+
+
+
+function setDailyGroupData(questionIDsArray) {
+  Questions.findAll({ where: {questionid: questionIDsArray } })
+  .then((questions) => {
+    const todaysDataToAdd = buildGroupData(questions);
+    GroupData.bulkCreate(todaysDataToAdd);
+  });
+}
+
+function getQuestionIDs() {
+  const questionIDsArray = [];
+  dailyQuestions.findOne({ where: { check: true } })
+  .then((questions) => {
+    // console.log(questions.dataValues);
+    for (let i = 0; i < NUM_OF_QUESTIONS; i++) {
+      let id = `question${i + 1}`;
+      questionIDsArray.push(questions.dataValues[id]);
+    }
+    setDailyGroupData(questionIDsArray);
+  });
 }
 
 function removeAndInsertIntoDailyQuestions(array) {
@@ -70,8 +93,6 @@ function getRandomQ() {
     { chosen: false } }).then((questions) => {
       const nonChosenQuestionCount = questions.length;
       const randomQ = [];
-      const todaysDataToAdd = buildGroupData(questions);
-      GroupData.bulkCreate(todaysDataToAdd);
       forLoop(nonChosenQuestionCount, randomQ, array, questions);
       removeAndInsertIntoDailyQuestions(array);
       // array is N number of unique question ids
@@ -107,11 +128,10 @@ function runJob() {
   // });
   // brendan.save();
 
-
 // this is releasing the daily questions
 // setting 5 empty rows in groupdata table
   const job = new CronJob({
-    cronTime: '00 00 03 * * 1-5',
+    cronTime: '00 00 22 * * 0-4',
     onTick: () => {
       Questions.sync();
       getRandomQ();
@@ -120,26 +140,34 @@ function runJob() {
     timeZone: 'America/Los_Angeles',
   });
 
-  const releaseQuiz = new CronJob({
-    cronTime: '00 00 10 * * 1-5',
+  const job2 = new CronJob({
+    cronTime: '30 00 22 * * 0-4',
     onTick: () => {
-      Questions.sync();
-      //update avaiable in dailytquestions db
-      setAvaiableToTrue();
+      getQuestionIDs();
     },
     start: true,
     timeZone: 'America/Los_Angeles',
   });
-
-  const closeQuiz = new CronJob({
-    cronTime: '00 00 22 * * 1-5',
-    onTick: () => {
-      Questions.sync();
-      //update avaiable in dailytquestions db
-      setAvaiableToFalse();
-    },
-    start: true,
-    timeZone: 'America/Los_Angeles',
-  });
+  // const releaseQuiz = new CronJob({
+  //   cronTime: '00 00 10 * * 1-5',
+  //   onTick: () => {
+  //     Questions.sync();
+  //     //update avaiable in dailytquestions db
+  //     setAvaiableToTrue();
+  //   },
+  //   start: true,
+  //   timeZone: 'America/Los_Angeles',
+  // });
+  //
+  // const closeQuiz = new CronJob({
+  //   cronTime: '00 00 22 * * 1-5',
+  //   onTick: () => {
+  //     Questions.sync();
+  //     //update avaiable in dailytquestions db
+  //     setAvaiableToFalse();
+  //   },
+  //   start: true,
+  //   timeZone: 'America/Los_Angeles',
+  // });
 }
 module.exports = runJob;

@@ -11,13 +11,13 @@ const DailyColumnChart = React.createClass({
   determineQuestionDifficulty() {
     const percentCorrect = this.props.data.num_of_people_correct / (this.props.data.num_of_people_correct + this.props.data.num_of_people_incorrect);
     if (percentCorrect >= 0.8) {
-      return (<div>Difficulty: Easy</div>);
+      return (<div className='color-green'>Difficulty: Easy</div>);
     }
     if (percentCorrect >= 0.5) {
-      return (<div>Difficulty: Medium</div>);
+      return (<div className='color-orange'>Difficulty: Medium</div>);
     }
     if (percentCorrect >= 0) {
-      return (<div>Difficulty: Hard</div>);
+      return (<div className='color-red'>Difficulty: Hard</div>);
     }
   },
 
