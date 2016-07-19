@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const SECRET = require('./../../privateKeys.js').jwtSecret;
+const SECRET = process.env.JWTSECRET || require('./../../privateKeys.js').jwtSecret;
 
 
 const jwtController = {};
