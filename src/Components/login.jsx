@@ -52,6 +52,7 @@ const Login = React.createClass({
       firstName,
       loggedIn,
     };
+    localStorage.DailyCheckupToken = response.token;
     this.props.setAppState(newStateObj);
     this.redirectToUsersPane(isAdmin);
   },
