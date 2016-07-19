@@ -9,7 +9,7 @@ const QuizTakenList = React.createClass({
 
   render() {
     return (
-      <div>
+      <div id="quizTakenContainer">
         <h2>Taken Todays Quiz</h2>
         <div id="quizTakenTable"></div>
       </div>
