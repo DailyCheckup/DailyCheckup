@@ -1,4 +1,5 @@
 const React = require('react');
+const jwtDecode = require('jwt-decode');
 const Answers = require('./Answers.jsx');
 import { Link } from 'react-router';
 const SubmitQuiz = require('./SubmitQuiz.jsx');
@@ -15,8 +16,7 @@ const Quiz = React.createClass({
   getInitialState() {
     // need to check after last currentquestion
     return ({
-      // dailyQuestions: this.props.getState.dailyQuestions,
-      // currentQuestion: this.props.getState.dailyQuestions[0],
+
       questionNumber: 0,
       count: QUIZ_TIME,
       currentAnswer: 'N',
@@ -30,7 +30,16 @@ const Quiz = React.createClass({
   componentDidMount() {
     if (!this.props.getState.takenQuiz && this.props.getState.quizAvailability) {
       this.startCountdown();
+    } else {
+      // check token to see if countdown needs to startCountdown
+      const token = jwtDecode(localStorage.DailyCheckupToken);
+      if (!token.takenQuiz && token.quizAvailability) {
+        this.startCountdown();
+      }
     }
+  },
+  componentWillUnmount() {
+    this.state.stopTimer = true;
   },
   startCountdown() {
     // handles the timer countdown by calling setTimeout as long as the count is above 0
