@@ -4,8 +4,6 @@ import { Link } from 'react-router';
 const AJAX = require('./AJAX.js');
 const QuizTakenTable = require('./../Graphs/QuizTakenList.jsx');
 
-google.charts.load('current', {'packages':['corechart', 'bar', 'table']});
-
 const DirectorHome = React.createClass({
 
   componentDidMount() {
@@ -15,7 +13,7 @@ const DirectorHome = React.createClass({
       takenQuiz: this.props.getState.takenQuiz,
     };
     console.log('post obj ', postObj);
-    AJAX.postRequest('/results', postObj, this.printData, this.error);
+    AJAX.postRequest('/directorResults', postObj, this.printData, this.error);
     // add more charts with more set on load callback functions
     //google.charts.setOnLoadCallback(drawPieChart.drawChart);
   },
