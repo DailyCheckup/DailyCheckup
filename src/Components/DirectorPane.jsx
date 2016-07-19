@@ -19,7 +19,6 @@ const DirectorPane = React.createClass({
     return (
       <div className="directorPane md-width-70 lg-width-30">
         <p id="userFirstName">Hi {this.props.getState.firstName}!
-          <a className="logout">Fake Logout</a>
           <Link className='homeIcon' to='/director/'>
             <i className='material-icons md-36 md-dark'>
             home
