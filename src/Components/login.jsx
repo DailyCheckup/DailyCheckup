@@ -63,7 +63,7 @@ const Login = React.createClass({
 
   render() {
     return (
-      <div className="loginContainer md-width-70 md-margin-top lg-width-30 lg-margin-top">
+      <div className="loginContainer md-width-55 lg-width-40">
         <h2>Login</h2>
         <div id="loginError" style={{ display: 'none' }}>
           Incorrect email address or password.
