@@ -1,8 +1,8 @@
 const React = require('react');
+const jwtDecode = require('jwt-decode');
 import { Link } from 'react-router';
 
 const DirectorPane = React.createClass({
-
   getInitialState() {
     return ({
       dailyQuestionData: [],
@@ -11,10 +11,17 @@ const DirectorPane = React.createClass({
     });
   },
 
+  componentWillMount() {
+    // check to see if there is state in app
+    if (this.props.getState.firstName === '') {
+      const token = jwtDecode(localStorage.DailyCheckupToken);
+      this.props.setAppState(token);
+    }
+  },
+
   setDirectorState(stateObj) {
     this.setState(stateObj);
   },
-
   render() {
     return (
       <div className="directorPane md-width-70 lg-width-30">
