@@ -1,7 +1,8 @@
 'use strict';
 const groupData = require('./../Questions/groupDataModel.js');
 const moment = require('moment');
-const todaysDate = moment(Date.now()).format('YYYY-MM-DD');
+const dateTimeZoneAdjusted = moment(Date.now()).utcOffset(-5);
+const todaysDate = moment(dateTimeZoneAdjusted).format('YYYY-MM-DD');
 
 const dailyResults = {
 
@@ -15,15 +16,18 @@ const dailyResults = {
       let results = dayResults.map(function (result) {
         return result.dataValues;
       });
+      //console.log('dayresults data values', results);
       // Create column chart arrays
       results.forEach(function (result) {
         result.columnChartArray = dailyResults.buildColumnChartData(result);
       });
-      if (results.length === 0) {
+      // Need to add in new condition for checking if no quizzes have been taken
+      if (results[0].num_of_people_total === 0) {
         results = 'No quizzes have been taken today';
       }
       req.results = {};
       req.results.todaysResults = results;
+      console.log(results, 'this should be text');
       next();
     });
   },

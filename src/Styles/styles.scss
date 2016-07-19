@@ -377,6 +377,32 @@ button:focus {
   }
 }
 
+/* TAKEN TODAYS QUIZ */
+
+.color-green {
+  color: $success-color;
+}
+
+.color-red {
+  color: $error-color;
+}
+
+.color-orange {
+  color: #FF5722;
+}
+
+#quizTakenContainer h2 {
+  text-align: center;
+}
+
+#quizTakenContainer {
+  padding-bottom: 2.2em;
+}
+
+.google-visualization-table-td-number {
+  text-align: center;
+}
+
 /* MEDIA QUERIES */
 
 /* Tablets */
@@ -387,6 +413,18 @@ button:focus {
     margin-left: auto;
     margin-right: auto;
   }
+
+  .md-width-55 {
+    width: 55%;
+    margin-top: 3em;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #quizTakenTable {
+  width: 80%;
+  margin: 0 auto;
+}
 }
 
 /* Desktops */
@@ -397,6 +435,19 @@ button:focus {
     margin-left: auto;
     margin-right: auto;
   }
+
+  .lg-width-40 {
+    width: 40%;
+    margin-top: 3em;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #quizTakenTable {
+  width: 45%;
+  margin: 0 auto;
+}
+
 }
 
 /* CLEARFIX */

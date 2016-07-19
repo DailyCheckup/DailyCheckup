@@ -2,6 +2,19 @@ const React = require('react');
 import { Link } from 'react-router';
 
 const DirectorPane = React.createClass({
+
+  getInitialState() {
+    return ({
+      dailyQuestionData: [],
+      genreResults: '',
+      takenQuizData: [],
+    });
+  },
+
+  setDirectorState(stateObj) {
+    this.setState(stateObj);
+  },
+
   render() {
     return (
       <div className="directorPane md-width-70 lg-width-30">
@@ -13,7 +26,10 @@ const DirectorPane = React.createClass({
           </Link>
         </p>
         {this.props.children && React.cloneElement(this.props.children,
-          { setAppState: this.props.setAppState, getState: this.props.getState })}
+          { setAppState: this.props.setAppState,
+            getState: this.props.getState,
+            directorState: this.state,
+            setDirectorState: this.setDirectorState })}
       </div>
     );
   },
