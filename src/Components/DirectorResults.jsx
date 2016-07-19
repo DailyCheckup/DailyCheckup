@@ -35,6 +35,7 @@ const DirectorResults = React.createClass({
       <div>
         <h2>Group Statistics</h2>
         {genreGraph}
+        <h2>Responses to Todays Quiz</h2>
         {columnGraphArray}
       </div>
     );
