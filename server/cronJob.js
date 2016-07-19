@@ -9,7 +9,7 @@ const moment = require('moment');
 //if you change number of quesitons change dailyquestions model
 
 function buildGroupData (questions) {
-  const dateTimeZoneAdjusted = moment(Date.now());
+  const dateTimeZoneAdjusted = moment(Date.now()).utcOffset(+2);
   const formattedDate = moment(dateTimeZoneAdjusted).format('YYYY-MM-DD');
   const createRowsArray = [];
   for (let i = 0; i < questions.length; i++) {
