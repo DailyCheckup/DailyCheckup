@@ -16,7 +16,7 @@ jwtController.create = function (req, res, next) {
     firstName: req.results.firstName,
   };
   const options = {
-    expiresIn: '2 days',
+    expiresIn: '2h',
     issuer: req.results.email,
   };
   console.log('inside jwt controller');
