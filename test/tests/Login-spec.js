@@ -2,7 +2,7 @@ import React from 'react';
 import { expect } from 'chai';
 import { mount } from 'enzyme';
 import Login from './../../src/Components/login.jsx';
-import App from './../../src/Components/app.jsx';
+// import App from './../../src/Components/app.jsx';
 // import Server from './../fixtures/server-fixture.js';
 
 let actualState = {};
@@ -13,10 +13,23 @@ function checkState(state) {
 
 describe('Login Component', () => {
 
-  const appWrapper = mount(<App />);
-  const setAppState = appWrapper.node.setAppState;
-  let state = appWrapper.node.state;
-  let wrapper = mount(<Login setAppState={setAppState} getState={state} />);
+  // const appWrapper = mount(<App />);
+  // const setAppState = appWrapper.node.setAppState;
+  let state = {
+      userEmail: '',
+      firstName: '',
+      changedPW: '',
+      isAdmin: '',
+      dailyQuestions: [],
+      takenQuiz: false,
+      quizAvailability: false,
+      confirmPasswordError: false,
+      successfulPasswordChange: false,
+      samePasswordError: false,
+      loggedIn: false,
+    };
+  // let state = appWrapper.node.state;
+  let wrapper = mount(<Login setAppState={checkState} getState={state} />);
 
   it('contains a form component', () => {
     expect(wrapper.find('form')).to.have.length(1);

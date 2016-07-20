@@ -2,7 +2,7 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow, mount, render } from 'enzyme';
 import ChangePW from './../../src/Components/ResidentChangePW.jsx';
-import App from './../../src/Components/app.jsx';
+// import App from './../../src/Components/app.jsx';
 
 
 // TODO:
@@ -22,11 +22,24 @@ function checkState(state) {
 
 describe('Change Password Component', () => {
 
-  const appWrapper = mount(<App />);
+  // const appWrapper = mount(<App />);
   // console.log('appwrapper ', appWrapper.node);
-  const setAppState = appWrapper.node.setAppState;
-  let state = appWrapper.node.state;
-  let wrapper = mount(<ChangePW setAppState={setAppState} getState={state} />);
+  // const setAppState = appWrapper.node.setAppState;
+  let state = {
+      userEmail: '',
+      firstName: '',
+      changedPW: '',
+      isAdmin: '',
+      dailyQuestions: [],
+      takenQuiz: false,
+      quizAvailability: false,
+      confirmPasswordError: false,
+      successfulPasswordChange: false,
+      samePasswordError: false,
+      loggedIn: false,
+    };
+  // let state = appWrapper.node.state;
+  let wrapper = mount(<ChangePW setAppState={checkState} getState={state} />);
 
   it('contains a form component', () => {
     expect(wrapper.find('form')).to.have.length(1);
@@ -44,21 +57,21 @@ describe('Change Password Component', () => {
   // to display the following errors
   it('displays confirm password error when state flag confirmPasswordError is set to true', () => {
     state.confirmPasswordError = true;
-    wrapper = mount(<ChangePW setAppState={setAppState} getState={state} />);
+    wrapper = mount(<ChangePW setAppState={checkState} getState={state} />);
     expect(wrapper.find('div #confirmPasswordError')).to.have.length(1);
     state.confirmPasswordError = false;
   });
 
   it('displays same password error when state flag samePasswordError is set to true', () => {
     state.samePasswordError = true;
-    wrapper = mount(<ChangePW setAppState={setAppState} getState={state} />);
+    wrapper = mount(<ChangePW setAppState={checkState} getState={state} />);
     expect(wrapper.find('div #samePasswordError')).to.have.length(1);
     state.samePasswordError = false;
   });
 
   it('displays successfulPasswordChange when state flag successfulPasswordChange is set to true', () => {
     state.successfulPasswordChange = true;
-    wrapper = mount(<ChangePW setAppState={setAppState} getState={state} />);
+    wrapper = mount(<ChangePW setAppState={checkState} getState={state} />);
     expect(wrapper.find('div #successfulPasswordChange')).to.have.length(1);
     state.successfulPasswordChange = false;
   });
