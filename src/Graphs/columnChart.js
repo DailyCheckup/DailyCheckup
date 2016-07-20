@@ -17,7 +17,7 @@ const drawColumnChart = {
       };
     }
 
-    if (name === 'dailyData') {
+    if (name === 'dailyData' || name === 'difficultyData') {
       options = {
         chart: {
           width: '100%',
