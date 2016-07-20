@@ -17,18 +17,18 @@ const questionDifficulty = {
       });
       console.log('all questions length ', allQuestions.length);
       let questionDifficultyObj = {
-        Easy: [],
-        Medium: [],
-        Hard: [],
+        easy: [],
+        medium: [],
+        hard: [],
       };
       allQuestions.forEach(function (question) {
         const percentCorrect = question.num_of_people_correct / question.num_of_people_total;
         if (percentCorrect >= 0.8) {
-          questionDifficultyObj.Easy.push(question);
-        } else if (percentCorrect >= 0.5) {
-          questionDifficultyObj.Medium.push(question);
+          questionDifficultyObj.easy.push(question);
+        } else if (percentCorrect >= 0.51) {
+          questionDifficultyObj.medium.push(question);
         } else if (percentCorrect >= 0) {
-          questionDifficultyObj.Hard.push(question);
+          questionDifficultyObj.hard.push(question);
         }
       });
       Object.keys(questionDifficultyObj).forEach(function (difficulty) {
@@ -37,9 +37,9 @@ const questionDifficulty = {
         });
       });
       //console.log('question difficulty object ', questionDifficultyObj);
-      console.log('num of easy qs ', questionDifficultyObj.Easy.length);
-      console.log('num of medium qs ', questionDifficultyObj.Medium.length);
-      console.log('num of hard qs ', questionDifficultyObj.Hard.length);
+      console.log('num of easy qs ', questionDifficultyObj.easy.length);
+      console.log('num of medium qs ', questionDifficultyObj.medium.length);
+      console.log('num of hard qs ', questionDifficultyObj.hard.length);
       req.results.questionDifficultyData = questionDifficultyObj;
       next();
     });
