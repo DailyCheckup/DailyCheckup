@@ -17,6 +17,7 @@ const Header = React.createClass({
       samePasswordError: false,
       loggedIn: false,
     };
+    delete localStorage.DailyCheckupToken;
     this.props.setAppState(newStateObj);
   },
 
@@ -25,7 +26,7 @@ const Header = React.createClass({
     const headerLink = this.props.getState.isAdmin ?
       <Link to='/director/'>Daily Checkup</Link> :
       <Link to='/resident/'>Daily Checkup</Link>;
-    const logoutButton = this.props.getState.loggedIn ?
+    const logoutButton = localStorage.DailyCheckupToken ?
       <Link to='/'><button id="logout" onClick={this.clearState}> Logout </button></Link>:
       '';
 
