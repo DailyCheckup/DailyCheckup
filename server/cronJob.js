@@ -8,7 +8,7 @@ const NUM_OF_QUESTIONS = 5;
 const moment = require('moment');
 //if you change number of quesitons change dailyquestions model
 
-function buildGroupData (questions) {
+function buildGroupData(questions) {
   const dateTimeZoneAdjusted = moment(Date.now()).utcOffset(+2);
   const formattedDate = moment(dateTimeZoneAdjusted).format('YYYY-MM-DD');
   const createRowsArray = [];
@@ -30,10 +30,8 @@ function buildGroupData (questions) {
   return createRowsArray;
 }
 
-
-
 function setDailyGroupData(questionIDsArray) {
-  Questions.findAll({ where: {questionid: questionIDsArray } })
+  Questions.findAll({ where: { questionid: questionIDsArray } })
   .then((questions) => {
     const todaysDataToAdd = buildGroupData(questions);
     GroupData.bulkCreate(todaysDataToAdd);
@@ -54,15 +52,15 @@ function getQuestionIDs() {
 }
 
 function removeAndInsertIntoDailyQuestions(array) {
-  var buildObj = {};
+  const buildObj = {};
   dailyQuestions.sync();
   dailyQuestions.destroy({ where: {
     check: true,
   },
   });
   for (let i = 0; i < NUM_OF_QUESTIONS; i++) {
-    const key = `question${i + 1}`
-    buildObj[key] = array[i]
+    const key = `question${i + 1}`;
+    buildObj[key] = array[i];
   }
   const dailyQs = dailyQuestions.build(buildObj);
   dailyQs.save();
@@ -75,15 +73,14 @@ function update(questions, randomQ) {
   ).then((result) => result);
 }
 
-function forLoop(nonChosenQuestionCount, randomQ, array, questions) {
-  var randomNums = [];
+function forLoop(nonChosenQuestionCount, array, questions) {
   for (let i = 0; i < NUM_OF_QUESTIONS; i++) {
-    var randomQ = Math.floor(Math.random() * nonChosenQuestionCount);
-    while(randomNums.indexOf(randomQ) !== -1) {
-      randomQ = Math.floor(Math.random() * nonChosenQuestionCount);
+    let randomNum = Math.floor(Math.random() * nonChosenQuestionCount);
+    while (array.indexOf(randomNum) !== -1) {
+      randomNum = Math.floor(Math.random() * nonChosenQuestionCount);
     }
-    array.push(questions[randomQ].dataValues.questionid);
-    update(questions, randomQ, i);
+    array.push(questions[randomNum].dataValues.questionid);
+    update(questions, randomNum, i);
   }
 }
 
@@ -92,27 +89,26 @@ function getRandomQ() {
   Questions.findAll({ where:
     { chosen: false } }).then((questions) => {
       const nonChosenQuestionCount = questions.length;
-      const randomQ = [];
-      forLoop(nonChosenQuestionCount, randomQ, array, questions);
+      forLoop(nonChosenQuestionCount, array, questions);
       removeAndInsertIntoDailyQuestions(array);
       // array is N number of unique question ids
     });
     // want to return array that has 3 integer values
 }
 
-function setAvaiableToTrue() {
-  dailyQuestions.update({available: true}, {where: {available:false}})
-  .then(function(result) {
-    console.log(result,' Succesfully updated');
-  })
-}
-
-function setAvaiableToFalse() {
-  dailyQuestions.update({available: false}, {where: {available:true}})
-  .then(function(result) {
-    console.log(result,' Succesfully updated');
-  })
-}
+// function setAvaiableToTrue() {
+//   dailyQuestions.update({available: true}, {where: {available:false}})
+//   .then(function(result) {
+//     console.log(result,' Succesfully updated');
+//   })
+// }
+//
+// function setAvaiableToFalse() {
+//   dailyQuestions.update({available: false}, {where: {available:true}})
+//   .then(function(result) {
+//     console.log(result,' Succesfully updated');
+//   })
+// }
 
 
 function runJob() {
