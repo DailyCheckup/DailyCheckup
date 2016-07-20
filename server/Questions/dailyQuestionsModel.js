@@ -13,7 +13,7 @@ const dailyQuestions = DB.define('dailyquestions', {
   },
   available: {
     type: Sequelize.BOOLEAN,
-    defaultValue: false,
+    defaultValue: true,
   },
 });
 module.exports = dailyQuestions;
