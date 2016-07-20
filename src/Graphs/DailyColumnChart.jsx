@@ -13,7 +13,7 @@ const DailyColumnChart = React.createClass({
     if (percentCorrect >= 0.8) {
       return (<div className='color-green'>Difficulty: Easy</div>);
     }
-    if (percentCorrect >= 0.5) {
+    if (percentCorrect >= 0.51) {
       return (<div className='color-orange'>Difficulty: Medium</div>);
     }
     if (percentCorrect >= 0) {
