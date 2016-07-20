@@ -42,11 +42,12 @@ const DailyColumnChart = React.createClass({
     return (
       <div>
         <h2>Question {this.props.index + 1}</h2>
-        <h3>{questionDifficulty} 
+        <h3>{questionDifficulty}
           {Math.round(100 * (this.props.data.num_of_people_correct / totalPeople))}
           % Responded Correctly of {totalPeople} Residents</h3>
         <p>{this.props.data.question}</p>
         {answers}
+        <p>Reason: {this.props.data.reason}</p>
         <div id={'dailyColChart' + this.props.index} ></div>
       </div>
     );
