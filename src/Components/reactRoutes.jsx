@@ -12,7 +12,8 @@ const DirectorResults = require('./DirectorResults.jsx');
 const DirectorSettings = require('./DirectorSettings.jsx');
 const TodaysQuiz = require('./DirectorTodaysQuiz.jsx');
 const Quiz = require('./Quiz/Quiz.jsx');
-import { isDirector, isResident } from './auth';
+import { isDirector, isResident, goHome } from './auth';
+
 
 const Routes = React.createClass({
   render() {
@@ -20,10 +21,10 @@ const Routes = React.createClass({
       <Router history={browserHistory}>
         <Route path='/' component={App}>
 
-          <IndexRoute component={Login} />
+          <IndexRoute component={Login} onEnter={goHome} />
 
           <Route component={ResidentPane}>
-            <Route path='resident' onEnter={isResident}>
+            <Route path='resident' onEnter={isResident} >
               <IndexRoute component={ResidentHome} />
               <Route path='quiz' component={Quiz} />
               <Route path='results' component={ResidentResults} />
@@ -32,7 +33,7 @@ const Routes = React.createClass({
           </Route>
 
           <Route component={DirectorPane}>
-            <Route path='director' onEnter={isDirector}>
+            <Route path='director' onEnter={isDirector} >
               <IndexRoute component={DirectorHome} />
               <Route path='todaysQuiz' component={TodaysQuiz} />
               <Route path='results' component={DirectorResults} />
