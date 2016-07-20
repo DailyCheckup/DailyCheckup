@@ -1,5 +1,8 @@
 const React = require('react');
 const Header = require('./header.jsx');
+
+google.charts.load('current', {'packages':['corechart', 'bar', 'table']});
+
 const App = React.createClass({
 
   getInitialState() {

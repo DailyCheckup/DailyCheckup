@@ -50,8 +50,14 @@ app.post('/changePassword', changePW.changePasswordInDB, function (req, res) {
   res.send(JSON.stringify('Succesfully updated password'));
 });
 
-// Get requests to results will return user or admin data
-app.post('/results',
+app.post('/residentResults',
+  dailyQuestionsData.dailyQuestionsResults,
+  function (req, res) {
+    res.statusCode = 200;
+    res.send(JSON.stringify(req.results));
+});
+
+app.post('/directorResults',
   dailyQuestionsData.dailyQuestionsResults,
   resultsByGenre.gatherResultsByGenre,
   quizTakenController.allWhoHaveTakenQuiz,

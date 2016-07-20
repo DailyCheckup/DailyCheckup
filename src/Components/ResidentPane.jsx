@@ -4,6 +4,17 @@ import { Link } from 'react-router';
 
 
 const ResidentPane = React.createClass({
+
+  getInitialState() {
+    return ({
+      dailyQuestionData: [],
+    });
+  },
+
+  setResidentState(stateObj) {
+    this.setState(stateObj);
+  },
+
   componentWillMount() {
     // check to see if there is state in app
     console.log('changing state');
@@ -24,7 +35,10 @@ const ResidentPane = React.createClass({
           </Link>
         </p>
         {this.props.children && React.cloneElement(this.props.children,
-          { setAppState: this.props.setAppState, getState: this.props.getState })}
+          { setAppState: this.props.setAppState,
+            getState: this.props.getState,
+            setResidentState: this.setResidentState,
+            residentState: this.state })}
       </div>
     );
   },
