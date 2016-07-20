@@ -20,3 +20,13 @@ sudo: required
 services:
 - postgresql
 after_success: npm run coverage
+deploy:
+  provider: heroku
+  api_key:
+    secure: m//KYCzxk6b9i5MuELc4YRQg3fgE1qf7dT3OJu2yXdVMYdbNDxoMBDFZJeEAq+RSO660iD2peeJAs41rdZFvbRQzmGJ6qJErJbmm5n6+4Im8H2o96qnMVcAw9k4OSUJVh1D/2CZqO+pHPgORhA/anyIqJ0lRPQr7TKEXa3ppX5F+ychFchbuLBzqOnbykB3GO9cv7WhtJHqP14t2EWUKPsMbJV/HHIu401LtabbVdSSGhGTzIQ/M6DvE6cNCkCAi0fk730n/0I2qUOJpnSZlMxfJexYo3tHURWe5rcfiyUXSVyXRuR7rJBfVs2AOpWaEMxfe4N/Fxxm087wNlT4mZkfAC4+czj78naZEDhpPlNHWuOIZ/z7wEz0TXAjsn3EELXaYgg33bm7URPlywx+RtFfbW1hT/SRxdf9rDMDUKVOd62+vUz9/yPmYlRN3BCOdW/NOuD44rqKVEJpuW1OltObsct/N/nbz9jsdxPyi5JVqQzsvsIGGfI9ZO5mGebFhrZfSY7H68F/o3AYz7ANF2FClwYotRcJRuUiM+VtO1RMqspUGFurrJ2Y40+rCzxQlnxIZVFszKwzJNTmFQXIbXW8WtnT5p3pO986kWaQe5SUvvtn8yllHxSH065mOctsxdJ1a7ZVqjPxHp+u9/gYTYnmFPuvJgnvs3Kjcyz47RFs=
+  app: daily-checkup-staging
+  strategy: git
+  # run:
+  #   - "npm install"
+  #   - "npm run build-prod"
+  #   - "npm start"
