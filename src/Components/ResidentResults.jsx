@@ -23,7 +23,6 @@ const ResidentResults = React.createClass({
     this.props.setResidentState({
       dailyQuestionData: dailyData.todaysResults,
     });
-    console.log('response data ', results);
   },
 
   buildDailyGraphs() {

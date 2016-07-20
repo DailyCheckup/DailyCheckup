@@ -1,6 +1,8 @@
 const React = require('react');
 const DailyColumnChart = require('./../Graphs/DailyColumnChart.jsx');
 const GenreChart = require('./../Graphs/GenreChart.jsx');
+const DifficultyColumnChart = require('./../Graphs/DifficultyColumnChart.jsx');
+//import { Link } from 'react-router';
 
 const DirectorResults = React.createClass({
 
@@ -27,16 +29,54 @@ const DirectorResults = React.createClass({
     return genreGraph;
   },
 
+  buildDifficultyGraphs(difficulty) {
+    let difficultyGraphs = [];
+    const difficultyArray = this.props.directorState.questionDifficultyData[difficulty];
+    if (this.props.directorState[`${difficulty}DifficultyClicked`]) {
+      for (let i = 0; i < difficultyArray.length; i++) {
+        difficultyGraphs.push(<DifficultyColumnChart data={difficultyArray[i]} difficulty={difficulty} key={i} index={i} />);
+      }
+    } else {
+      difficultyGraphs = '';
+    }
+    return difficultyGraphs;
+  },
+
+  difficultySelection(e) {
+    const difficulty = e.currentTarget.innerText.toLowerCase();
+    let stateObj = {};
+    stateObj.easyDifficultyClicked = false;
+    stateObj.mediumDifficultyClicked = false;
+    stateObj.hardDifficultyClicked = false;
+    if (this.props.directorState[`${difficulty}DifficultyClicked`]) {
+      stateObj[`${difficulty}DifficultyClicked`] = false;
+      this.props.setDirectorState(stateObj);
+    } else {
+      stateObj[`${difficulty}DifficultyClicked`] = true;
+      this.props.setDirectorState(stateObj);
+    }
+  },
+
   render() {
-    const columnGraphArray = this.buildDailyGraphs();
+    const dailyGraphs = this.buildDailyGraphs();
     const genreGraph = this.buildGenreGraph();
+    const easyQuestions = this.buildDifficultyGraphs('easy');
+    const mediumQuestions = this.buildDifficultyGraphs('medium');
+    const hardQuestions = this.buildDifficultyGraphs('hard');
 
     return (
-      <div>
+      <div id="directorResults clearfix">
         <h2>Group Statistics</h2>
         {genreGraph}
+        <h2>Past Questions by Difficulty</h2>
+        <button onClick={this.difficultySelection}>Easy</button>
+        <button onClick={this.difficultySelection}>Medium</button>
+        <button onClick={this.difficultySelection}>Hard</button>
+        {easyQuestions}
+        {mediumQuestions}
+        {hardQuestions}
         <h2>Responses to Todays Quiz</h2>
-        {columnGraphArray}
+        {dailyGraphs}
       </div>
     );
   },
