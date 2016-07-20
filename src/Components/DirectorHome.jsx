@@ -28,6 +28,7 @@ const DirectorHome = React.createClass({
       dailyQuestionData: dailyData.todaysResults,
       genreData: dailyData.genreResults,
       takenQuizData: dailyData.takenQuizListData,
+      questionDifficultyData: dailyData.questionDifficultyData,
     });
     console.log('response data ', results);
   },
@@ -42,8 +43,6 @@ const DirectorHome = React.createClass({
 
   render() {
 
-    // const columnGraphArray = this.buildDailyGraphs();
-    // const genreGraph = this.buildGenreGraph();
     const quizTakenTable = this.buildQuizTakenTable();
     
     return (

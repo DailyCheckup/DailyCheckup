@@ -148,6 +148,13 @@ button:focus {
     cursor: pointer;
   }
 
+.inactiveBtn,
+.inactiveBtn:hover {
+  background-color: #999999;
+  color: #262626;
+  border: none;
+}
+
   #changePW {
     background-color: transparent;
     color: $btn;
@@ -175,7 +182,8 @@ button:focus {
 .quiz button,
 .changePassword button,
 .quizAnswers button,
-.todaysQuiz button {
+.todaysQuiz button,
+#directorResults button {
   float: right;
 }
 

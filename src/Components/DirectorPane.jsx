@@ -8,6 +8,10 @@ const DirectorPane = React.createClass({
       dailyQuestionData: [],
       genreResults: '',
       takenQuizData: [],
+      questionDifficultyData: {},
+      easyDifficultyClicked: false,
+      mediumDifficultyClicked: false,
+      hardDifficultyClicked: false,
     });
   },
 
@@ -22,6 +26,7 @@ const DirectorPane = React.createClass({
   setDirectorState(stateObj) {
     this.setState(stateObj);
   },
+  
   render() {
     return (
       <div className="directorPane md-width-70 lg-width-30">
