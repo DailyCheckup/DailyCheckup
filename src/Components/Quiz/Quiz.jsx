@@ -141,6 +141,7 @@ const Quiz = React.createClass({
     results.push(this.buildResults(this.state.questionNumber));
     const resultsData = {
       data: results,
+      token: localStorage.DailyCheckupToken,
     };
     const url = '/userResponse'; // UPDATE WITH ROUTE
     const xhr = new XMLHttpRequest();
@@ -159,12 +160,19 @@ const Quiz = React.createClass({
       // And status is OK
       if (xhr.status === 200) {
         console.log('status is 200');
-        console.log(xhr.responseText);
+        if (typeof xhr.responseText === 'string') {
+          this.setJwt(JSON.parse(xhr.responseText));
+        }
       } else {
         // If error, email or password was incorrect so display error
         console.log('Error: ' + xhr.status);
         this.displayError();
       }
+    }
+  },
+  setJwt(results) {
+    if (results.token) {
+      localStorage.DailyCheckupToken = results.token;
     }
   },
   displayError() {
