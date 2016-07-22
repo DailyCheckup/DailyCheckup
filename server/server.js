@@ -73,11 +73,12 @@ app.post('/directorResults',
 });
 
 app.post('/userResponse',
+jwtController.verify,
 UserResponseController.addResults,
 UserResponseController.postToGroupDataTable,
  function(req, res) {
-  res.send('Successful post request!');
-});
+   res.send(JSON.stringify(req.results));
+ });
 
 // app.get('/reset', ChosenController.resetChosenToFalse, ChosenController.setChosenToTrue, (req, res) => {
 //   res.send('send successful reset');
