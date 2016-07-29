@@ -126,7 +126,6 @@ function setAvaiableToFalse() {
   })
 }
 
-
 function runJob() {
 // this is releasing the daily questions
   const setDailyQuestions = new CronJob({
