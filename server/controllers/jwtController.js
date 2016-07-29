@@ -2,7 +2,7 @@
 const jwt = require('jsonwebtoken');
 const moment = require('moment');
 const SECRET = process.env.JWTSECRET || require('./../../privateKeys.js').jwtSecret;
-
+// TODO: update 'results' obj to not be called 'results' to prevent conflict with results route obj
 
 const jwtController = {};
 
