@@ -3,7 +3,7 @@ const groupData = require('./../Questions/groupDataModel.js');
 const dailyQuestionsData = require('./dailyQuestionsDataController.js');
 
 const questionDifficulty = {
-
+  // Gather all group data
   gatherQuestionsByDifficulty(req, res, next) {
     groupData.findAll({
       where: {
@@ -12,15 +12,17 @@ const questionDifficulty = {
         }
       }
     }).then((questionResults) => {
+      // An array of question objects. Grab the dataValues
       const allQuestions = questionResults.map(function (result) {
         return result.dataValues;
       });
-      console.log('all questions length ', allQuestions.length);
       let questionDifficultyObj = {
         easy: [],
         medium: [],
         hard: [],
       };
+      // For each question, determine which difficulty category it falls under and add it
+      // to the appropriate array
       allQuestions.forEach(function (question) {
         const percentCorrect = question.num_of_people_correct / question.num_of_people_total;
         if (percentCorrect >= 0.8) {
@@ -31,15 +33,14 @@ const questionDifficulty = {
           questionDifficultyObj.hard.push(question);
         }
       });
+      // For each difficulty category...
       Object.keys(questionDifficultyObj).forEach(function (difficulty) {
+        // Go through each question in the difficulty category array...
         questionDifficultyObj[difficulty].forEach(function (question) {
+          // Build a column chart for each question and add it to a columnChartArray property
           question.columnChartArray = dailyQuestionsData.buildColumnChartData(question);
         });
       });
-      //console.log('question difficulty object ', questionDifficultyObj);
-      console.log('num of easy qs ', questionDifficultyObj.easy.length);
-      console.log('num of medium qs ', questionDifficultyObj.medium.length);
-      console.log('num of hard qs ', questionDifficultyObj.hard.length);
       req.results.questionDifficultyData = questionDifficultyObj;
       next();
     });
