@@ -8,6 +8,7 @@ const NUM_OF_QUESTIONS = 5;
 const moment = require('moment');
 //if you change number of quesitons change dailyquestions model
 
+// builds the groupdata obj that will be added to the groupdata table
 function buildGroupData(questions) {
   const dateTimeZoneAdjusted = moment(Date.now()).utcOffset(+2);
   const formattedDate = moment(dateTimeZoneAdjusted).format('YYYY-MM-DD');
@@ -30,6 +31,8 @@ function buildGroupData(questions) {
   return createRowsArray;
 }
 
+// takes the question ids an finds all questions in questions
+// adds the groupdata object to be added to the groupdata table
 function setDailyGroupData(questionIDsArray) {
   Questions.findAll({ where: { questionid: questionIDsArray } })
   .then((questions) => {
@@ -38,6 +41,8 @@ function setDailyGroupData(questionIDsArray) {
   });
 }
 
+// grabs all the daily question ids and then sets all the
+// key value pairs to the given ids
 function getQuestionIDs() {
   const questionIDsArray = [];
   dailyQuestions.findOne({ where: { check: true } })
@@ -51,6 +56,9 @@ function getQuestionIDs() {
   });
 }
 
+// removes the current row from the daily questions table
+// then adds the new array of N questionids into the table
+// maximum ever one row in this table
 function removeAndInsertIntoDailyQuestions(array) {
   const buildObj = {};
   dailyQuestions.sync();
@@ -66,67 +74,66 @@ function removeAndInsertIntoDailyQuestions(array) {
   dailyQs.save();
 }
 
-function update(questions, randomQ) {
+// changes each questionid that has been chosen todays
+// sets the flag to true
+function updateChosen(questions, i) {
   Questions.update(
     { chosen: true },
-    { where: { questionid: questions[randomQ].dataValues.questionid } }
+    { where: { questionid: questions[i].dataValues.questionid } }
   ).then((result) => result);
 }
 
-function forLoop(nonChosenQuestionCount, array, questions) {
-  for (let i = 0; i < NUM_OF_QUESTIONS; i++) {
-    let randomNum = Math.floor(Math.random() * nonChosenQuestionCount);
-    while (array.indexOf(randomNum) !== -1) {
-      randomNum = Math.floor(Math.random() * nonChosenQuestionCount);
-    }
-    array.push(questions[randomNum].dataValues.questionid);
-    update(questions, randomNum, i);
+// randomizes array elements using the Durstenfeld shuffle
+function shuffleArray(array) {
+  for (var i = array.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
   }
+  return array;
 }
 
+// finds all question rows in the table that have the
+// the flad chosen set to false
 function getRandomQ() {
-  const array = [];
   Questions.findAll({ where:
     { chosen: false } }).then((questions) => {
       const nonChosenQuestionCount = questions.length;
-      forLoop(nonChosenQuestionCount, array, questions);
-      removeAndInsertIntoDailyQuestions(array);
+      const shuffledQuestions = shuffleArray(questions);
+      const questionArr = [];
+      // adds the questionid to an array and updates chosen
+      for (let i = 0; i < NUM_OF_QUESTIONS; i++) {
+        questionArr.push(shuffledQuestions[i].dataValues.questionid);
+        updateChosen(shuffledQuestions, i);
+      }
+      removeAndInsertIntoDailyQuestions(questionArr);
       // array is N number of unique question ids
     });
     // want to return array that has 3 integer values
 }
 
-// function setAvaiableToTrue() {
-//   dailyQuestions.update({available: true}, {where: {available:false}})
-//   .then(function(result) {
-//     console.log(result,' Succesfully updated');
-//   })
-// }
-//
-// function setAvaiableToFalse() {
-//   dailyQuestions.update({available: false}, {where: {available:true}})
-//   .then(function(result) {
-//     console.log(result,' Succesfully updated');
-//   })
-// }
+// turns avaiable flag in the dailyQuestions table to true
+function setAvaiableToTrue() {
+  dailyQuestions.update({available: true}, {where: {available:false}})
+  .then(function(result) {
+    console.log(result,' Succesfully updated');
+  })
+}
+
+// turns avaiable flag in the dailyQuestions table to false
+function setAvaiableToFalse() {
+  dailyQuestions.update({available: false}, {where: {available:true}})
+  .then(function(result) {
+    console.log(result,' Succesfully updated');
+  })
+}
 
 
 function runJob() {
-  // var brendan = Users.build({
-  //   userid: 70,
-  //   firstname: 'Brendan',
-  //   lastname: 'Del Rosario',
-  //   email: 'test@demo.com',
-  //   password: 'abc123',
-  //   groupid: 1,
-  //   adminFlag: false,
-  //   changedPassword: false,
-  // });
-  // brendan.save();
-
 // this is releasing the daily questions
-// setting 5 empty rows in groupdata table
-  const job = new CronJob({
+  const setDailyQuestions = new CronJob({
+    // runs every weekday at 12:00am (CST)
     cronTime: '00 00 22 * * 0-4',
     onTick: () => {
       Questions.sync();
@@ -136,7 +143,9 @@ function runJob() {
     timeZone: 'America/Los_Angeles',
   });
 
-  const job2 = new CronJob({
+  // setting 5 empty rows in groupdata table
+  const setGroupDataTable = new CronJob({
+    // runs every weekday at 12:00:30am (CST)
     cronTime: '30 00 22 * * 0-4',
     onTick: () => {
       getQuestionIDs();
@@ -144,26 +153,31 @@ function runJob() {
     start: true,
     timeZone: 'America/Los_Angeles',
   });
-  // const releaseQuiz = new CronJob({
-  //   cronTime: '00 00 10 * * 1-5',
-  //   onTick: () => {
-  //     Questions.sync();
-  //     //update avaiable in dailytquestions db
-  //     setAvaiableToTrue();
-  //   },
-  //   start: true,
-  //   timeZone: 'America/Los_Angeles',
-  // });
-  //
-  // const closeQuiz = new CronJob({
-  //   cronTime: '00 00 22 * * 1-5',
-  //   onTick: () => {
-  //     Questions.sync();
-  //     //update avaiable in dailytquestions db
-  //     setAvaiableToFalse();
-  //   },
-  //   start: true,
-  //   timeZone: 'America/Los_Angeles',
-  // });
+
+  const closeQuiz = new CronJob({
+    // runs every weekday at 12:00:40am (CST)
+    // closes quiz availibity by changing flag in DB
+    cronTime: '40 00 22 * * 0-4',
+    onTick: () => {
+      Questions.sync();
+      // update avaiable in dailytquestions db
+      setAvaiableToFalse();
+    },
+    start: true,
+    timeZone: 'America/Los_Angeles',
+  });
+
+  const releaseQuiz = new CronJob({
+    // runs every weekday at 12:00:50am (CST)
+    // opens quiz availibity by changing flag in DB
+    cronTime: '50 00 22 * * 0-4',
+    onTick: () => {
+      Questions.sync();
+      // update avaiable in dailytquestions db
+      setAvaiableToTrue();
+    },
+    start: true,
+    timeZone: 'America/Los_Angeles',
+  });
 }
 module.exports = runJob;
