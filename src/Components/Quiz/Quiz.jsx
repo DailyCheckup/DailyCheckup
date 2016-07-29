@@ -1,22 +1,26 @@
 const React = require('react');
 const jwtDecode = require('jwt-decode');
 const Answers = require('./Answers.jsx');
-import { Link } from 'react-router';
 const SubmitQuiz = require('./SubmitQuiz.jsx');
 const Timer = require('./Timer.jsx');
 const QuizResults = require('./QuizResults.jsx');
 const QUIZ_TIME = 300;
 
+//  QUIZ Component
+//
+// TODO:
+//  1. add a back button to see previous questions as long as within time limit
+//  2. refactor post request to put JWT in authorization header and using AJAX file
+//
 
 const Quiz = React.createClass({
   propTypes: {
     getState: React.PropTypes.object,
     setAppState: React.PropTypes.func,
   },
+  // set initial state with the following parameters to control the quiz environment
   getInitialState() {
-    // need to check after last currentquestion
     return ({
-
       questionNumber: 0,
       count: QUIZ_TIME,
       currentAnswer: 'N',
@@ -26,7 +30,7 @@ const Quiz = React.createClass({
       submitQuiz: false,
     });
   },
-
+  // when the quiz component mounts start the countdown timer if a quiz is valid and available
   componentDidMount() {
     if (!this.props.getState.takenQuiz && this.props.getState.quizAvailability) {
       this.startCountdown();
@@ -54,7 +58,6 @@ const Quiz = React.createClass({
         } else {
           if (this.state.submitQuiz) {
             this.submitQuiz();
-            // then give answers
           } else {
             this.nextQuestion();
             this.startCountdown();
@@ -70,8 +73,8 @@ const Quiz = React.createClass({
     this.setState({ currentAnswer: answer[0] });
   },
   nextQuestion() {
-    // next question builds up object to set state to the next question and pushes
-    // the current answer into a results array that will later be sent off to
+    // next question builds up object to set state to the next question and builds up the
+    // result object into a results array that will later be sent off to the server
     const obj = {};
     let count = this.state.questionNumber;
     obj.results = this.state.results;
@@ -88,10 +91,11 @@ const Quiz = React.createClass({
     }
     obj.currentQuestion = this.props.getState.dailyQuestions[count];
     this.clearbuttons();
-    console.log(obj);
     this.setState(obj);
   },
   buildResults(index) {
+  // return a built up result object that consists of an email, question id,
+  // whether they respondedCorrectly and their submittedAnswer for the question at the given index
     const obj = {};
     const currentQuestion = this.props.getState.dailyQuestions[index];
     obj.email = this.props.getState.userEmail;
@@ -101,6 +105,8 @@ const Quiz = React.createClass({
     return obj;
   },
   buildAnswers() {
+  // builds up an array of Answer components depending on how many answer choices the
+  // currentQuestion has and returning that array
     const currentQuestion = this.props.getState.dailyQuestions[this.state.questionNumber];
     const answerArray = [];
     for (let key in currentQuestion) {
@@ -118,6 +124,7 @@ const Quiz = React.createClass({
     return answerArray;
   },
   clearbuttons() {
+    // clears the DOM of the previous button chosen previously
     const ele = document.getElementsByName('options');
     let i;
     for (i = 0; i < ele.length; i++) {
@@ -125,6 +132,10 @@ const Quiz = React.createClass({
     }
   },
   submitQuiz() {
+    // when the last question has been answered the results are sent to the server
+    // also the appState is set to so the takenQuiz has been set to true
+    // the state of the quiz app must stop the timer and set the flag so the results
+    // can be rendered
     let number = this.state.questionNumber;
     const changeAppState = { takenQuiz: true };
     number++;
@@ -137,6 +148,8 @@ const Quiz = React.createClass({
     });
   },
   sendResults() {
+    // results are sent up with the JWT and the array of answers chosen for each questionNumber
+    // The last question needs to be added to results object and then sent off to server
     const results = this.state.results;
     results.push(this.buildResults(this.state.questionNumber));
     const resultsData = {
@@ -152,7 +165,6 @@ const Quiz = React.createClass({
       this.processResponse(xhr);
     }.bind(this);
   },
-
   processResponse(xhr) {
     // If request is done
     if (xhr.readyState === 4) {
@@ -176,7 +188,7 @@ const Quiz = React.createClass({
     }
   },
   displayError() {
-    console.log('Failed!!!');
+    console.log('The post request has failed');
   },
   render() {
     // if the quiz has questions still to take, render the quiz questions and answer
@@ -192,7 +204,6 @@ const Quiz = React.createClass({
           <SubmitQuiz isSubmit={this.state.submitQuiz} submitQuiz={this.submitQuiz} nextQuestion={this.nextQuestion} />
         </div>
       );
-      // if the quiz has already been taken then show an error that lets the user know
       // while displaying the results of the quiz they have taken that day
     } else if (this.state.showResults) {
       // will show the results of the quiz that was just taken
@@ -202,6 +213,7 @@ const Quiz = React.createClass({
         </div>
       );
     } else if (this.props.getState.takenQuiz) {
+      // if the quiz has already been taken, then show an error that lets the user know
       return (
         <div className="quizError">
           <p> You have already taken today's quiz.</p>
@@ -209,6 +221,7 @@ const Quiz = React.createClass({
         </div>
       );
     } else if (!this.props.getState.quizAvailability) {
+      // if the quiz is not available, then show an error that lets the user know
       return (
         <div> It is currently outside of quiz-taking hours. Please try again later.</div>
       );
