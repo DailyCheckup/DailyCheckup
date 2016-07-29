@@ -1,6 +1,10 @@
 const React = require('react');
 import { Link } from 'react-router';
 
+// TODO:
+//  1. refactor to clean up building results pieces
+//  2. refactor results to be a single component and push logic to quiz component
+//
 
 const QuizResults = React.createClass({
   render() {
