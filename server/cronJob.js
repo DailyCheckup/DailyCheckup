@@ -46,11 +46,10 @@ function setDailyGroupData(questionIDsArray) {
 function getQuestionIDs() {
   const questionIDsArray = [];
   dailyQuestions.findOne({ where: { check: true } })
-  .then((questions) => {
-    // console.log(questions.dataValues);
+  .then((dailyQuestionIDs) => {
     for (let i = 0; i < NUM_OF_QUESTIONS; i++) {
       let id = `question${i + 1}`;
-      questionIDsArray.push(questions.dataValues[id]);
+      questionIDsArray.push(dailyQuestionIDs.dataValues[id]);
     }
     setDailyGroupData(questionIDsArray);
   });
@@ -59,7 +58,7 @@ function getQuestionIDs() {
 // removes the current row from the daily questions table
 // then adds the new array of N questionids into the table
 // maximum ever one row in this table
-function removeAndInsertIntoDailyQuestions(array) {
+function removeAndInsertIntoDailyQuestions(questionIDsArr) {
   const buildObj = {};
   dailyQuestions.sync();
   dailyQuestions.destroy({ where: {
@@ -68,7 +67,7 @@ function removeAndInsertIntoDailyQuestions(array) {
   });
   for (let i = 0; i < NUM_OF_QUESTIONS; i++) {
     const key = `question${i + 1}`;
-    buildObj[key] = array[i];
+    buildObj[key] = questionIDsArr[i];
   }
   const dailyQs = dailyQuestions.build(buildObj);
   dailyQs.save();
@@ -76,10 +75,10 @@ function removeAndInsertIntoDailyQuestions(array) {
 
 // changes each questionid that has been chosen todays
 // sets the flag to true
-function updateChosen(questions, i) {
+function updateChosen(question, i) {
   Questions.update(
     { chosen: true },
-    { where: { questionid: questions[i].dataValues.questionid } }
+    { where: { questionid: question[i].dataValues.questionid } }
   ).then((result) => result);
 }
 
@@ -96,18 +95,17 @@ function shuffleArray(array) {
 
 // finds all question rows in the table that have the
 // the flad chosen set to false
-function getRandomQ() {
+function getRandomQuestions() {
   Questions.findAll({ where:
     { chosen: false } }).then((questions) => {
-      const nonChosenQuestionCount = questions.length;
       const shuffledQuestions = shuffleArray(questions);
-      const questionArr = [];
+      const questionIDsArr = [];
       // adds the questionid to an array and updates chosen
       for (let i = 0; i < NUM_OF_QUESTIONS; i++) {
-        questionArr.push(shuffledQuestions[i].dataValues.questionid);
+        questionIDsArr.push(shuffledQuestions[i].dataValues.questionid);
         updateChosen(shuffledQuestions, i);
       }
-      removeAndInsertIntoDailyQuestions(questionArr);
+      removeAndInsertIntoDailyQuestions(questionIDsArr);
       // array is N number of unique question ids
     });
 }
@@ -136,7 +134,7 @@ function runJob() {
     cronTime: '00 00 22 * * 0-4',
     onTick: () => {
       Questions.sync();
-      getRandomQ();
+      getRandomQuestions();
     },
     start: true,
     timeZone: 'America/Los_Angeles',
