@@ -2,7 +2,7 @@
   "name": "md_quiz",
   "version": "1.0.0",
   "engines": {
-    "Node": "4.4.6"
+    "node": "4.4.6"
   },
   "description": "\"A quiz to help medical residents study for the Board\"",
   "main": "build/bundle.js",
@@ -14,7 +14,7 @@
   },
   "scripts": {
     "server-test": "nyc node test/tests/server* | tap-spec ",
-    "start": "NODE_ENV=production && webpack && node server/server.js",
+    "start": "node server/server.js",
     "dev-start": "nodemon server/server.js",
     "client-test": "nyc mocha test/.setup.js test/tests/*-spec.js ",
     "test": "npm run client-test && npm run server-test",
