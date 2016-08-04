@@ -7,6 +7,8 @@ const Answers = React.createClass({
     currentQuestion: React.PropTypes.object,
     updateAnswer: React.PropTypes.func,
   },
+  // render an Answer component that has a radio button input and a label based off
+  // props passed down to Answer
   render() {
     return (
       <div>
