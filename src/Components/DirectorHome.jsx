@@ -1,21 +1,12 @@
 const React = require('react');
 import { Link } from 'react-router';
-//const drawPieChart = require('./../Graphs/pieChart.js');
 const AJAX = require('./AJAX.js');
 const QuizTakenTable = require('./../Graphs/QuizTakenList.jsx');
 
 const DirectorHome = React.createClass({
 
   componentDidMount() {
-    const postObj = {
-      isAdmin: this.props.getState.isAdmin,
-      email: this.props.getState.userEmail,
-      takenQuiz: this.props.getState.takenQuiz,
-    };
-    console.log('post obj ', postObj);
-    AJAX.postRequest('/directorResults', postObj, this.printData, this.error);
-    // add more charts with more set on load callback functions
-    //google.charts.setOnLoadCallback(drawPieChart.drawChart);
+    AJAX.getRequest('/directorResults', this.printData, this.error);
   },
 
   error() {
@@ -30,7 +21,6 @@ const DirectorHome = React.createClass({
       takenQuizData: dailyData.takenQuizListData,
       questionDifficultyData: dailyData.questionDifficultyData,
     });
-    console.log('response data ', results);
   },
 
   buildQuizTakenTable() {
