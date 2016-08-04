@@ -57,7 +57,7 @@ app.post('/residentResults',
     res.send(JSON.stringify(req.results));
 });
 
-app.post('/directorResults',
+app.get('/directorResults',
   dailyQuestionsData.dailyQuestionsResults,
   resultsByGenre.gatherResultsByGenre,
   quizTakenController.allWhoHaveTakenQuiz,
