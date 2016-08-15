@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-const store = require('./../store.js');
+// const store = require('./../store.js');
 const Routes = require('./reactRoutes.jsx');
 require('../Styles/styles.scss');
 
