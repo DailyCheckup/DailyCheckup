@@ -2,10 +2,8 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const AJAX = require('./AJAX.js');
 import { Link, browserHistory } from 'react-router';
-
-// TODO
-// 2. Fill in route url
-// 3. Session
+// import store from './../store';
+// import loginSuccess from './../actions/loginActions';
 
 const Login = React.createClass({
 
@@ -32,8 +30,6 @@ const Login = React.createClass({
 
   parseDataAndSetState(responseData) {
     const response = JSON.parse(responseData);
-    //localStorage.token = Math.random.toString(36).substring(7);
-    console.log('response in parse ', response);
     const userEmail = response.email;
     const changedPW = response.changedPassword;
     const isAdmin = response.isAdmin;
@@ -53,6 +49,7 @@ const Login = React.createClass({
       loggedIn,
     };
     localStorage.DailyCheckupToken = response.token;
+    // store.dispatch(loginSuccess(newStateObj));
     this.props.setAppState(newStateObj);
     this.redirectToUsersPane(isAdmin);
   },
