@@ -1,13 +1,13 @@
-// Getting error that 'reducers is not a function', so moved login reducer into store for quix fix
-// import { combineReducers } from 'redux';
 
-// // Reducers
-// import { loginReducer } from './loginReducer';
+import { combineReducers } from 'redux';
 
-// // Combine Reducers
+// Reducers
+import loginReducer from './loginReducer';
 
-// const reducers = combineReducers({
-//   userState: loginReducer,
-// });
+// Combine Reducers
 
-// module.exports = reducers;
+const reducers = combineReducers({
+  userState: loginReducer,
+});
+
+module.exports = reducers;

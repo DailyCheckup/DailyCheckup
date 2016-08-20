@@ -1,8 +1,13 @@
 import * as types from './actionTypes';
 
-export function loginSuccess(userInfo) {
-  return {
-    type: types.LOGIN_SUCCESS,
-    userInfo,
-  };
-}
+const loginAction = {
+  
+  loginSuccess(userInfo) {
+    return {
+      type: types.LOGIN_SUCCESS,
+      userInfo,
+    };
+  },
+};
+
+module.exports = loginAction;

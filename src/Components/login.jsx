@@ -2,8 +2,8 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const AJAX = require('./AJAX.js');
 import { Link, browserHistory } from 'react-router';
-// import store from './../store';
-// import loginSuccess from './../actions/loginActions';
+import store from './../store';
+const loginActions = require('./../actions/loginActions.js');
 
 const Login = React.createClass({
 
@@ -30,28 +30,21 @@ const Login = React.createClass({
 
   parseDataAndSetState(responseData) {
     const response = JSON.parse(responseData);
-    const userEmail = response.email;
-    const changedPW = response.changedPassword;
-    const isAdmin = response.isAdmin;
-    const dailyQuestions = response.dailyQuestions;
-    const takenQuiz = response.takenQuiz;
-    const quizAvailability = response.quizAvailability;
-    const firstName = response.firstName;
-    const loggedIn = true;
     const newStateObj = {
-      userEmail,
-      changedPW,
-      isAdmin,
-      dailyQuestions,
-      takenQuiz,
-      quizAvailability,
-      firstName,
-      loggedIn,
+      userEmail: response.email,
+      changedPW: response.changedPassword,
+      isAdmin: response.isAdmin,
+      dailyQuestions: response.dailyQuestions,
+      takenQuiz: response.takenQuiz,
+      quizAvailability: response.quizAvailability,
+      firstName: response.firstName,
+      loggedIn: true,
     };
     localStorage.DailyCheckupToken = response.token;
-    // store.dispatch(loginSuccess(newStateObj));
-    this.props.setAppState(newStateObj);
-    this.redirectToUsersPane(isAdmin);
+    const loginSuccessAction = loginActions.loginSuccess(newStateObj);
+    store.dispatch(loginSuccessAction);
+    // this.props.setAppState(newStateObj);
+    this.redirectToUsersPane(response.isAdmin);
   },
 
   displayError() {
