@@ -1,13 +1,12 @@
-
 import { combineReducers } from 'redux';
 
 // Reducers
-import loginReducer from './loginReducer';
+import userStateReducer from './userStateReducer';
+// import retrieveStateReducer from './retrieveStateReducer';
 
 // Combine Reducers
-
 const reducers = combineReducers({
-  userState: loginReducer,
+  userState: userStateReducer,
 });
 
 module.exports = reducers;

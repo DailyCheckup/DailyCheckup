@@ -1,7 +1,8 @@
 const React = require('react');
 const jwtDecode = require('jwt-decode');
 import { Link } from 'react-router';
-
+import store from './../store';
+const stateLossActions = require('./../actions/stateLossActions.js');
 
 const ResidentPane = React.createClass({
 
@@ -20,7 +21,9 @@ const ResidentPane = React.createClass({
     console.log('changing state');
     if (this.props.getState.firstName === '') {
       const token = jwtDecode(localStorage.DailyCheckupToken);
-      this.props.setAppState(token);
+      const noStateAction = stateLossActions.noUserState(token);
+      store.dispatch(noStateAction);
+      // this.props.setAppState(token);
     }
   },
 
