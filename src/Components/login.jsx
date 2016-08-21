@@ -1,7 +1,6 @@
 const React = require('react');
-const ReactDOM = require('react-dom');
 const AJAX = require('./AJAX.js');
-import { Link, browserHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 import store from './../store';
 const loginActions = require('./../actions/loginActions.js');
 
