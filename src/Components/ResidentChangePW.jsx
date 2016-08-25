@@ -1,4 +1,7 @@
 const React = require('react');
+const AJAX = require('./AJAX.js');
+import store from './../store.js';
+
 const ResidentChangePW = React.createClass({
 
   submitPassword(e) {
@@ -52,49 +55,35 @@ const ResidentChangePW = React.createClass({
 
   sendNewPasswordToDB(newPW) {
     console.log('sending new password to db');
-    const userEmail = this.props.getState.userEmail;
+    // const userEmail = this.props.getState.userEmail;
+    const userEmail = store.getState().userState.userEmail;
     const pw = newPW;
     const pwAndEmailObj = {
       emailAddress: userEmail,
       newPassword: pw,
     };
     const url = '/changePassword'; // UPDATE WITH ROUTE
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', url);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify(pwAndEmailObj));
-    xhr.onreadystatechange = function () {
-      this.processResponse(xhr);
-    }.bind(this);
+    AJAX.postRequest(url, pwAndEmailObj, this.successfulChange.bind(this), this.postError);
   },
 
-  processResponse(xhr) {
-    console.log('in process response');
-    console.log(xhr.readyState);
-    // If request is done
-    if (xhr.readyState === 4) {
-      console.log('readystate is 4');
-      // And status is OK
-      if (xhr.status === 200) {
-        console.log('status is 200');
+  successfulChange(response) {
+    // Clear all input fields
+    this.inputNewPW.value = '';
+    this.inputConfirmPW.value = '';
+    this.inputOldPW.value = '';
+    // Set state that the user has changed their password
+    // Display success message
+    this.props.setAppState({
+      changedPW: true,
+      confirmPasswordError: false,
+      successfulPasswordChange: true,
+      samePasswordError: false,
+    });
+  },
 
-        // Clear all input fields
-        this.inputNewPW.value = '';
-        this.inputConfirmPW.value = '';
-        this.inputOldPW.value = '';
-        // Set state that the user has changed their password
-        // Display success message
-        this.props.setAppState({
-          changedPW: true,
-          confirmPasswordError: false,
-          successfulPasswordChange: true,
-          samePasswordError: false,
-        });
-      } else {
-        // If error, email or password was incorrect so display error
-        console.log('Error: ' + xhr.status);
-      }
-    }
+  postError() {
+    // If error, email or password was incorrect so display error
+    console.log('Error: ' + xhr.status);
   },
 
   displayMessage() {
