@@ -83,7 +83,7 @@ const ResidentChangePW = React.createClass({
 
   postError() {
     // If error, email or password was incorrect so display error
-    console.log('Error: ' + xhr.status);
+    throw new Error('Post Request Error');
   },
 
   displayMessage() {
