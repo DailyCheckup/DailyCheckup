@@ -103,21 +103,16 @@ describe('Change Password Component', () => {
       readyState: 4,
       status: 200,
     };
-    wrapper.node.processResponse(responseData);
+    wrapper.node.successfulChange(responseData);
     expect(actualState.confirmPasswordError).to.be.false;
     expect(actualState.samePasswordError).to.be.false;
     expect(actualState.successfulPasswordChange).to.be.true;
     actualState = {};
   });
 
-  it('will not set state after an unsuccessful response from the server', ()=> {
+  it('will throw an error after an unsuccessful response from the server', () => {
     wrapper = mount(<ChangePW setAppState={checkState} getState={state} />);
-    const responseData = {
-      readyState: 4,
-      status: 400,
-    };
-    wrapper.node.processResponse(responseData);
-    expect(Object.keys(actualState)).to.have.length(0);
+    expect(wrapper.node.postError).to.throw(Error);
   });
 
 });

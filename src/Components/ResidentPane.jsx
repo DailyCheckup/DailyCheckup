@@ -1,7 +1,8 @@
 const React = require('react');
 const jwtDecode = require('jwt-decode');
 import { Link } from 'react-router';
-
+import store from './../store';
+const stateLossActions = require('./../actions/stateLossActions.js');
 
 const ResidentPane = React.createClass({
 
@@ -17,17 +18,19 @@ const ResidentPane = React.createClass({
 
   componentWillMount() {
     // check to see if there is state in app
-    console.log('changing state');
-    if (this.props.getState.firstName === '') {
+    // if (this.props.getState.firstName === '') {
+    if (store.getState().userState.firstName === '') {
       const token = jwtDecode(localStorage.DailyCheckupToken);
-      this.props.setAppState(token);
+      const noStateAction = stateLossActions.noUserState(token);
+      store.dispatch(noStateAction);
+      // this.props.setAppState(token);
     }
   },
 
   render() {
     return (
       <div className='residentPane md-width-70 lg-width-30'>
-        <p id="userFirstName">Hi {this.props.getState.firstName}!
+        <p id="userFirstName">Hi {store.getState().userState.firstName}!
           <Link className='homeIcon' to='/resident/'>
             <i className='material-icons md-36 md-dark'>
             home
@@ -45,3 +48,4 @@ const ResidentPane = React.createClass({
 });
 
 module.exports = ResidentPane;
+

@@ -1,11 +1,13 @@
 const React = require('react');
 import { Link } from 'react-router';
+import store from './../store.js';
 
 const ResidentHome = React.createClass({
 
   createResultsButton() {
     let resultsButton = '';
-    if (this.props.getState.takenQuiz) {
+    // if (this.props.getState.takenQuiz) {
+    if (store.getState().userState.takenQuiz) {
       resultsButton = (<Link to='/resident/results'>Check Quiz Stats</Link>);
     } else {
       resultsButton = (<a className="inactiveBtn">Check Quiz Stats</a>);
@@ -13,11 +15,17 @@ const ResidentHome = React.createClass({
     return resultsButton;
   },
 
-  render() {
-    const warningMessage = (<p id="warning" >
-    <i className='material-icons'>warning</i>
+  tempPwMessage() {
+    return (
+      <p id="warning">
+        <i className='material-icons'>warning</i>
          You have not yet changed your temporary password.
-    </p>);
+      </p>
+    );
+  },
+
+  render() {
+    const warningMessage = store.getState().userState.changedPW ? '' : this.tempPwMessage();
     const resultsButton = this.createResultsButton();
 
     return (
@@ -25,7 +33,7 @@ const ResidentHome = React.createClass({
         <Link to='/resident/quiz'> Take the Quiz! </Link>
         {resultsButton}
         <Link to='/resident/changePassword' id="changePW"> Change password </Link>
-        {this.props.getState.changedPW ? '' : warningMessage}
+        {warningMessage}
       </div>
     );
   },

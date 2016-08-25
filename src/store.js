@@ -1,5 +1,5 @@
 import { createStore } from 'redux';
-import reducers from './Reducers/quizReducer';
+import reducers from './Reducers/index';
 
 const store = createStore(reducers);
-module.exports = store;
+export default store;
